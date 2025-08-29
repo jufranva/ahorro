@@ -1,0 +1,13 @@
+<?php
+$menuItems = [
+    ['href' => 'index.php', 'label' => 'INICIO'],
+    ['href' => 'nueva.php', 'label' => 'ROPA NUEVA'],
+    ['href' => 'usada.php', 'label' => 'ROPA USADA'],
+    ['href' => 'inicio.php', 'label' => 'INICIAR SESION'],
+];
+foreach ($menuItems as $item) {
+    $href = htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8');
+    $label = htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8');
+    echo "    <li class=\"has-children\"><a href=\"$href\">$label </a></li>\n";
+}
+?>
