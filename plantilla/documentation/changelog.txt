@@ -1,0 +1,14 @@
+Version 1.2 – 15 July 2021
+===================
+Update: 1. Bootstrap v5.0.0-beta1 update to Bootstrap v5.0.2
+Fixed: 2. Minor CSS issue fixed.
+
+Version 1.1 – 26 June 2021
+===================
+Update: 1. Update jQuery latest version.
+Update: 2. Update jQuery plugins latest version.
+Fixed: 3. Minor CSS issue fixed.
+
+Version 1.0 – 7 January 21
+===================
+Initial Released
