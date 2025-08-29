@@ -67,10 +67,14 @@
           <tbody>
             <?php foreach ($slides as $slide): ?>
             <tr>
-              <form method="post" action="slides.php">
+              <form method="post" action="slides.php" enctype="multipart/form-data">
                 <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control"></td>
                 <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control"></td>
-                <td><input type="text" name="image" value="<?= htmlspecialchars($slide['image']) ?>" class="form-control"></td>
+                <td>
+                  <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
+                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')">
+                  <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>">
+                </td>
                 <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control"></td>
                 <td>
                   <input type="hidden" name="id" value="<?= $slide['id'] ?>">
@@ -81,10 +85,13 @@
             </tr>
             <?php endforeach; ?>
             <tr>
-              <form method="post" action="slides.php">
+              <form method="post" action="slides.php" enctype="multipart/form-data">
                 <td><input type="text" name="title" class="form-control" placeholder="Título"></td>
                 <td><input type="text" name="description" class="form-control" placeholder="Texto"></td>
-                <td><input type="text" name="image" class="form-control" placeholder="Ruta de imagen"></td>
+                <td>
+                  <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
+                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')">
+                </td>
                 <td><input type="text" name="link" class="form-control" placeholder="Link"></td>
                 <td><button class="btn btn-primary btn-sm" name="action" value="create">Crear</button></td>
               </form>
@@ -96,6 +103,22 @@
   </div>
 </div>
 <!-- Slide Modal End -->
+<?php endif; ?>
+
+<?php if (isset($_SESSION['username'])): ?>
+<script>
+function previewImage(input, previewId) {
+  const preview = document.getElementById(previewId);
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      preview.src = e.target.result;
+      preview.classList.remove('d-none');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
 <?php endif; ?>
 
 <?php include __DIR__ . '/layout/footer.php'; ?>

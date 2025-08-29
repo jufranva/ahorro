@@ -16,8 +16,19 @@ class SlideController
                 case 'create':
                     $title = $_POST['title'] ?? '';
                     $description = $_POST['description'] ?? '';
-                    $image = $_POST['image'] ?? '';
                     $link = $_POST['link'] ?? '';
+                    $image = '';
+                    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                        $uploadDir = __DIR__ . '/../../assets/images/slider/';
+                        if (!is_dir($uploadDir)) {
+                            mkdir($uploadDir, 0777, true);
+                        }
+                        $filename = time() . '-' . basename($_FILES['image']['name']);
+                        $destination = $uploadDir . $filename;
+                        if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+                            $image = 'assets/images/slider/' . $filename;
+                        }
+                    }
                     if ($title && $description && $image && $link) {
                         Slide::create($title, $description, $image, $link);
                     }
@@ -26,8 +37,19 @@ class SlideController
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     $title = $_POST['title'] ?? '';
                     $description = $_POST['description'] ?? '';
-                    $image = $_POST['image'] ?? '';
                     $link = $_POST['link'] ?? '';
+                    $image = $_POST['current_image'] ?? '';
+                    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+                        $uploadDir = __DIR__ . '/../../assets/images/slider/';
+                        if (!is_dir($uploadDir)) {
+                            mkdir($uploadDir, 0777, true);
+                        }
+                        $filename = time() . '-' . basename($_FILES['image']['name']);
+                        $destination = $uploadDir . $filename;
+                        if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
+                            $image = 'assets/images/slider/' . $filename;
+                        }
+                    }
                     if ($id && $title && $description && $image && $link) {
                         Slide::update($id, $title, $description, $image, $link);
                     }
