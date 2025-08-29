@@ -1,3 +1,4 @@
+<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,8 @@
     <title>El armario del ahorro</title>
     
     <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css">
     <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.min.css">
@@ -142,4 +145,3 @@
         </div>
         <!-- Mobile Menu End -->
     </div>
-
