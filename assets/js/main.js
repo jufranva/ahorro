@@ -93,9 +93,13 @@
         speed: 1150,
         spaceBetween: 30,
         slidesPerView: 1,
-		effect: 'fade',
-		pagination: true,
-		navigation: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
+        },
+                effect: 'fade',
+                pagination: true,
+                navigation: true,
 
 
         // Navigation arrows
