@@ -54,6 +54,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <?php foreach ($slides as $slide): ?>
+        <form id="slide-form-<?= $slide['id'] ?>" method="post" action="slides.php" enctype="multipart/form-data"></form>
+        <?php endforeach; ?>
+        <form id="slide-form-new" method="post" action="slides.php" enctype="multipart/form-data"></form>
         <table class="table">
           <thead>
             <tr>
@@ -67,34 +71,30 @@
           <tbody>
             <?php foreach ($slides as $slide): ?>
             <tr>
-              <form method="post" action="slides.php" enctype="multipart/form-data">
-                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control"></td>
-                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control"></td>
-                <td>
-                  <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
-                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')">
-                  <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>">
-                </td>
-                <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control"></td>
-                <td>
-                  <input type="hidden" name="id" value="<?= $slide['id'] ?>">
-                  <button class="btn btn-success btn-sm" name="action" value="update">Guardar</button>
-                  <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')">Eliminar</button>
-                </td>
-              </form>
+              <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+              <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+              <td>
+                <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
+                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')" form="slide-form-<?= $slide['id'] ?>">
+                <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
+              </td>
+              <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+              <td>
+                <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
+                <button class="btn btn-success btn-sm" name="action" value="update" form="slide-form-<?= $slide['id'] ?>">Guardar</button>
+                <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="slide-form-<?= $slide['id'] ?>">Eliminar</button>
+              </td>
             </tr>
             <?php endforeach; ?>
             <tr>
-              <form method="post" action="slides.php" enctype="multipart/form-data">
-                <td><input type="text" name="title" class="form-control" placeholder="Título"></td>
-                <td><input type="text" name="description" class="form-control" placeholder="Texto"></td>
-                <td>
-                  <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
-                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')">
-                </td>
-                <td><input type="text" name="link" class="form-control" placeholder="Link"></td>
-                <td><button class="btn btn-primary btn-sm" name="action" value="create">Crear</button></td>
-              </form>
+              <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
+              <td><input type="text" name="description" class="form-control" placeholder="Texto" form="slide-form-new"></td>
+              <td>
+                <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
+                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
+              </td>
+              <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
+              <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
             </tr>
           </tbody>
         </table>
