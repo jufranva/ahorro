@@ -122,6 +122,19 @@ class PrendaController
                         Category::create($name);
                     }
                     break;
+                case 'update_category':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $name = $_POST['name'] ?? '';
+                    if ($id && $name) {
+                        Category::update($id, $name);
+                    }
+                    break;
+                case 'delete_category':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        Category::delete($id);
+                    }
+                    break;
                 case 'create_tag':
                     $text = $_POST['text'] ?? '';
                     $color = $_POST['color'] ?? '#000000';
@@ -129,10 +142,37 @@ class PrendaController
                         Tag::create($text, $color);
                     }
                     break;
+                case 'update_tag':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $text = $_POST['text'] ?? '';
+                    $color = $_POST['color'] ?? '#000000';
+                    if ($id && $text) {
+                        Tag::update($id, $text, $color);
+                    }
+                    break;
+                case 'delete_tag':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        Tag::delete($id);
+                    }
+                    break;
                 case 'create_state':
                     $name = $_POST['name'] ?? '';
                     if ($name) {
                         State::create($name);
+                    }
+                    break;
+                case 'update_state':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $name = $_POST['name'] ?? '';
+                    if ($id && $name) {
+                        State::update($id, $name);
+                    }
+                    break;
+                case 'delete_state':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        State::delete($id);
                     }
                     break;
             }

@@ -272,88 +272,141 @@
 <!-- Category Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="post" action="">
+    <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Categorías</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="action" value="create_category">
-        <div class="mb-3">
+        <form class="mb-3" method="post" action="">
+          <input type="hidden" name="action" value="create_category">
           <label class="form-label">Nombre</label>
-          <input type="text" class="form-control" name="name" required>
-        </div>
+          <div class="input-group">
+            <input type="text" class="form-control" name="name" required>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
         <ul class="list-group">
           <?php foreach ($categories as $cat): ?>
-          <li class="list-group-item"><?= htmlspecialchars($cat['name']) ?></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <form class="d-flex flex-grow-1 me-2" method="post" action="">
+              <input type="hidden" name="action" value="update_category">
+              <input type="hidden" name="id" value="<?= $cat['id'] ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($cat['name']) ?>">
+              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            </form>
+            <?php if ($cat['usage_count'] == 0): ?>
+            <form method="post" action="" onsubmit="return confirm('¿Eliminar categoría?');">
+              <input type="hidden" name="action" value="delete_category">
+              <input type="hidden" name="id" value="<?= $cat['id'] ?>">
+              <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+            </form>
+            <?php endif; ?>
+          </li>
           <?php endforeach; ?>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
 <!-- Tag Modal -->
 <div class="modal fade" id="tagModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="post" action="">
+    <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Etiquetas</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="action" value="create_tag">
-        <div class="mb-3">
-          <label class="form-label">Texto</label>
-          <input type="text" class="form-control" name="text" required>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Color</label>
-          <input type="color" class="form-control form-control-color" name="color" value="#000000" required>
-        </div>
+        <form class="mb-3" method="post" action="">
+          <input type="hidden" name="action" value="create_tag">
+          <div class="row g-2">
+            <div class="col">
+              <label class="form-label">Texto</label>
+              <input type="text" class="form-control" name="text" required>
+            </div>
+            <div class="col-auto">
+              <label class="form-label">Color</label>
+              <input type="color" class="form-control form-control-color" name="color" value="#000000" required>
+            </div>
+            <div class="col-auto align-self-end">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
         <ul class="list-group">
           <?php foreach ($tags as $tag): ?>
-          <li class="list-group-item"><span class="badge me-2" style="background-color: <?= htmlspecialchars($tag['color']) ?>;">&nbsp;</span><?= htmlspecialchars($tag['text']) ?></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <form class="d-flex flex-grow-1 me-2" method="post" action="">
+              <input type="hidden" name="action" value="update_tag">
+              <input type="hidden" name="id" value="<?= $tag['id'] ?>">
+              <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text']) ?>">
+              <input type="color" name="color" class="form-control form-control-color me-2" value="<?= htmlspecialchars($tag['color']) ?>">
+              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            </form>
+            <?php if ($tag['usage_count'] == 0): ?>
+            <form method="post" action="" onsubmit="return confirm('¿Eliminar etiqueta?');">
+              <input type="hidden" name="action" value="delete_tag">
+              <input type="hidden" name="id" value="<?= $tag['id'] ?>">
+              <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+            </form>
+            <?php endif; ?>
+          </li>
           <?php endforeach; ?>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
 <!-- State Modal -->
 <div class="modal fade" id="stateModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
-    <form class="modal-content" method="post" action="">
+    <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Estados</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <input type="hidden" name="action" value="create_state">
-        <div class="mb-3">
+        <form class="mb-3" method="post" action="">
+          <input type="hidden" name="action" value="create_state">
           <label class="form-label">Nombre</label>
-          <input type="text" class="form-control" name="name" required>
-        </div>
+          <div class="input-group">
+            <input type="text" class="form-control" name="name" required>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
         <ul class="list-group">
           <?php foreach ($states as $st): ?>
-          <li class="list-group-item"><?= htmlspecialchars($st['name']) ?></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <form class="d-flex flex-grow-1 me-2" method="post" action="">
+              <input type="hidden" name="action" value="update_state">
+              <input type="hidden" name="id" value="<?= $st['id'] ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($st['name']) ?>">
+              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            </form>
+            <?php if ($st['usage_count'] == 0): ?>
+            <form method="post" action="" onsubmit="return confirm('¿Eliminar estado?');">
+              <input type="hidden" name="action" value="delete_state">
+              <input type="hidden" name="id" value="<?= $st['id'] ?>">
+              <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+            </form>
+            <?php endif; ?>
+          </li>
           <?php endforeach; ?>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
