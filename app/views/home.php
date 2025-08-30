@@ -85,11 +85,12 @@
                 <td>
                   <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
                   <input type="hidden" name="action" value="toggle" form="slide-toggle-<?= $slide['id'] ?>">
-                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" <?= $slide['estado']==1?'checked':'' ?> onchange="document.getElementById('estado-<?= $slide['id'] ?>').value = this.checked ? 1 : 2; document.getElementById('slide-toggle-<?= $slide['id'] ?>').submit();">
+                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-toggle-<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch-<?= $slide['id'] ?>" <?= $slide['estado']==1?'checked':'' ?> onchange="toggleEstado(<?= $slide['id'] ?>, this.checked)">
+                    <label class="form-check-label" for="switch-<?= $slide['id'] ?>"></label>
                   </div>
-                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" form="slide-form-<?= $slide['id'] ?>">
+                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-update-<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
                 <td>
                   <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
@@ -108,8 +109,9 @@
                 <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
                 <td>
                   <input type="hidden" name="estado" value="1" id="estado-new" form="slide-form-new">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="switch-new" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
+                    <label class="form-check-label" for="switch-new"></label>
                   </div>
                 </td>
                 <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
@@ -125,6 +127,14 @@
 
 <?php if (isset($_SESSION['username'])): ?>
 <script>
+function toggleEstado(id, checked) {
+  document.getElementById('estado-toggle-' + id).value = checked ? 1 : 2;
+  const updateField = document.getElementById('estado-update-' + id);
+  if (updateField) {
+    updateField.value = checked ? 1 : 2;
+  }
+  document.getElementById('slide-toggle-' + id).submit();
+}
 function previewImage(input, previewId) {
   const preview = document.getElementById(previewId);
   if (input.files && input.files[0]) {
