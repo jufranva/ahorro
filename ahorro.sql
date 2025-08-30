@@ -43,3 +43,41 @@ INSERT INTO features (title, description, icon) VALUES
 ('Envios (10 USD)', 'a todo el ECUADOR\npor SERIENTREGA', 'assets/images/icons/feature-icon-2.png'),
 ('Aceptamos pagos', 'Efectivo, Transferencia o Tarjetas', 'assets/images/icons/feature-icon-4.png'),
 ('Descuentos especiales', 'En nuestors en vivos de TIK TOK', 'assets/images/icons/feature-icon-1.png');
+
+CREATE TABLE IF NOT EXISTS categories (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tags (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  text VARCHAR(100) NOT NULL,
+  color ENUM('amarillo','azul','rojo','verde') NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS states (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS garments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  image_primary VARCHAR(255) NOT NULL,
+  image_secondary VARCHAR(255) NOT NULL,
+  purchase_value DECIMAL(10,2) NOT NULL,
+  sale_value DECIMAL(10,2) NOT NULL,
+  unique_code VARCHAR(100) NOT NULL,
+  `condition` TINYINT NOT NULL,
+  size VARCHAR(20) NOT NULL,
+  comment VARCHAR(200) NOT NULL,
+  type ENUM('nueva','usada') NOT NULL,
+  category_id INT,
+  tag_id INT,
+  state_id INT,
+  purchase_date DATE,
+  sale_date DATE,
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (tag_id) REFERENCES tags(id),
+  FOREIGN KEY (state_id) REFERENCES states(id)
+);
