@@ -137,17 +137,31 @@ class PrendaController
                     break;
                 case 'create_tag':
                     $text = $_POST['text'] ?? '';
-                    $color = $_POST['color'] ?? '#000000';
-                    if ($text) {
-                        Tag::create($text, $color);
+                    $colorKey = $_POST['color'] ?? '';
+                    $colors = [
+                        'amarillo' => ['#FFDC55', '#000000'],
+                        'azul' => ['#002a51', '#ffffff'],
+                        'rojo' => ['#FF2F2F', '#ffffff'],
+                        'verde' => ['#009F0A', '#ffffff'],
+                    ];
+                    if ($text && isset($colors[$colorKey])) {
+                        [$bg, $fg] = $colors[$colorKey];
+                        Tag::create($text, $bg, $fg);
                     }
                     break;
                 case 'update_tag':
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     $text = $_POST['text'] ?? '';
-                    $color = $_POST['color'] ?? '#000000';
-                    if ($id && $text) {
-                        Tag::update($id, $text, $color);
+                    $colorKey = $_POST['color'] ?? '';
+                    $colors = [
+                        'amarillo' => ['#FFDC55', '#000000'],
+                        'azul' => ['#002a51', '#ffffff'],
+                        'rojo' => ['#FF2F2F', '#ffffff'],
+                        'verde' => ['#009F0A', '#ffffff'],
+                    ];
+                    if ($id && $text && isset($colors[$colorKey])) {
+                        [$bg, $fg] = $colors[$colorKey];
+                        Tag::update($id, $text, $bg, $fg);
                     }
                     break;
                 case 'delete_tag':

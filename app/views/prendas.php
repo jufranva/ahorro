@@ -35,7 +35,7 @@
                 <td><?= htmlspecialchars($garment['category_name']) ?></td>
                 <td>
                     <?php if (!empty($garment['tag_id'])): ?>
-                    <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_color']) ?>;">
+                    <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color']) ?>; color: <?= htmlspecialchars($garment['tag_text_color']) ?>;">
                         <?= htmlspecialchars($garment['tag_text']) ?>
                     </span>
                     <?php else: ?>
@@ -340,10 +340,10 @@
               <div class="col-auto">
                 <label class="form-label">Color</label>
                 <select class="form-select" name="color" required>
-                  <option value="#ffff00">Amarillo</option>
-                  <option value="#0000ff">Azul</option>
-                  <option value="#ff0000">Rojo</option>
-                  <option value="#00ff00">Verde</option>
+                <option value="amarillo">Amarillo</option>
+                <option value="azul">Azul</option>
+                <option value="rojo">Rojo</option>
+                <option value="verde">Verde</option>
                 </select>
               </div>
             <div class="col-auto align-self-end">
@@ -359,10 +359,10 @@
               <input type="hidden" name="id" value="<?= $tag['id'] ?>">
               <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text']) ?>">
                 <select name="color" class="form-select me-2">
-                  <option value="#ffff00" <?= $tag['color'] === '#ffff00' ? 'selected' : '' ?>>Amarillo</option>
-                  <option value="#0000ff" <?= $tag['color'] === '#0000ff' ? 'selected' : '' ?>>Azul</option>
-                  <option value="#ff0000" <?= $tag['color'] === '#ff0000' ? 'selected' : '' ?>>Rojo</option>
-                  <option value="#00ff00" <?= $tag['color'] === '#00ff00' ? 'selected' : '' ?>>Verde</option>
+                  <option value="amarillo" <?= $tag['bg_color'] === '#FFDC55' ? 'selected' : '' ?>>Amarillo</option>
+                  <option value="azul" <?= $tag['bg_color'] === '#002a51' ? 'selected' : '' ?>>Azul</option>
+                  <option value="rojo" <?= $tag['bg_color'] === '#FF2F2F' ? 'selected' : '' ?>>Rojo</option>
+                  <option value="verde" <?= $tag['bg_color'] === '#009F0A' ? 'selected' : '' ?>>Verde</option>
                 </select>
               <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
             </form>
