@@ -67,6 +67,35 @@
 </div>
 <!-- Banner Section End -->
 
+<!-- Feature Section Start -->
+<div class="section">
+  <?php if (isset($_SESSION['username'])): ?>
+  <div class="container my-3">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#featureModal">Editar Opciones</button>
+  </div>
+  <?php endif; ?>
+    <div class="container">
+        <div class="feature-wrap">
+            <div class="row row-cols-lg-4 row-cols-xl-auto row-cols-sm-2 row-cols-1 justify-content-between mb-n5">
+                <?php foreach ($features as $index => $feature): ?>
+                <div class="col mb-5" data-aos="fade-up" data-aos-delay="<?= 300 + $index * 200 ?>">
+                    <div class="feature">
+                        <div class="icon text-primary align-self-center">
+                            <img src="<?= htmlspecialchars($feature['icon']) ?>" alt="Feature Icon">
+                        </div>
+                        <div class="content">
+                            <h5 class="title"><?= htmlspecialchars($feature['title']) ?></h5>
+                            <p><?= nl2br(htmlspecialchars($feature['description'])) ?></p>
+                        </div>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature Section End -->
+
 <h1>Productos destacados</h1>
 <ul>
 <?php foreach ($products as $product): ?>
@@ -231,6 +260,50 @@
   </div>
 </div>
 <!-- Banner Modal End -->
+<!-- Feature Modal -->
+<div class="modal fade" id="featureModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Opciones</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php foreach ($features as $feature): ?>
+        <form id="feature-form-<?= $feature['id'] ?>" method="post" action="features.php" enctype="multipart/form-data"></form>
+        <?php endforeach; ?>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Icono</th>
+              <th>Título</th>
+              <th>Texto</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($features as $feature): ?>
+            <tr>
+              <td>
+                <img src="<?= htmlspecialchars($feature['icon']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="feature-preview-<?= $feature['id'] ?>">
+                <input type="file" name="icon" class="form-control form-control-sm" onchange="previewImage(this,'feature-preview-<?= $feature['id'] ?>')" form="feature-form-<?= $feature['id'] ?>">
+                <input type="hidden" name="current_icon" value="<?= htmlspecialchars($feature['icon']) ?>" form="feature-form-<?= $feature['id'] ?>">
+              </td>
+              <td><input type="text" name="title" value="<?= htmlspecialchars($feature['title']) ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
+              <td><input type="text" name="description" value="<?= htmlspecialchars($feature['description']) ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
+              <td>
+                <input type="hidden" name="id" value="<?= $feature['id'] ?>" form="feature-form-<?= $feature['id'] ?>">
+                <button class="btn btn-success btn-sm" name="action" value="update" form="feature-form-<?= $feature['id'] ?>">Guardar</button>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Feature Modal End -->
 <?php endif; ?>
 
 <?php if (isset($_SESSION['username'])): ?>
