@@ -47,42 +47,47 @@
 </ul>
 
 <?php if (isset($_SESSION['username'])): ?>
-<!-- Slide Modal -->
+
+
+
+
+  <!-- Slide Modal -->
 <div class="modal fade" id="slideModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Slides</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-          <?php foreach ($slides as $slide): ?>
-          <form id="slide-form-<?= $slide['id'] ?>" method="post" action="slides.php" enctype="multipart/form-data"></form>
-          <form id="slide-toggle-<?= $slide['id'] ?>" method="post" action="slides.php"></form>
-          <?php endforeach; ?>
-          <form id="slide-form-new" method="post" action="slides.php" enctype="multipart/form-data"></form>
-        <table class="table">
+<div class="modal-body">
+
+  <?php foreach ($slides as $slide): ?>
+  <form id="slide-form-<?= $slide['id'] ?>" method="post" action="slides.php" enctype="multipart/form-data"></form>
+  <form id="slide-toggle-<?= $slide['id'] ?>" method="post" action="slides.php"></form>
+  <?php endforeach; ?>
+  <form id="slide-form-new" method="post" action="slides.php" enctype="multipart/form-data"></form>
+<table class="table">
           <thead>
               <tr>
+                <th>Imagen</th>
                 <th>Título</th>
                 <th>Texto</th>
-                <th>Imagen</th>
                 <th>Link</th>
                 <th>Color</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
           </thead>
-          <tbody>
+       <tbody>
               <?php foreach ($slides as $slide): ?>
               <tr>
-                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
                 <td>
                   <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
                   <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')" form="slide-form-<?= $slide['id'] ?>">
                   <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
+                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
                 <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
                 <td>
                   <input type="hidden" name="color" value="<?= $slide['color'] ?>" id="color-<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
@@ -97,7 +102,7 @@
                   <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-toggle-<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
                   <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="switch-<?= $slide['id'] ?>" <?= $slide['estado']==1?'checked':'' ?> onchange="toggleEstado(<?= $slide['id'] ?>, this.checked)">
-                    <label class="form-check-label" for="switch-<?= $slide['id'] ?>"></label>
+                    <label class="form-check-label" for="switch-<?= $slide['id'] ?>">Activo</label>
                   </div>
                   <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-update-<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
@@ -108,13 +113,15 @@
                 </td>
               </tr>
               <?php endforeach; ?>
-              <tr>
-                <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
+            </tbody>
+
+                <tr>
+                  <td>
+                    <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
+                    <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
+                  </td>
+                  <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
                 <td><input type="text" name="description" class="form-control" placeholder="Texto" form="slide-form-new"></td>
-                <td>
-                  <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
-                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
-                </td>
                 <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
                 <td>
                   <input type="hidden" name="color" value="1" id="color-new" form="slide-form-new">
@@ -127,12 +134,11 @@
                   <input type="hidden" name="estado" value="1" id="estado-new" form="slide-form-new">
                   <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="switch-new" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
-                    <label class="form-check-label" for="switch-new"></label>
+                    <label class="form-check-label" for="switch-new">Activo</label>
                   </div>
                 </td>
                 <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
               </tr>
-          </tbody>
         </table>
       </div>
     </div>
