@@ -11,20 +11,21 @@
     <div class="hero-slider">
         <div class="swiper-container">
             <div class="swiper-wrapper">
-                <?php foreach ($slides as $slide): ?>
-                <div class="hero-slide-item swiper-slide">
-                    <div class="hero-slide-bg">
-                        <img src="<?= htmlspecialchars($slide['image']) ?>" alt="Slider Image" />
-                    </div>
-                    <div class="container">
-                        <div class="hero-slide-content">
-                            <h2 class="title"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
-                            <p><?= htmlspecialchars($slide['description']) ?></p>
-                            <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
-                        </div>
-                    </div>
-                </div>
-                <?php endforeach; ?>
+              <?php foreach ($slides as $slide): ?>
+              <?php if ((int)$slide['estado'] !== 1) continue; ?>
+              <div class="hero-slide-item swiper-slide">
+                      <div class="hero-slide-bg">
+                          <img src="<?= htmlspecialchars($slide['image']) ?>" alt="Slider Image" />
+                      </div>
+                      <div class="container">
+                          <div class="hero-slide-content">
+                              <h2 class="title"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
+                              <p><?= htmlspecialchars($slide['description']) ?></p>
+                              <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
+                          </div>
+                      </div>
+                  </div>
+                  <?php endforeach; ?>
             </div>
             <div class="swiper-pagination d-md-none"></div>
             <div class="home-slider-prev swiper-button-prev main-slider-nav d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
@@ -54,48 +55,65 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?php foreach ($slides as $slide): ?>
-        <form id="slide-form-<?= $slide['id'] ?>" method="post" action="slides.php" enctype="multipart/form-data"></form>
-        <?php endforeach; ?>
-        <form id="slide-form-new" method="post" action="slides.php" enctype="multipart/form-data"></form>
+          <?php foreach ($slides as $slide): ?>
+          <form id="slide-form-<?= $slide['id'] ?>" method="post" action="slides.php" enctype="multipart/form-data"></form>
+          <form id="slide-toggle-<?= $slide['id'] ?>" method="post" action="slides.php"></form>
+          <?php endforeach; ?>
+          <form id="slide-form-new" method="post" action="slides.php" enctype="multipart/form-data"></form>
         <table class="table">
           <thead>
-            <tr>
-              <th>Título</th>
-              <th>Texto</th>
-              <th>Imagen</th>
-              <th>Link</th>
-              <th>Acciones</th>
-            </tr>
+              <tr>
+                <th>Título</th>
+                <th>Texto</th>
+                <th>Imagen</th>
+                <th>Link</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
           </thead>
           <tbody>
-            <?php foreach ($slides as $slide): ?>
-            <tr>
-              <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-              <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-              <td>
-                <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
-                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')" form="slide-form-<?= $slide['id'] ?>">
-                <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
-              </td>
-              <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-              <td>
-                <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
-                <button class="btn btn-success btn-sm" name="action" value="update" form="slide-form-<?= $slide['id'] ?>">Guardar</button>
-                <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="slide-form-<?= $slide['id'] ?>">Eliminar</button>
-              </td>
-            </tr>
-            <?php endforeach; ?>
-            <tr>
-              <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
-              <td><input type="text" name="description" class="form-control" placeholder="Texto" form="slide-form-new"></td>
-              <td>
-                <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
-                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
-              </td>
-              <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
-              <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
-            </tr>
+              <?php foreach ($slides as $slide): ?>
+              <tr>
+                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td>
+                  <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
+                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')" form="slide-form-<?= $slide['id'] ?>">
+                  <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
+                </td>
+                <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td>
+                  <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
+                  <input type="hidden" name="action" value="toggle" form="slide-toggle-<?= $slide['id'] ?>">
+                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" <?= $slide['estado']==1?'checked':'' ?> onchange="document.getElementById('estado-<?= $slide['id'] ?>').value = this.checked ? 1 : 2; document.getElementById('slide-toggle-<?= $slide['id'] ?>').submit();">
+                  </div>
+                  <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" form="slide-form-<?= $slide['id'] ?>">
+                </td>
+                <td>
+                  <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
+                  <button class="btn btn-success btn-sm" name="action" value="update" form="slide-form-<?= $slide['id'] ?>">Guardar</button>
+                  <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="slide-form-<?= $slide['id'] ?>">Eliminar</button>
+                </td>
+              </tr>
+              <?php endforeach; ?>
+              <tr>
+                <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
+                <td><input type="text" name="description" class="form-control" placeholder="Texto" form="slide-form-new"></td>
+                <td>
+                  <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
+                  <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
+                </td>
+                <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
+                <td>
+                  <input type="hidden" name="estado" value="1" id="estado-new" form="slide-form-new">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
+                  </div>
+                </td>
+                <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
+              </tr>
           </tbody>
         </table>
       </div>

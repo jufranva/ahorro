@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS slides (
   title VARCHAR(255) NOT NULL,
   description VARCHAR(255) NOT NULL,
   image VARCHAR(255) NOT NULL,
-  link VARCHAR(255) NOT NULL DEFAULT 'index.php'
+  link VARCHAR(255) NOT NULL DEFAULT 'index.php',
+  estado TINYINT NOT NULL DEFAULT 1
 );
-INSERT INTO slides (title, description, image, link) VALUES
-('Women New Collection', 'Up to 70% off selected Product', 'assets/images/slider/slide-1.jpg', 'shop-grid.html');
+INSERT INTO slides (title, description, image, link, estado) VALUES
+('Women New Collection', 'Up to 70% off selected Product', 'assets/images/slider/slide-1.jpg', 'shop-grid.html', 1);

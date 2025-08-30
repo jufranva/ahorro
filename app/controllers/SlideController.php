@@ -18,6 +18,7 @@ class SlideController
                     $description = $_POST['description'] ?? '';
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'index.php';
+                    $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
                     $image = '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -31,7 +32,7 @@ class SlideController
                         }
                     }
                     if ($title && $description && $image) {
-                        Slide::create($title, $description, $image, $link);
+                        Slide::create($title, $description, $image, $link, $estado);
                     }
                     break;
                 case 'update':
@@ -40,6 +41,7 @@ class SlideController
                     $description = $_POST['description'] ?? '';
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'index.php';
+                    $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
                     $image = $_POST['current_image'] ?? '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -53,7 +55,14 @@ class SlideController
                         }
                     }
                     if ($id && $title && $description && $image) {
-                        Slide::update($id, $title, $description, $image, $link);
+                        Slide::update($id, $title, $description, $image, $link, $estado);
+                    }
+                    break;
+                case 'toggle':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
+                    if ($id) {
+                        Slide::updateEstado($id, $estado);
                     }
                     break;
                 case 'delete':

@@ -6,28 +6,28 @@ class Slide
     public static function all(): array
     {
         $mysqli = obtenerConexion();
-        $result = $mysqli->query('SELECT id, title, description, image, link FROM slides');
+        $result = $mysqli->query('SELECT id, title, description, image, link, estado FROM slides');
         $slides = $result->fetch_all(MYSQLI_ASSOC);
         $mysqli->close();
         return $slides;
     }
 
-    public static function create(string $title, string $description, string $image, string $link): bool
+    public static function create(string $title, string $description, string $image, string $link, int $estado = 1): bool
     {
         $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('INSERT INTO slides (title, description, image, link) VALUES (?, ?, ?, ?)');
-        $stmt->bind_param('ssss', $title, $description, $image, $link);
+        $stmt = $mysqli->prepare('INSERT INTO slides (title, description, image, link, estado) VALUES (?, ?, ?, ?, ?)');
+        $stmt->bind_param('ssssi', $title, $description, $image, $link, $estado);
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
         return $success;
     }
 
-    public static function update(int $id, string $title, string $description, string $image, string $link): bool
+    public static function update(int $id, string $title, string $description, string $image, string $link, int $estado = 1): bool
     {
         $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('UPDATE slides SET title = ?, description = ?, image = ?, link = ? WHERE id = ?');
-        $stmt->bind_param('ssssi', $title, $description, $image, $link, $id);
+        $stmt = $mysqli->prepare('UPDATE slides SET title = ?, description = ?, image = ?, link = ?, estado = ? WHERE id = ?');
+        $stmt->bind_param('ssssii', $title, $description, $image, $link, $estado, $id);
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
@@ -39,6 +39,17 @@ class Slide
         $mysqli = obtenerConexion();
         $stmt = $mysqli->prepare('DELETE FROM slides WHERE id = ?');
         $stmt->bind_param('i', $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return $success;
+    }
+
+    public static function updateEstado(int $id, int $estado): bool
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('UPDATE slides SET estado = ? WHERE id = ?');
+        $stmt->bind_param('ii', $estado, $id);
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
