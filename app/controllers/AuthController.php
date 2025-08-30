@@ -13,7 +13,12 @@ class AuthController
             $user = User::findByUsername($username);
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['username'] = $username;
-                header('Location: usuarios.php');
+                $_SESSION['role'] = $user['role'];
+                if ($user['role'] === 1) {
+                    header('Location: usuarios.php');
+                } else {
+                    header('Location: index.php');
+                }
                 exit;
             }
             $error = 'Usuario o contraseña incorrectos.';
