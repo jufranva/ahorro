@@ -17,16 +17,20 @@ class UserController
                 case 'create':
                     $username = $_POST['username'] ?? '';
                     $password = $_POST['password'] ?? '';
-                    if ($username && $password) {
-                        User::create($username, $password);
+                    $name = $_POST['name'] ?? '';
+                    $role = isset($_POST['role']) ? (int)$_POST['role'] : 0;
+                    if ($username && $password && $name && $role) {
+                        User::create($username, $password, $name, $role);
                     }
                     break;
                 case 'update':
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     $username = $_POST['username'] ?? '';
                     $password = $_POST['password'] ?? '';
-                    if ($id && $username) {
-                        User::update($id, $username, $password);
+                    $name = $_POST['name'] ?? '';
+                    $role = isset($_POST['role']) ? (int)$_POST['role'] : 0;
+                    if ($id && $username && $name && $role) {
+                        User::update($id, $username, $name, $role, $password);
                     }
                     break;
                 case 'delete':
