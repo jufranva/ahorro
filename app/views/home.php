@@ -20,7 +20,7 @@
                         <div class="hero-slide-content">
                             <h2 class="title"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
                             <p><?= htmlspecialchars($slide['description']) ?></p>
-                            <a href="<?= htmlspecialchars($slide['link']) ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
+                            <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
                         </div>
                     </div>
                 </div>

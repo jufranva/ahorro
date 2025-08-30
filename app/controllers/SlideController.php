@@ -17,6 +17,7 @@ class SlideController
                     $title = $_POST['title'] ?? '';
                     $description = $_POST['description'] ?? '';
                     $link = $_POST['link'] ?? '';
+                    $link = $link ?: 'index.php';
                     $image = '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -29,7 +30,7 @@ class SlideController
                             $image = 'assets/images/slider/' . $filename;
                         }
                     }
-                    if ($title && $description && $image && $link) {
+                    if ($title && $description && $image) {
                         Slide::create($title, $description, $image, $link);
                     }
                     break;
@@ -38,6 +39,7 @@ class SlideController
                     $title = $_POST['title'] ?? '';
                     $description = $_POST['description'] ?? '';
                     $link = $_POST['link'] ?? '';
+                    $link = $link ?: 'index.php';
                     $image = $_POST['current_image'] ?? '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -50,7 +52,7 @@ class SlideController
                             $image = 'assets/images/slider/' . $filename;
                         }
                     }
-                    if ($id && $title && $description && $image && $link) {
+                    if ($id && $title && $description && $image) {
                         Slide::update($id, $title, $description, $image, $link);
                     }
                     break;
