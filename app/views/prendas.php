@@ -13,6 +13,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Imagen</th>
                 <th>Nombre</th>
                 <th>Compra</th>
                 <th>Venta</th>
@@ -26,6 +27,7 @@
         <tbody>
         <?php foreach ($garments as $garment): ?>
             <tr>
+                <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
                 <td><?= htmlspecialchars($garment['name']) ?></td>
                 <td><?= htmlspecialchars($garment['purchase_value']) ?></td>
                 <td><?= htmlspecialchars($garment['sale_value']) ?></td>
@@ -188,10 +190,12 @@
           <div class="col-md-6">
             <label class="form-label">Imagen principal</label>
             <input type="file" class="form-control" name="image_primary" accept="image/png, image/jpeg">
+            <img id="edit-image-primary-preview" src="" class="img-thumbnail mt-2" style="width:100px;">
           </div>
           <div class="col-md-6">
             <label class="form-label">Imagen secundaria</label>
             <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
+            <img id="edit-image-secondary-preview" src="" class="img-thumbnail mt-2" style="width:100px;">
           </div>
           <div class="col-md-6">
             <label class="form-label">Valor de compra</label>
@@ -362,6 +366,8 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-code').value = button.getAttribute('data-code');
   document.getElementById('edit-current-image-primary').value = button.getAttribute('data-image_primary');
   document.getElementById('edit-current-image-secondary').value = button.getAttribute('data-image_secondary');
+  document.getElementById('edit-image-primary-preview').src = button.getAttribute('data-image_primary');
+  document.getElementById('edit-image-secondary-preview').src = button.getAttribute('data-image_secondary');
   document.getElementById('edit-purchase').value = button.getAttribute('data-purchase');
   document.getElementById('edit-sale').value = button.getAttribute('data-sale');
   document.getElementById('edit-condition').value = button.getAttribute('data-condition');
