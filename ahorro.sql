@@ -32,3 +32,14 @@ CREATE TABLE IF NOT EXISTS banners (
 INSERT INTO banners (title, subtitle, image, link, color) VALUES
 ('Office Dress', 'Up to 50% Off', 'assets/images/banner/banner-4.jpg', 'shop-grid.html', 1),
 ('All Products', 'Up to 40% Off', 'assets/images/banner/banner-5.jpg', 'shop-grid.html', 1);
+
+CREATE TABLE IF NOT EXISTS features (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  icon VARCHAR(255) NOT NULL
+);
+INSERT INTO features (title, description, icon) VALUES
+('Envios (10 USD)', 'a todo el ECUADOR\npor SERIENTREGA', 'assets/images/icons/feature-icon-2.png'),
+('Aceptamos pagos', 'Efectivo, Transferencia o Tarjetas', 'assets/images/icons/feature-icon-4.png'),
+('Descuentos especiales', 'En nuestors en vivos de TIK TOK', 'assets/images/icons/feature-icon-1.png');
