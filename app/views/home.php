@@ -272,7 +272,6 @@
         <?php foreach ($features as $feature): ?>
         <form id="feature-form-<?= $feature['id'] ?>" method="post" action="features.php" enctype="multipart/form-data"></form>
         <?php endforeach; ?>
-        <form id="feature-form-new" method="post" action="features.php" enctype="multipart/form-data"></form>
         <table class="table">
           <thead>
             <tr>
@@ -299,15 +298,6 @@
               </td>
             </tr>
             <?php endforeach; ?>
-            <tr>
-              <td>
-                <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="feature-preview-new">
-                <input type="file" name="icon" class="form-control form-control-sm" onchange="previewImage(this,'feature-preview-new')" form="feature-form-new">
-              </td>
-              <td><input type="text" name="title" class="form-control" placeholder="Título" form="feature-form-new"></td>
-              <td><input type="text" name="description" class="form-control" placeholder="Texto" form="feature-form-new"></td>
-              <td><button class="btn btn-primary btn-sm" name="action" value="create" form="feature-form-new">Crear</button></td>
-            </tr>
           </tbody>
         </table>
       </div>
