@@ -20,3 +20,15 @@ CREATE TABLE IF NOT EXISTS slides (
 );
 INSERT INTO slides (title, description, image, link, estado, color) VALUES
 ('Women New Collection', 'Up to 70% off selected Product', 'assets/images/slider/slide-1.jpg', 'shop-grid.html', 1, 1);
+
+CREATE TABLE IF NOT EXISTS banners (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  subtitle VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL,
+  link VARCHAR(255) NOT NULL DEFAULT 'shop-grid.html',
+  color TINYINT NOT NULL DEFAULT 1
+);
+INSERT INTO banners (title, subtitle, image, link, color) VALUES
+('Office Dress', 'Up to 50% Off', 'assets/images/banner/banner-4.jpg', 'shop-grid.html', 1),
+('All Products', 'Up to 40% Off', 'assets/images/banner/banner-5.jpg', 'shop-grid.html', 1);

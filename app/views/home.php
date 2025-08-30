@@ -2,7 +2,8 @@
 
 <?php if (isset($_SESSION['username'])): ?>
 <div class="container my-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#slideModal">Slide</button>
+    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#slideModal">Slide</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bannerModal">Banner</button>
 </div>
 <?php endif; ?>
 
@@ -35,6 +36,32 @@
     </div>
 </div>
 <!-- Hero/Intro Slider End -->
+
+<!-- Banner Section Start -->
+<div class="section section-margin">
+    <div class="container">
+        <div class="row mb-n6 overflow-hidden">
+            <?php foreach ($banners as $index => $banner): ?>
+            <div class="col-md-6 col-12 mb-6" data-aos="<?= $index % 2 === 0 ? 'fade-right' : 'fade-left' ?>" data-aos-delay="300">
+                <div class="banner">
+                    <div class="banner-image">
+                        <a href="<?= htmlspecialchars($banner['link']) ?>"><img src="<?= htmlspecialchars($banner['image']) ?>" alt="Banner Image"></a>
+                    </div>
+                    <div class="info">
+                        <div class="small-banner-content">
+                            <?php $bannerTextClass = ((int)$banner['color'] === 2) ? 'text-white' : 'text-dark'; ?>
+                            <h4 class="sub-title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['subtitle']) ?></h4>
+                            <h3 class="title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['title']) ?></h3>
+                            <a href="<?= htmlspecialchars($banner['link']) ?>" class="btn btn-primary btn-hover-dark btn-sm">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+<!-- Banner Section End -->
 
 <h1>Productos destacados</h1>
 <ul>
@@ -145,6 +172,61 @@
   </div>
 </div>
 <!-- Slide Modal End -->
+<!-- Banner Modal -->
+<div class="modal fade" id="bannerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Banners</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php foreach ($banners as $banner): ?>
+        <form id="banner-form-<?= $banner['id'] ?>" method="post" action="banners.php" enctype="multipart/form-data"></form>
+        <?php endforeach; ?>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Subtítulo</th>
+              <th>Título</th>
+              <th>Link</th>
+              <th>Color</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($banners as $banner): ?>
+            <tr>
+              <td>
+                <img src="<?= htmlspecialchars($banner['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="banner-preview-<?= $banner['id'] ?>">
+                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'banner-preview-<?= $banner['id'] ?>')" form="banner-form-<?= $banner['id'] ?>">
+                <input type="hidden" name="current_image" value="<?= htmlspecialchars($banner['image']) ?>" form="banner-form-<?= $banner['id'] ?>">
+              </td>
+              <td><input type="text" name="subtitle" value="<?= htmlspecialchars($banner['subtitle']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td><input type="text" name="title" value="<?= htmlspecialchars($banner['title']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td><input type="text" name="link" value="<?= htmlspecialchars($banner['link']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td>
+                <input type="hidden" name="color" value="<?= $banner['color'] ?>" id="banner-color-<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="banner-color-check-<?= $banner['id'] ?>" <?= $banner['color']==2?'checked':'' ?> onchange="toggleBannerColor(<?= $banner['id'] ?>, this.checked)">
+                  <label class="form-check-label" for="banner-color-check-<?= $banner['id'] ?>">Texto blanco</label>
+                </div>
+              </td>
+              <td>
+                <input type="hidden" name="id" value="<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
+                <button class="btn btn-success btn-sm" name="action" value="update" form="banner-form-<?= $banner['id'] ?>">Guardar</button>
+                <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="banner-form-<?= $banner['id'] ?>">Eliminar</button>
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Banner Modal End -->
 <?php endif; ?>
 
 <?php if (isset($_SESSION['username'])): ?>
@@ -159,6 +241,9 @@ function toggleEstado(id, checked) {
 }
 function toggleColor(id, checked) {
   document.getElementById('color-' + id).value = checked ? 2 : 1;
+}
+function toggleBannerColor(id, checked) {
+  document.getElementById('banner-color-' + id).value = checked ? 2 : 1;
 }
 function previewImage(input, previewId) {
   const preview = document.getElementById(previewId);
