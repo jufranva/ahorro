@@ -3,7 +3,8 @@ require_once __DIR__ . '/../../conexion.php';
 
 class Tag
 {
-    private static array $palette = [
+    // Paleta de colores predefinida para las etiquetas
+    private static $palette = [
         'amarillo' => ['#FFDC55', '#000000'],
         'azul'     => ['#002a51', '#ffffff'],
         'rojo'     => ['#FF2F2F', '#ffffff'],
