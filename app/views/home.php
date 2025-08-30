@@ -183,7 +183,6 @@
         <?php foreach ($banners as $banner): ?>
         <form id="banner-form-<?= $banner['id'] ?>" method="post" action="banners.php" enctype="multipart/form-data"></form>
         <?php endforeach; ?>
-        <form id="banner-form-new" method="post" action="banners.php" enctype="multipart/form-data"></form>
         <table class="table">
           <thead>
             <tr>
@@ -212,16 +211,6 @@
               </td>
             </tr>
             <?php endforeach; ?>
-            <tr>
-              <td>
-                <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="banner-preview-new">
-                <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'banner-preview-new')" form="banner-form-new">
-              </td>
-              <td><input type="text" name="subtitle" class="form-control" placeholder="Subtítulo" form="banner-form-new"></td>
-              <td><input type="text" name="title" class="form-control" placeholder="Título" form="banner-form-new"></td>
-              <td><input type="text" name="link" class="form-control" placeholder="Link" form="banner-form-new"></td>
-              <td><button class="btn btn-primary btn-sm" name="action" value="create" form="banner-form-new">Crear</button></td>
-            </tr>
           </tbody>
         </table>
       </div>
