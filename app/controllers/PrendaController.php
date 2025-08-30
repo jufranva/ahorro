@@ -30,7 +30,7 @@ class PrendaController
                     $comment = $_POST['comment'] ?? '';
                     $type = $_POST['type'] ?? 'nueva';
                     $category = isset($_POST['category_id']) ? (int)$_POST['category_id'] : null;
-                    $tag = isset($_POST['tag_id']) ? (int)$_POST['tag_id'] : null;
+                    $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
                     $saleDate = $_POST['sale_date'] ?? null;
@@ -77,7 +77,7 @@ class PrendaController
                     $comment = $_POST['comment'] ?? '';
                     $type = $_POST['type'] ?? 'nueva';
                     $category = isset($_POST['category_id']) ? (int)$_POST['category_id'] : null;
-                    $tag = isset($_POST['tag_id']) ? (int)$_POST['tag_id'] : null;
+                    $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
                     $saleDate = $_POST['sale_date'] ?? null;

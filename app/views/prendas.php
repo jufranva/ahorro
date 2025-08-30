@@ -33,7 +33,15 @@
                 <td><?= htmlspecialchars($garment['sale_value']) ?></td>
                 <td><?= htmlspecialchars($garment['type']) ?></td>
                 <td><?= htmlspecialchars($garment['category_name']) ?></td>
-                <td><span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_color']) ?>;"><?= htmlspecialchars($garment['tag_text']) ?></span></td>
+                <td>
+                    <?php if (!empty($garment['tag_id'])): ?>
+                    <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_color']) ?>;">
+                        <?= htmlspecialchars($garment['tag_text']) ?>
+                    </span>
+                    <?php else: ?>
+                    Ninguna
+                    <?php endif; ?>
+                </td>
                 <td><?= htmlspecialchars($garment['state_name']) ?></td>
                 <td>
                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editGarmentModal"
@@ -131,12 +139,12 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Etiqueta</label>
-            <select class="form-select" name="tag_id">
-              <option value="">Seleccione</option>
-              <?php foreach ($tags as $tag): ?>
-              <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
-              <?php endforeach; ?>
-            </select>
+              <select class="form-select" name="tag_id">
+                <option value="">Ninguna</option>
+                <?php foreach ($tags as $tag): ?>
+                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
+                <?php endforeach; ?>
+              </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Estado</label>
@@ -235,12 +243,12 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Etiqueta</label>
-            <select class="form-select" name="tag_id" id="edit-tag">
-              <option value="">Seleccione</option>
-              <?php foreach ($tags as $tag): ?>
-              <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
-              <?php endforeach; ?>
-            </select>
+              <select class="form-select" name="tag_id" id="edit-tag">
+                <option value="">Ninguna</option>
+                <?php foreach ($tags as $tag): ?>
+                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
+                <?php endforeach; ?>
+              </select>
           </div>
           <div class="col-md-6">
             <label class="form-label">Estado</label>
@@ -329,10 +337,15 @@
               <label class="form-label">Texto</label>
               <input type="text" class="form-control" name="text" required>
             </div>
-            <div class="col-auto">
-              <label class="form-label">Color</label>
-              <input type="color" class="form-control form-control-color" name="color" value="#000000" required>
-            </div>
+              <div class="col-auto">
+                <label class="form-label">Color</label>
+                <select class="form-select" name="color" required>
+                  <option value="#ffff00">Amarillo</option>
+                  <option value="#0000ff">Azul</option>
+                  <option value="#ff0000">Rojo</option>
+                  <option value="#00ff00">Verde</option>
+                </select>
+              </div>
             <div class="col-auto align-self-end">
               <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
@@ -345,7 +358,12 @@
               <input type="hidden" name="action" value="update_tag">
               <input type="hidden" name="id" value="<?= $tag['id'] ?>">
               <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text']) ?>">
-              <input type="color" name="color" class="form-control form-control-color me-2" value="<?= htmlspecialchars($tag['color']) ?>">
+                <select name="color" class="form-select me-2">
+                  <option value="#ffff00" <?= $tag['color'] === '#ffff00' ? 'selected' : '' ?>>Amarillo</option>
+                  <option value="#0000ff" <?= $tag['color'] === '#0000ff' ? 'selected' : '' ?>>Azul</option>
+                  <option value="#ff0000" <?= $tag['color'] === '#ff0000' ? 'selected' : '' ?>>Rojo</option>
+                  <option value="#00ff00" <?= $tag['color'] === '#00ff00' ? 'selected' : '' ?>>Verde</option>
+                </select>
               <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
             </form>
             <?php if ($tag['usage_count'] == 0): ?>
