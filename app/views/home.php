@@ -86,8 +86,8 @@
                   <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
                   <input type="hidden" name="action" value="toggle" form="slide-toggle-<?= $slide['id'] ?>">
                   <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" id="estado-<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" <?= $slide['estado']==1?'checked':'' ?> onchange="document.getElementById('estado-<?= $slide['id'] ?>').value = this.checked ? 1 : 2; document.getElementById('slide-toggle-<?= $slide['id'] ?>').submit();">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" <?= $slide['estado']==1?'checked':'' ?> onchange="document.getElementById('estado-<?= $slide['id'] ?>').value = this.checked ? 1 : 2; document.getElementById('slide-toggle-<?= $slide['id'] ?>').submit();">
                   </div>
                   <input type="hidden" name="estado" value="<?= $slide['estado'] ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
@@ -108,8 +108,8 @@
                 <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
                 <td>
                   <input type="hidden" name="estado" value="1" id="estado-new" form="slide-form-new">
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" checked onchange="document.getElementById('estado-new').value = this.checked ? 1 : 2;">
                   </div>
                 </td>
                 <td><button class="btn btn-primary btn-sm" name="action" value="create" form="slide-form-new">Crear</button></td>
