@@ -111,12 +111,7 @@ class BannerController
                         Banner::update($id, $title, $subtitle, $image, $link, $color);
                     }
                     break;
-                case 'delete':
-                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-                    if ($id) {
-                        Banner::delete($id);
-                    }
-                    break;
+               
             }
         }
 

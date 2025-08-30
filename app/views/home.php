@@ -248,8 +248,7 @@
               </td>
               <td>
                 <input type="hidden" name="id" value="<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
-                <button class="btn btn-success btn-sm" name="action" value="update" form="banner-form-<?= $banner['id'] ?>">Guardar</button>
-                <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="banner-form-<?= $banner['id'] ?>">Eliminar</button>
+                <button class="btn btn-success btn-sm" name="action" value="update" form="banner-form-<?= $banner['id'] ?>">Actualizar</button>
               </td>
             </tr>
             <?php endforeach; ?>
@@ -293,7 +292,7 @@
               <td><input type="text" name="description" value="<?= htmlspecialchars($feature['description']) ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
               <td>
                 <input type="hidden" name="id" value="<?= $feature['id'] ?>" form="feature-form-<?= $feature['id'] ?>">
-                <button class="btn btn-success btn-sm" name="action" value="update" form="feature-form-<?= $feature['id'] ?>">Guardar</button>
+                <button class="btn btn-success btn-sm" name="action" value="update" form="feature-form-<?= $feature['id'] ?>">Actualizar</button>
               </td>
             </tr>
             <?php endforeach; ?>
