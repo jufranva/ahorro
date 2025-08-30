@@ -13,14 +13,15 @@
             <div class="swiper-wrapper">
               <?php foreach ($slides as $slide): ?>
               <?php if ((int)$slide['estado'] !== 1) continue; ?>
+              <?php $textClass = ((int)$slide['color'] === 2) ? 'text-white' : 'text-dark'; ?>
               <div class="hero-slide-item swiper-slide">
                       <div class="hero-slide-bg">
                           <img src="<?= htmlspecialchars($slide['image']) ?>" alt="Slider Image" />
                       </div>
                       <div class="container">
                           <div class="hero-slide-content">
-                              <h2 class="title"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
-                              <p><?= htmlspecialchars($slide['description']) ?></p>
+                              <h2 class="title <?= $textClass ?>"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
+                              <p class="<?= $textClass ?>"><?= htmlspecialchars($slide['description']) ?></p>
                               <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
                           </div>
                       </div>
@@ -67,6 +68,7 @@
                 <th>Texto</th>
                 <th>Imagen</th>
                 <th>Link</th>
+                <th>Color</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -82,6 +84,13 @@
                   <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
                 <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td>
+                  <input type="hidden" name="color" value="<?= $slide['color'] ?>" id="color-<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="color-check-<?= $slide['id'] ?>" <?= $slide['color']==2?'checked':'' ?> onchange="toggleColor(<?= $slide['id'] ?>, this.checked)">
+                    <label class="form-check-label" for="color-check-<?= $slide['id'] ?>">Texto blanco</label>
+                  </div>
+                </td>
                 <td>
                   <input type="hidden" name="id" value="<?= $slide['id'] ?>" form="slide-toggle-<?= $slide['id'] ?>">
                   <input type="hidden" name="action" value="toggle" form="slide-toggle-<?= $slide['id'] ?>">
@@ -107,6 +116,13 @@
                   <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
                 </td>
                 <td><input type="text" name="link" class="form-control" placeholder="Link" form="slide-form-new"></td>
+                <td>
+                  <input type="hidden" name="color" value="1" id="color-new" form="slide-form-new">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="color-check-new" onchange="document.getElementById('color-new').value = this.checked ? 2 : 1;">
+                    <label class="form-check-label" for="color-check-new">Texto blanco</label>
+                  </div>
+                </td>
                 <td>
                   <input type="hidden" name="estado" value="1" id="estado-new" form="slide-form-new">
                   <div class="form-check form-switch">
@@ -134,6 +150,9 @@ function toggleEstado(id, checked) {
     updateField.value = checked ? 1 : 2;
   }
   document.getElementById('slide-toggle-' + id).submit();
+}
+function toggleColor(id, checked) {
+  document.getElementById('color-' + id).value = checked ? 2 : 1;
 }
 function previewImage(input, previewId) {
   const preview = document.getElementById(previewId);

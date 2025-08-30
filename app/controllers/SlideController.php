@@ -19,6 +19,7 @@ class SlideController
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'index.php';
                     $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
+                    $color = isset($_POST['color']) ? (int)$_POST['color'] : 1;
                     $image = '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -32,7 +33,7 @@ class SlideController
                         }
                     }
                     if ($title && $description && $image) {
-                        Slide::create($title, $description, $image, $link, $estado);
+                        Slide::create($title, $description, $image, $link, $estado, $color);
                     }
                     break;
                 case 'update':
@@ -42,6 +43,7 @@ class SlideController
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'index.php';
                     $estado = isset($_POST['estado']) ? (int)$_POST['estado'] : 1;
+                    $color = isset($_POST['color']) ? (int)$_POST['color'] : 1;
                     $image = $_POST['current_image'] ?? '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/slider/';
@@ -55,7 +57,7 @@ class SlideController
                         }
                     }
                     if ($id && $title && $description && $image) {
-                        Slide::update($id, $title, $description, $image, $link, $estado);
+                        Slide::update($id, $title, $description, $image, $link, $estado, $color);
                     }
                     break;
                 case 'toggle':
