@@ -59,5 +59,21 @@ class Garment
         $mysqli->close();
         return $success;
     }
+
+    public static function updateState(int $id, ?int $stateId): bool
+    {
+        $mysqli = obtenerConexion();
+        if ($stateId === null) {
+            $stmt = $mysqli->prepare('UPDATE garments SET state_id=NULL WHERE id=?');
+            $stmt->bind_param('i', $id);
+        } else {
+            $stmt = $mysqli->prepare('UPDATE garments SET state_id=? WHERE id=?');
+            $stmt->bind_param('ii', $stateId, $id);
+        }
+        $success = $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return $success;
+    }
 }
 ?>

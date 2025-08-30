@@ -6,6 +6,56 @@ require_once __DIR__ . '/../models/State.php';
 
 class PrendaController
 {
+    private function cropImage(string $file, int $width, int $height): void
+    {
+        [ $origWidth, $origHeight, $type ] = getimagesize($file);
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                $src = imagecreatefromjpeg($file);
+                break;
+            case IMAGETYPE_PNG:
+                $src = imagecreatefrompng($file);
+                break;
+            case IMAGETYPE_GIF:
+                $src = imagecreatefromgif($file);
+                break;
+            default:
+                return;
+        }
+
+        $srcRatio = $origWidth / $origHeight;
+        $dstRatio = $width / $height;
+
+        if ($srcRatio > $dstRatio) {
+            $newHeight = $origHeight;
+            $newWidth = $origHeight * $dstRatio;
+            $srcX = ($origWidth - $newWidth) / 2;
+            $srcY = 0;
+        } else {
+            $newWidth = $origWidth;
+            $newHeight = $origWidth / $dstRatio;
+            $srcX = 0;
+            $srcY = ($origHeight - $newHeight) / 2;
+        }
+
+        $dst = imagecreatetruecolor($width, $height);
+        imagecopyresampled($dst, $src, 0, 0, $srcX, $srcY, $width, $height, $newWidth, $newHeight);
+
+        switch ($type) {
+            case IMAGETYPE_JPEG:
+                imagejpeg($dst, $file, 90);
+                break;
+            case IMAGETYPE_PNG:
+                imagepng($dst, $file);
+                break;
+            case IMAGETYPE_GIF:
+                imagegif($dst, $file);
+                break;
+        }
+        imagedestroy($src);
+        imagedestroy($dst);
+    }
+
     public function handle(): void
     {
         session_start();
@@ -44,6 +94,7 @@ class PrendaController
                         $filename = time() . '-' . basename($_FILES['image_primary']['name']);
                         $destination = $uploadDir . $filename;
                         if (move_uploaded_file($_FILES['image_primary']['tmp_name'], $destination)) {
+                            $this->cropImage($destination, 470, 470);
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
@@ -56,6 +107,7 @@ class PrendaController
                         $filename = time() . '-' . basename($_FILES['image_secondary']['name']);
                         $destination = $uploadDir . $filename;
                         if (move_uploaded_file($_FILES['image_secondary']['tmp_name'], $destination)) {
+                            $this->cropImage($destination, 470, 470);
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
@@ -91,6 +143,7 @@ class PrendaController
                         $filename = time() . '-' . basename($_FILES['image_primary']['name']);
                         $destination = $uploadDir . $filename;
                         if (move_uploaded_file($_FILES['image_primary']['tmp_name'], $destination)) {
+                            $this->cropImage($destination, 470, 470);
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
@@ -103,6 +156,7 @@ class PrendaController
                         $filename = time() . '-' . basename($_FILES['image_secondary']['name']);
                         $destination = $uploadDir . $filename;
                         if (move_uploaded_file($_FILES['image_secondary']['tmp_name'], $destination)) {
+                            $this->cropImage($destination, 470, 470);
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
@@ -114,6 +168,13 @@ class PrendaController
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     if ($id) {
                         Garment::delete($id);
+                    }
+                    break;
+                case 'update_garment_state':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $state = isset($_POST['state_id']) && $_POST['state_id'] !== '' ? (int)$_POST['state_id'] : null;
+                    if ($id) {
+                        Garment::updateState($id, $state);
                     }
                     break;
                 case 'create_category':
