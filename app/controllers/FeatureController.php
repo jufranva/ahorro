@@ -34,12 +34,6 @@ class FeatureController
                         Feature::update($id, $title, $description, $icon);
                     }
                     break;
-                case 'delete':
-                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
-                    if ($id) {
-                        Feature::delete($id);
-                    }
-                    break;
             }
         }
 

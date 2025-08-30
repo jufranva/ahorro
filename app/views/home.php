@@ -294,7 +294,6 @@
               <td>
                 <input type="hidden" name="id" value="<?= $feature['id'] ?>" form="feature-form-<?= $feature['id'] ?>">
                 <button class="btn btn-success btn-sm" name="action" value="update" form="feature-form-<?= $feature['id'] ?>">Guardar</button>
-                <button class="btn btn-danger btn-sm" name="action" value="delete" onclick="return confirm('¿Eliminar?')" form="feature-form-<?= $feature['id'] ?>">Eliminar</button>
               </td>
             </tr>
             <?php endforeach; ?>

@@ -33,16 +33,5 @@ class Feature
         $mysqli->close();
         return $success;
     }
-
-    public static function delete(int $id): bool
-    {
-        $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('DELETE FROM features WHERE id = ?');
-        $stmt->bind_param('i', $id);
-        $success = $stmt->execute();
-        $stmt->close();
-        $mysqli->close();
-        return $success;
-    }
 }
 ?>
