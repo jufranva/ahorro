@@ -2,8 +2,7 @@
 
 <?php if (isset($_SESSION['username'])): ?>
 <div class="container my-3">
-    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#slideModal">Slide</button>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bannerModal">Banner</button>
+    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#slideModal">Editar Slide</button>
 </div>
 <?php endif; ?>
 
@@ -39,6 +38,11 @@
 
 <!-- Banner Section Start -->
 <div class="section section-margin">
+  <?php if (isset($_SESSION['username'])): ?>
+  <div class="container my-3">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bannerModal">Editar Banner</button>
+  </div>
+  <?php endif; ?>
     <div class="container">
         <div class="row mb-n6 overflow-hidden">
             <?php foreach ($banners as $index => $banner): ?>
@@ -52,7 +56,7 @@
                             <?php $bannerTextClass = ((int)$banner['color'] === 2) ? 'text-white' : 'text-dark'; ?>
                             <h4 class="sub-title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['subtitle']) ?></h4>
                             <h3 class="title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['title']) ?></h3>
-                            <a href="<?= htmlspecialchars($banner['link']) ?>" class="btn btn-primary btn-hover-dark btn-sm">Shop Now</a>
+                            <a href="<?= htmlspecialchars($banner['link']) ?>" class="btn btn-primary btn-hover-dark btn-sm">Ver más</a>
                         </div>
                     </div>
                 </div>
