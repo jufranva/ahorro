@@ -69,6 +69,7 @@ class BannerController
                     $subtitle = $_POST['subtitle'] ?? '';
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'shop-grid.html';
+                    $color = isset($_POST['color']) ? (int)$_POST['color'] : 1;
                     $image = '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/banner/';
@@ -83,7 +84,7 @@ class BannerController
                         }
                     }
                     if ($title && $subtitle && $image) {
-                        Banner::create($title, $subtitle, $image, $link);
+                        Banner::create($title, $subtitle, $image, $link, $color);
                     }
                     break;
                 case 'update':
@@ -92,6 +93,7 @@ class BannerController
                     $subtitle = $_POST['subtitle'] ?? '';
                     $link = $_POST['link'] ?? '';
                     $link = $link ?: 'shop-grid.html';
+                    $color = isset($_POST['color']) ? (int)$_POST['color'] : 1;
                     $image = $_POST['current_image'] ?? '';
                     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/banner/';
@@ -106,7 +108,7 @@ class BannerController
                         }
                     }
                     if ($id && $title && $subtitle && $image) {
-                        Banner::update($id, $title, $subtitle, $image, $link);
+                        Banner::update($id, $title, $subtitle, $image, $link, $color);
                     }
                     break;
                 case 'delete':

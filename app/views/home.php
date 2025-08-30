@@ -49,8 +49,9 @@
                     </div>
                     <div class="info">
                         <div class="small-banner-content">
-                            <h4 class="sub-title"><?= htmlspecialchars($banner['subtitle']) ?></h4>
-                            <h3 class="title"><?= htmlspecialchars($banner['title']) ?></h3>
+                            <?php $bannerTextClass = ((int)$banner['color'] === 2) ? 'text-white' : 'text-dark'; ?>
+                            <h4 class="sub-title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['subtitle']) ?></h4>
+                            <h3 class="title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['title']) ?></h3>
                             <a href="<?= htmlspecialchars($banner['link']) ?>" class="btn btn-primary btn-hover-dark btn-sm">Shop Now</a>
                         </div>
                     </div>
@@ -190,6 +191,7 @@
               <th>Subtítulo</th>
               <th>Título</th>
               <th>Link</th>
+              <th>Color</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -204,6 +206,13 @@
               <td><input type="text" name="subtitle" value="<?= htmlspecialchars($banner['subtitle']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
               <td><input type="text" name="title" value="<?= htmlspecialchars($banner['title']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
               <td><input type="text" name="link" value="<?= htmlspecialchars($banner['link']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td>
+                <input type="hidden" name="color" value="<?= $banner['color'] ?>" id="banner-color-<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="banner-color-check-<?= $banner['id'] ?>" <?= $banner['color']==2?'checked':'' ?> onchange="toggleBannerColor(<?= $banner['id'] ?>, this.checked)">
+                  <label class="form-check-label" for="banner-color-check-<?= $banner['id'] ?>">Texto blanco</label>
+                </div>
+              </td>
               <td>
                 <input type="hidden" name="id" value="<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
                 <button class="btn btn-success btn-sm" name="action" value="update" form="banner-form-<?= $banner['id'] ?>">Guardar</button>
@@ -232,6 +241,9 @@ function toggleEstado(id, checked) {
 }
 function toggleColor(id, checked) {
   document.getElementById('color-' + id).value = checked ? 2 : 1;
+}
+function toggleBannerColor(id, checked) {
+  document.getElementById('banner-color-' + id).value = checked ? 2 : 1;
 }
 function previewImage(input, previewId) {
   const preview = document.getElementById(previewId);

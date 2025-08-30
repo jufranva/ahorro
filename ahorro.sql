@@ -26,8 +26,9 @@ CREATE TABLE IF NOT EXISTS banners (
   title VARCHAR(255) NOT NULL,
   subtitle VARCHAR(255) NOT NULL,
   image VARCHAR(255) NOT NULL,
-  link VARCHAR(255) NOT NULL DEFAULT 'shop-grid.html'
+  link VARCHAR(255) NOT NULL DEFAULT 'shop-grid.html',
+  color TINYINT NOT NULL DEFAULT 1
 );
-INSERT INTO banners (title, subtitle, image, link) VALUES
-('Office Dress', 'Up to 50% Off', 'assets/images/banner/banner-4.jpg', 'shop-grid.html'),
-('All Products', 'Up to 40% Off', 'assets/images/banner/banner-5.jpg', 'shop-grid.html');
+INSERT INTO banners (title, subtitle, image, link, color) VALUES
+('Office Dress', 'Up to 50% Off', 'assets/images/banner/banner-4.jpg', 'shop-grid.html', 1),
+('All Products', 'Up to 40% Off', 'assets/images/banner/banner-5.jpg', 'shop-grid.html', 1);
