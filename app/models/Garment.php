@@ -1,12 +1,13 @@
 <?php
 require_once __DIR__ . '/../../conexion.php';
+require_once __DIR__ . '/Tag.php';
 
 class Garment
 {
     public static function all(): array
     {
         $mysqli = obtenerConexion();
-        $sql = 'SELECT g.*, c.name AS category_name, t.text AS tag_text, t.bg_color AS tag_bg_color, t.text_color AS tag_text_color, s.name AS state_name '
+        $sql = 'SELECT g.*, c.name AS category_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
              . 'FROM garments g '
              . 'LEFT JOIN categories c ON g.category_id = c.id '
              . 'LEFT JOIN tags t ON g.tag_id = t.id '
@@ -14,6 +15,15 @@ class Garment
         $result = $mysqli->query($sql);
         $garments = $result->fetch_all(MYSQLI_ASSOC);
         $mysqli->close();
+        $palette = Tag::palette();
+        foreach ($garments as &$garment) {
+            if (!empty($garment['tag_color']) && isset($palette[$garment['tag_color']])) {
+                [$garment['tag_bg_color'], $garment['tag_text_color']] = $palette[$garment['tag_color']];
+            } else {
+                $garment['tag_bg_color'] = null;
+                $garment['tag_text_color'] = null;
+            }
+        }
         return $garments;
     }
 

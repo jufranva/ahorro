@@ -52,8 +52,7 @@ CREATE TABLE IF NOT EXISTS categories (
 CREATE TABLE IF NOT EXISTS tags (
   id INT AUTO_INCREMENT PRIMARY KEY,
   text VARCHAR(100) NOT NULL,
-  bg_color VARCHAR(7) NOT NULL,
-  text_color VARCHAR(7) NOT NULL
+  color ENUM('amarillo','azul','rojo','verde') NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS states (

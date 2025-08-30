@@ -359,10 +359,10 @@
               <input type="hidden" name="id" value="<?= $tag['id'] ?>">
               <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text']) ?>">
                 <select name="color" class="form-select me-2">
-                  <option value="amarillo" <?= $tag['bg_color'] === '#FFDC55' ? 'selected' : '' ?>>Amarillo</option>
-                  <option value="azul" <?= $tag['bg_color'] === '#002a51' ? 'selected' : '' ?>>Azul</option>
-                  <option value="rojo" <?= $tag['bg_color'] === '#FF2F2F' ? 'selected' : '' ?>>Rojo</option>
-                  <option value="verde" <?= $tag['bg_color'] === '#009F0A' ? 'selected' : '' ?>>Verde</option>
+                  <option value="amarillo" <?= $tag['color'] === 'amarillo' ? 'selected' : '' ?>>Amarillo</option>
+                  <option value="azul" <?= $tag['color'] === 'azul' ? 'selected' : '' ?>>Azul</option>
+                  <option value="rojo" <?= $tag['color'] === 'rojo' ? 'selected' : '' ?>>Rojo</option>
+                  <option value="verde" <?= $tag['color'] === 'verde' ? 'selected' : '' ?>>Verde</option>
                 </select>
               <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
             </form>
