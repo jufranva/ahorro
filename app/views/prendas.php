@@ -42,7 +42,18 @@
                     Ninguna
                     <?php endif; ?>
                 </td>
-                <td><?= htmlspecialchars($garment['state_name']) ?></td>
+                <td>
+                    <form method="post" action="">
+                        <input type="hidden" name="action" value="update_garment_state">
+                        <input type="hidden" name="id" value="<?= $garment['id'] ?>">
+                        <select name="state_id" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="">Seleccione</option>
+                            <?php foreach ($states as $st): ?>
+                            <option value="<?= $st['id'] ?>" <?= $garment['state_id'] == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </form>
+                </td>
                 <td>
                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editGarmentModal"
                         data-id="<?= $garment['id'] ?>"

@@ -116,6 +116,13 @@ class PrendaController
                         Garment::delete($id);
                     }
                     break;
+                case 'update_garment_state':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $state = isset($_POST['state_id']) && $_POST['state_id'] !== '' ? (int)$_POST['state_id'] : null;
+                    if ($id) {
+                        Garment::updateState($id, $state);
+                    }
+                    break;
                 case 'create_category':
                     $name = $_POST['name'] ?? '';
                     if ($name) {
