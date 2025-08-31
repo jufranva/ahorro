@@ -76,11 +76,12 @@
                         data-state="<?= $garment['state_id'] ?>"
                         data-pdate="<?= $garment['purchase_date'] ?>"
                     >Editar</button>
-                    <form method="post" action="" class="d-inline" onsubmit="return confirm('¿Eliminar prenda?');">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?= $garment['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGarmentModal"
+                        data-id="<?= $garment['id'] ?>"
+                        data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES) ?>"
+                        data-image="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>">
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -292,6 +293,29 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Garment Modal -->
+<div class="modal fade" id="deleteGarmentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="post" action="">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Prenda</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar?</p>
+        <img id="delete-image" src="" class="img-thumbnail mb-3" style="width:100px;">
+        <p id="delete-name" class="fw-bold"></p>
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="id" id="delete-id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
       </div>
     </form>
   </div>
@@ -514,6 +538,14 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-tag').value = button.getAttribute('data-tag');
   document.getElementById('edit-state').value = button.getAttribute('data-state');
   document.getElementById('edit-pdate').value = button.getAttribute('data-pdate');
+});
+
+var deleteModal = document.getElementById('deleteGarmentModal');
+deleteModal.addEventListener('show.bs.modal', function (event) {
+  var button = event.relatedTarget;
+  document.getElementById('delete-id').value = button.getAttribute('data-id');
+  document.getElementById('delete-name').textContent = button.getAttribute('data-name');
+  document.getElementById('delete-image').src = button.getAttribute('data-image');
 });
 </script>
 
