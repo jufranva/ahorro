@@ -15,12 +15,10 @@
         <thead>
             <tr>
                 <th>Imagen</th>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Compra</th>
                 <th>Venta</th>
-                <th>Tipo</th>
                 <th>Categoría</th>
-                <th>Proveedor</th>
                 <th>Etiqueta</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -30,12 +28,10 @@
         <?php foreach ($garments as $garment): ?>
             <tr>
                 <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
+                <td><?= htmlspecialchars($garment['unique_code'], ENT_QUOTES) ?></td>
                 <td><?= htmlspecialchars($garment['name']) ?></td>
-                <td><?= htmlspecialchars($garment['purchase_value']) ?></td>
                 <td><?= htmlspecialchars($garment['sale_value']) ?></td>
-                <td><?= htmlspecialchars($garment['type']) ?></td>
                 <td><?= htmlspecialchars($garment['category_name']) ?></td>
-                <td><?= htmlspecialchars($garment['provider_name']) ?></td>
                 <td>
                     <?php if (!empty($garment['tag_id'])): ?>
                     <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color']) ?>; color: <?= htmlspecialchars($garment['tag_text_color']) ?>;">
