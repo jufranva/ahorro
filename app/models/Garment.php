@@ -84,11 +84,35 @@ class Garment
     public static function delete(int $id): bool
     {
         $mysqli = obtenerConexion();
+
+        $imgStmt = $mysqli->prepare('SELECT image_primary, image_secondary FROM garments WHERE id=?');
+        $imgStmt->bind_param('i', $id);
+        $imgStmt->execute();
+        $imgStmt->bind_result($imagePrimary, $imageSecondary);
+        $imgStmt->fetch();
+        $imgStmt->close();
+
         $stmt = $mysqli->prepare('DELETE FROM garments WHERE id=?');
         $stmt->bind_param('i', $id);
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
+
+        if ($success) {
+            if ($imagePrimary) {
+                $primaryPath = __DIR__ . '/../../' . $imagePrimary;
+                if (file_exists($primaryPath)) {
+                    unlink($primaryPath);
+                }
+            }
+            if ($imageSecondary) {
+                $secondaryPath = __DIR__ . '/../../' . $imageSecondary;
+                if (file_exists($secondaryPath)) {
+                    unlink($secondaryPath);
+                }
+            }
+        }
+
         return $success;
     }
 
