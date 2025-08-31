@@ -75,7 +75,6 @@
                         data-tag="<?= $garment['tag_id'] ?>"
                         data-state="<?= $garment['state_id'] ?>"
                         data-pdate="<?= $garment['purchase_date'] ?>"
-                        data-sdate="<?= $garment['sale_date'] ?>"
                     >Editar</button>
                     <form method="post" action="" class="d-inline" onsubmit="return confirm('¿Eliminar prenda?');">
                         <input type="hidden" name="action" value="delete">
@@ -177,11 +176,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Fecha de compra</label>
-            <input type="date" class="form-control" name="purchase_date">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de venta</label>
-            <input type="date" class="form-control" name="sale_date">
+            <input type="date" class="form-control" name="purchase_date" value="<?= date('Y-m-d') ?>">
           </div>
         </div>
       </div>
@@ -291,10 +286,6 @@
           <div class="col-md-6">
             <label class="form-label">Fecha de compra</label>
             <input type="date" class="form-control" name="purchase_date" id="edit-pdate">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de venta</label>
-            <input type="date" class="form-control" name="sale_date" id="edit-sdate">
           </div>
         </div>
       </div>
@@ -523,7 +514,6 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-tag').value = button.getAttribute('data-tag');
   document.getElementById('edit-state').value = button.getAttribute('data-state');
   document.getElementById('edit-pdate').value = button.getAttribute('data-pdate');
-  document.getElementById('edit-sdate').value = button.getAttribute('data-sdate');
 });
 </script>
 

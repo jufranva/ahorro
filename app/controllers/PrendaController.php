@@ -84,7 +84,6 @@ class PrendaController
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
-                    $saleDate = $_POST['sale_date'] ?? null;
 
                     $imagePrimary = '';
                     if (isset($_FILES['image_primary']) && $_FILES['image_primary']['error'] === UPLOAD_ERR_OK) {
@@ -113,7 +112,7 @@ class PrendaController
                         }
                     }
                     if ($name && $imagePrimary && $imageSecondary) {
-                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
+                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;
                 case 'update':
@@ -134,7 +133,6 @@ class PrendaController
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
-                    $saleDate = $_POST['sale_date'] ?? null;
 
                     $imagePrimary = $_POST['current_image_primary'] ?? '';
                     if (isset($_FILES['image_primary']) && $_FILES['image_primary']['error'] === UPLOAD_ERR_OK) {
@@ -163,7 +161,7 @@ class PrendaController
                         }
                     }
                     if ($id && $name && $imagePrimary && $imageSecondary) {
-                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
+                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;
                 case 'delete':
