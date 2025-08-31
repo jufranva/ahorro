@@ -15,10 +15,10 @@ class Garment
                  . 'LEFT JOIN states s ON g.state_id = s.id';
 
         if ($search !== null && $search !== '') {
-            $sql = $baseSql . ' WHERE g.unique_code LIKE ? OR g.name LIKE ?';
+            $sql = $baseSql . ' WHERE g.unique_code LIKE ? OR g.name LIKE ? OR c.name LIKE ?';
             $stmt = $mysqli->prepare($sql);
             $like = '%' . $search . '%';
-            $stmt->bind_param('ss', $like, $like);
+            $stmt->bind_param('sss', $like, $like, $like);
             $stmt->execute();
             $result = $stmt->get_result();
         } else {

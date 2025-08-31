@@ -13,7 +13,7 @@
     </div>
     <form method="get" class="mb-3">
         <div class="input-group">
-            <input type="text" class="form-control" name="q" placeholder="Buscar por código o nombre" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+            <input type="text" class="form-control" name="q" placeholder="Buscar por código, nombre o categoría" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
             <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </div>
     </form>
