@@ -83,6 +83,9 @@ class PrendaController
                     $provider = isset($_POST['provider_id']) ? (int)$_POST['provider_id'] : null;
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
+                    if ($state === null) {
+                        $state = State::getIdByName('Recien llegado');
+                    }
                     $purchaseDate = $_POST['purchase_date'] ?? null;
 
                     $imagePrimary = '';
@@ -266,11 +269,13 @@ class PrendaController
         }
 
         $search = $_GET['q'] ?? null;
-        $garments = Garment::all($search);
+        $stateFilter = isset($_GET['state_id']) && $_GET['state_id'] !== '' ? (int)$_GET['state_id'] : null;
+        $garments = Garment::all($search, $stateFilter);
         $categories = Category::all();
         $providers = Provider::all();
         $tags = Tag::all();
         $states = State::all();
+        $selectedState = $stateFilter;
         include __DIR__ . '/../views/prendas.php';
     }
 }

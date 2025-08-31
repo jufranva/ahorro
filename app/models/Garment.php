@@ -4,7 +4,7 @@ require_once __DIR__ . '/Tag.php';
 
 class Garment
 {
-    public static function all(?string $search = null): array
+    public static function all(?string $search = null, ?int $stateId = null): array
     {
         $mysqli = obtenerConexion();
         $baseSql = 'SELECT g.*, c.name AS category_name, p.name AS provider_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
@@ -14,15 +14,33 @@ class Garment
                  . 'LEFT JOIN tags t ON g.tag_id = t.id '
                  . 'LEFT JOIN states s ON g.state_id = s.id';
 
+        $conditions = [];
+        $params = [];
+        $types = '';
         if ($search !== null && $search !== '') {
-            $sql = $baseSql . ' WHERE g.unique_code LIKE ? OR g.name LIKE ? OR c.name LIKE ?';
-            $stmt = $mysqli->prepare($sql);
+            $conditions[] = '(g.unique_code LIKE ? OR g.name LIKE ? OR c.name LIKE ?)';
             $like = '%' . $search . '%';
-            $stmt->bind_param('sss', $like, $like, $like);
+            $params[] = &$like;
+            $params[] = &$like;
+            $params[] = &$like;
+            $types .= 'sss';
+        }
+        if ($stateId !== null) {
+            $conditions[] = 'g.state_id = ' . (int)$stateId;
+        }
+
+        $sql = $baseSql;
+        if (!empty($conditions)) {
+            $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+
+        if (!empty($params)) {
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param($types, ...$params);
             $stmt->execute();
             $result = $stmt->get_result();
         } else {
-            $result = $mysqli->query($baseSql);
+            $result = $mysqli->query($sql);
         }
 
         $garments = $result->fetch_all(MYSQLI_ASSOC);
