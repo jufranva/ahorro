@@ -98,7 +98,7 @@ class PrendaController
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    $imageSecondary = '';
+                    $imageSecondary = null;
                     if (isset($_FILES['image_secondary']) && $_FILES['image_secondary']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/prendas/';
                         if (!is_dir($uploadDir)) {
@@ -111,7 +111,7 @@ class PrendaController
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    if ($name && $imagePrimary && $imageSecondary) {
+                    if ($name && $imagePrimary) {
                         Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;
@@ -147,7 +147,10 @@ class PrendaController
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    $imageSecondary = $_POST['current_image_secondary'] ?? '';
+                    $imageSecondary = $_POST['current_image_secondary'] ?? null;
+                    if ($imageSecondary === '') {
+                        $imageSecondary = null;
+                    }
                     if (isset($_FILES['image_secondary']) && $_FILES['image_secondary']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/prendas/';
                         if (!is_dir($uploadDir)) {
@@ -160,7 +163,7 @@ class PrendaController
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    if ($id && $name && $imagePrimary && $imageSecondary) {
+                    if ($id && $name && $imagePrimary) {
                         Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;

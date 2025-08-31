@@ -28,12 +28,15 @@ class Garment
         return $garments;
     }
 
-    public static function create(string $name, string $imagePrimary, string $imageSecondary, float $purchase, float $sale, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate): bool
+    public static function create(string $name, string $imagePrimary, ?string $imageSecondary, float $purchase, float $sale, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate): bool
     {
         $mysqli = obtenerConexion();
         $code = '';
         $purchaseDate = $purchaseDate ?? date('Y-m-d');
         $saleDate = null;
+        if ($imageSecondary === '') {
+            $imageSecondary = null;
+        }
         $stmt = $mysqli->prepare('INSERT INTO garments (name, image_primary, image_secondary, purchase_value, sale_value, unique_code, `condition`, size, comment, type, category_id, provider_id, tag_id, state_id, purchase_date, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bind_param('sssddsisssiiiiss', $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
         $success = $stmt->execute();
@@ -64,9 +67,12 @@ class Garment
         return $success;
     }
 
-    public static function update(int $id, string $name, string $imagePrimary, string $imageSecondary, float $purchase, float $sale, string $code, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate): bool
+    public static function update(int $id, string $name, string $imagePrimary, ?string $imageSecondary, float $purchase, float $sale, string $code, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate): bool
     {
         $mysqli = obtenerConexion();
+        if ($imageSecondary === '') {
+            $imageSecondary = null;
+        }
         $stmt = $mysqli->prepare('UPDATE garments SET name=?, image_primary=?, image_secondary=?, purchase_value=?, sale_value=?, unique_code=?, `condition`=?, size=?, comment=?, type=?, category_id=?, provider_id=?, tag_id=?, state_id=?, purchase_date=? WHERE id=?');
         $stmt->bind_param('sssddsisssiiiisi', $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $id);
         $success = $stmt->execute();

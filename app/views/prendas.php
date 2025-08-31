@@ -109,7 +109,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Imagen secundaria</label>
-            <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg" required>
+            <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
           </div>
           <div class="col-md-6">
             <label class="form-label">Valor de compra</label>
