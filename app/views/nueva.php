@@ -113,7 +113,11 @@
                                     <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
                                 </span>
                                 <div class="shop-list-btn">
-                                    <a href="https://wa.me/593989818620" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                    <?php
+                                    $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
+                                    $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                    ?>
+                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
                                 </div>
                             </div>
                         </div>
@@ -294,7 +298,11 @@
                             <!-- Cart & Wishlist Button Start -->
                             <div class="cart-wishlist-btn pb-4 mb-n3">
                                 <div class="add-to_cart mb-3">
-                                    <a class="btn btn-outline-dark btn-hover-primary" href="https://wa.me/593989818620">Preguntar</a>
+                                    <?php
+                                    $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
+                                    $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                    ?>
+                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>">Preguntar</a>
                                 </div>
                             </div>
                             <!-- Cart & Wishlist Button End -->
