@@ -39,11 +39,16 @@
                     <!-- Shopt Top Bar Right Start -->
                     <div class="shop-top-bar-right">
                         <div class="shop-short-by mr-4">
-                            <select class="nice-select" aria-label=".form-select-sm example">
-                                <option selected>Ordenado por</option>
-                                <option value="1">Más barato</option>
-                                <option value="2">Más Nuevo</option>
-                            </select>
+                            <form method="get">
+                                <?php if ($categoryId !== null): ?>
+                                    <input type="hidden" name="category" value="<?= $categoryId; ?>">
+                                <?php endif; ?>
+                                <select name="sort" class="nice-select" aria-label=".form-select-sm example" onchange="this.form.submit()">
+                                    <option value=""<?= $sort === null ? ' selected' : '' ?>>Ordenado por</option>
+                                    <option value="price"<?= $sort === 'price' ? ' selected' : '' ?>>Más barato</option>
+                                    <option value="new"<?= $sort === 'new' ? ' selected' : '' ?>>Más Nuevo</option>
+                                </select>
+                            </form>
                         </div>
                         <div class="shop_toolbar_btn">
                             <button data-role="grid_3" type="button" class="active btn-grid-4" title="Grid"><i class="fa fa-th"></i></button>
@@ -165,9 +170,9 @@
                             <h3 class="widget-title">Categorias</h3>
                             <div class="sidebar-body">
                                 <ul class="sidebar-list">
-                                    <li><a href="nueva.php"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
+                                    <li><a href="nueva.php<?= $sort ? '?sort=' . $sort : '' ?>"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
                                     <?php foreach ($categories as $cat): ?>
-                                    <li><a href="nueva.php?category=<?= $cat['id']; ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                    <li><a href="nueva.php?category=<?= $cat['id']; ?><?= $sort ? '&sort=' . $sort : '' ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>

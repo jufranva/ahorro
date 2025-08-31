@@ -7,7 +7,8 @@ class NuevaController
     public function index(): void
     {
         $categoryId = isset($_GET['category']) ? (int)$_GET['category'] : null;
-        $garments = array_values(array_filter(Garment::all(null, null, $categoryId), function ($g) {
+        $sort = $_GET['sort'] ?? null;
+        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, $sort), function ($g) {
             return ($g['type'] ?? '') === 'nueva';
         }));
         $total = count($garments);

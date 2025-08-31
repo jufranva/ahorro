@@ -4,7 +4,7 @@ require_once __DIR__ . '/Tag.php';
 
 class Garment
 {
-    public static function all(?string $search = null, ?int $stateId = null, ?int $categoryId = null): array
+    public static function all(?string $search = null, ?int $stateId = null, ?int $categoryId = null, ?string $sort = null): array
     {
         $mysqli = obtenerConexion();
         $baseSql = 'SELECT g.*, c.name AS category_name, p.name AS provider_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
@@ -35,6 +35,11 @@ class Garment
         $sql = $baseSql;
         if (!empty($conditions)) {
             $sql .= ' WHERE ' . implode(' AND ', $conditions);
+        }
+        if ($sort === 'price') {
+            $sql .= ' ORDER BY g.sale_value ASC';
+        } elseif ($sort === 'new') {
+            $sql .= ' ORDER BY g.purchase_date DESC';
         }
 
         if (!empty($params)) {
