@@ -29,9 +29,13 @@
                 <div class="shop_toolbar_wrapper flex-column flex-md-row mb-10">
 
                     <!-- Shop Top Bar Left start -->
+                    <?php
+                    $start = $total > 0 ? ($perPage * ($page - 1)) + 1 : 0;
+                    $end = min($start + $perPage - 1, $total);
+                    ?>
                     <div class="shop-top-bar-left mb-md-0 mb-2">
                         <div class="shop-top-show">
-                            <span>Mostrando 1–<?= $total ?> de <?= $total ?> resultados</span>
+                            <span>Mostrando <?= $start ?>–<?= $end ?> de <?= $total ?> resultados</span>
                         </div>
                     </div>
                     <!-- Shop Top Bar Left end -->
@@ -43,6 +47,7 @@
                                 <?php if ($categoryId !== null): ?>
                                     <input type="hidden" name="category" value="<?= $categoryId; ?>">
                                 <?php endif; ?>
+                                <input type="hidden" name="perPage" value="<?= $perPage; ?>">
                                 <select name="sort" class="nice-select" aria-label=".form-select-sm example" onchange="this.form.submit()">
                                     <option value=""<?= $sort === null ? ' selected' : '' ?>>Ordenado por</option>
                                     <option value="price"<?= $sort === 'price' ? ' selected' : '' ?>>Más barato</option>
@@ -124,13 +129,19 @@
                     <!-- Shop Top Bar Left start -->
                     <div class="shop-top-bar-left">
                         <div class="shop-short-by mr-4">
-                            <select class="nice-select rounded-0" aria-label=".form-select-sm example">
-                                <option selected>Show 12 Per Page</option>
-                                <option value="1">Show 12 Per Page</option>
-                                <option value="2">Show 24 Per Page</option>
-                                <option value="3">Show 15 Per Page</option>
-                                <option value="3">Show 30 Per Page</option>
-                            </select>
+                            <form method="get">
+                                <?php if ($categoryId !== null): ?>
+                                    <input type="hidden" name="category" value="<?= $categoryId; ?>">
+                                <?php endif; ?>
+                                <?php if ($sort !== null): ?>
+                                    <input type="hidden" name="sort" value="<?= $sort; ?>">
+                                <?php endif; ?>
+                                <select name="perPage" class="nice-select rounded-0" aria-label=".form-select-sm example" onchange="this.form.submit()">
+                                    <?php foreach ([9, 15, 24, 36, 51] as $pp): ?>
+                                        <option value="<?= $pp; ?>"<?= $perPage === $pp ? ' selected' : '' ?>>Show <?= $pp; ?> Per Page</option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </form>
                         </div>
                     </div>
                     <!-- Shop Top Bar Left end -->
@@ -139,16 +150,30 @@
                     <div class="shop-top-bar-right">
                         <nav>
                             <ul class="pagination">
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                                <?php
+                                $queryBase = [];
+                                if ($categoryId !== null) { $queryBase['category'] = $categoryId; }
+                                if ($sort !== null) { $queryBase['sort'] = $sort; }
+                                $queryBase['perPage'] = $perPage;
+                                $prevDisabled = $page <= 1 ? ' disabled' : '';
+                                $prevQuery = http_build_query(array_merge($queryBase, ['page' => $page - 1]));
+                                ?>
+                                <li class="page-item<?= $prevDisabled; ?>">
+                                    <a class="page-link" href="<?= $prevDisabled ? '#' : 'nueva.php?' . $prevQuery; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li class="page-item"><a class="page-link active" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                <?php for ($i = 1; $i <= $pages; $i++):
+                                    $pageQuery = http_build_query(array_merge($queryBase, ['page' => $i]));
+                                ?>
+                                    <li class="page-item"><a class="page-link<?= $page === $i ? ' active' : '' ?>" href="nueva.php?<?= $pageQuery; ?>"><?= $i; ?></a></li>
+                                <?php endfor; ?>
+                                <?php
+                                $nextDisabled = $page >= $pages ? ' disabled' : '';
+                                $nextQuery = http_build_query(array_merge($queryBase, ['page' => $page + 1]));
+                                ?>
+                                <li class="page-item<?= $nextDisabled; ?>">
+                                    <a class="page-link" href="<?= $nextDisabled ? '#' : 'nueva.php?' . $nextQuery; ?>" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -170,9 +195,9 @@
                             <h3 class="widget-title">Categorias</h3>
                             <div class="sidebar-body">
                                 <ul class="sidebar-list">
-                                    <li><a href="nueva.php<?= $sort ? '?sort=' . $sort : '' ?>"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
+                                    <li><a href="nueva.php<?= $sort || $perPage ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage])) : '' ?>"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
                                     <?php foreach ($categories as $cat): ?>
-                                    <li><a href="nueva.php?category=<?= $cat['id']; ?><?= $sort ? '&sort=' . $sort : '' ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                    <li><a href="nueva.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
