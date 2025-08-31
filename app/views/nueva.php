@@ -92,9 +92,9 @@
                                 
                                 <span class="ratings">
                                     <span class="rating-wrap">
-                                        <span class="star" style="width: 100%"></span>
+                                        <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
                                     </span>
-                                    <span class="rating-num">(4)</span>
+                                    <span class="rating-num">(<?= round($garment['condition'] / 20); ?>)</span>
                                 </span>
                                 <?php if (!empty($garment['comment'])): ?>
                                 <p><?= htmlspecialchars($garment['comment']); ?></p>
