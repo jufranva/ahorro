@@ -6,6 +6,7 @@
         <div>
             <button class="btn btn-success me-2" data-bs-toggle="modal" data-bs-target="#createGarmentModal">Crear Prenda</button>
             <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#categoryModal">Categorías</button>
+            <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#providerModal">Proveedores</button>
             <button class="btn btn-secondary me-2" data-bs-toggle="modal" data-bs-target="#tagModal">Etiquetas</button>
             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#stateModal">Estados</button>
         </div>
@@ -19,6 +20,7 @@
                 <th>Venta</th>
                 <th>Tipo</th>
                 <th>Categoría</th>
+                <th>Proveedor</th>
                 <th>Etiqueta</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -33,6 +35,7 @@
                 <td><?= htmlspecialchars($garment['sale_value']) ?></td>
                 <td><?= htmlspecialchars($garment['type']) ?></td>
                 <td><?= htmlspecialchars($garment['category_name']) ?></td>
+                <td><?= htmlspecialchars($garment['provider_name']) ?></td>
                 <td>
                     <?php if (!empty($garment['tag_id'])): ?>
                     <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color']) ?>; color: <?= htmlspecialchars($garment['tag_text_color']) ?>;">
@@ -68,6 +71,7 @@
                         data-comment="<?= htmlspecialchars($garment['comment'], ENT_QUOTES) ?>"
                         data-type="<?= htmlspecialchars($garment['type'], ENT_QUOTES) ?>"
                         data-category="<?= $garment['category_id'] ?>"
+                        data-provider="<?= $garment['provider_id'] ?>"
                         data-tag="<?= $garment['tag_id'] ?>"
                         data-state="<?= $garment['state_id'] ?>"
                         data-pdate="<?= $garment['purchase_date'] ?>"
@@ -145,6 +149,15 @@
               <option value="">Seleccione</option>
               <?php foreach ($categories as $cat): ?>
               <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Proveedor</label>
+            <select class="form-select" name="provider_id">
+              <option value="">Seleccione</option>
+              <?php foreach ($providers as $prov): ?>
+              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name']) ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -253,6 +266,15 @@
             </select>
           </div>
           <div class="col-md-6">
+            <label class="form-label">Proveedor</label>
+            <select class="form-select" name="provider_id" id="edit-provider">
+              <option value="">Seleccione</option>
+              <?php foreach ($providers as $prov): ?>
+              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name']) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-md-6">
             <label class="form-label">Etiqueta</label>
               <select class="form-select" name="tag_id" id="edit-tag">
                 <option value="">Ninguna</option>
@@ -318,6 +340,50 @@
             <form method="post" action="" onsubmit="return confirm('¿Eliminar categoría?');">
               <input type="hidden" name="action" value="delete_category">
               <input type="hidden" name="id" value="<?= $cat['id'] ?>">
+              <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+            </form>
+            <?php endif; ?>
+          </li>
+          <?php endforeach; ?>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Provider Modal -->
+<div class="modal fade" id="providerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Proveedores</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="mb-3" method="post" action="">
+          <input type="hidden" name="action" value="create_provider">
+          <label class="form-label">Nombre</label>
+          <div class="input-group">
+            <input type="text" class="form-control" name="name" required>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+        <ul class="list-group">
+          <?php foreach ($providers as $prov): ?>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <form class="d-flex flex-grow-1 me-2" method="post" action="">
+              <input type="hidden" name="action" value="update_provider">
+              <input type="hidden" name="id" value="<?= $prov['id'] ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($prov['name']) ?>">
+              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            </form>
+            <?php if ($prov['usage_count'] == 0): ?>
+            <form method="post" action="" onsubmit="return confirm('¿Eliminar proveedor?');">
+              <input type="hidden" name="action" value="delete_provider">
+              <input type="hidden" name="id" value="<?= $prov['id'] ?>">
               <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
             </form>
             <?php endif; ?>
@@ -457,6 +523,7 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-comment').value = button.getAttribute('data-comment');
   document.getElementById('edit-type').value = button.getAttribute('data-type');
   document.getElementById('edit-category').value = button.getAttribute('data-category');
+  document.getElementById('edit-provider').value = button.getAttribute('data-provider');
   document.getElementById('edit-tag').value = button.getAttribute('data-tag');
   document.getElementById('edit-state').value = button.getAttribute('data-state');
   document.getElementById('edit-pdate').value = button.getAttribute('data-pdate');

@@ -49,6 +49,11 @@ CREATE TABLE IF NOT EXISTS categories (
   name VARCHAR(100) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS providers (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS tags (
   id INT AUTO_INCREMENT PRIMARY KEY,
   text VARCHAR(100) NOT NULL,
@@ -73,11 +78,13 @@ CREATE TABLE IF NOT EXISTS garments (
   comment VARCHAR(200) NOT NULL,
   type ENUM('nueva','usada') NOT NULL,
   category_id INT,
+  provider_id INT,
   tag_id INT,
   state_id INT,
   purchase_date DATE,
   sale_date DATE,
   FOREIGN KEY (category_id) REFERENCES categories(id),
+  FOREIGN KEY (provider_id) REFERENCES providers(id),
   FOREIGN KEY (tag_id) REFERENCES tags(id),
   FOREIGN KEY (state_id) REFERENCES states(id)
 );
