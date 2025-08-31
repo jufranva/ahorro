@@ -11,16 +11,20 @@
             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#stateModal">Estados</button>
         </div>
     </div>
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="q" placeholder="Buscar por código, nombre o categoría" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+        </div>
+    </form>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>Imagen</th>
+                <th>Código</th>
                 <th>Nombre</th>
-                <th>Compra</th>
                 <th>Venta</th>
-                <th>Tipo</th>
                 <th>Categoría</th>
-                <th>Proveedor</th>
                 <th>Etiqueta</th>
                 <th>Estado</th>
                 <th>Acciones</th>
@@ -30,12 +34,10 @@
         <?php foreach ($garments as $garment): ?>
             <tr>
                 <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
+                <td><?= htmlspecialchars($garment['unique_code'], ENT_QUOTES) ?></td>
                 <td><?= htmlspecialchars($garment['name']) ?></td>
-                <td><?= htmlspecialchars($garment['purchase_value']) ?></td>
                 <td><?= htmlspecialchars($garment['sale_value']) ?></td>
-                <td><?= htmlspecialchars($garment['type']) ?></td>
                 <td><?= htmlspecialchars($garment['category_name']) ?></td>
-                <td><?= htmlspecialchars($garment['provider_name']) ?></td>
                 <td>
                     <?php if (!empty($garment['tag_id'])): ?>
                     <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color']) ?>; color: <?= htmlspecialchars($garment['tag_text_color']) ?>;">
@@ -75,13 +77,13 @@
                         data-tag="<?= $garment['tag_id'] ?>"
                         data-state="<?= $garment['state_id'] ?>"
                         data-pdate="<?= $garment['purchase_date'] ?>"
-                        data-sdate="<?= $garment['sale_date'] ?>"
                     >Editar</button>
-                    <form method="post" action="" class="d-inline" onsubmit="return confirm('¿Eliminar prenda?');">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?= $garment['id'] ?>">
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
+                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGarmentModal"
+                        data-id="<?= $garment['id'] ?>"
+                        data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES) ?>"
+                        data-image="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>">
+                        Eliminar
+                    </button>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -105,16 +107,12 @@
             <input type="text" class="form-control" name="name" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Código único</label>
-            <input type="text" class="form-control" name="unique_code" required>
-          </div>
-          <div class="col-md-6">
             <label class="form-label">Imagen principal</label>
             <input type="file" class="form-control" name="image_primary" accept="image/png, image/jpeg" required>
           </div>
           <div class="col-md-6">
             <label class="form-label">Imagen secundaria</label>
-            <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg" required>
+            <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
           </div>
           <div class="col-md-6">
             <label class="form-label">Valor de compra</label>
@@ -181,11 +179,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Fecha de compra</label>
-            <input type="date" class="form-control" name="purchase_date">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de venta</label>
-            <input type="date" class="form-control" name="sale_date">
+            <input type="date" class="form-control" name="purchase_date" value="<?= date('Y-m-d') ?>">
           </div>
         </div>
       </div>
@@ -296,15 +290,34 @@
             <label class="form-label">Fecha de compra</label>
             <input type="date" class="form-control" name="purchase_date" id="edit-pdate">
           </div>
-          <div class="col-md-6">
-            <label class="form-label">Fecha de venta</label>
-            <input type="date" class="form-control" name="sale_date" id="edit-sdate">
-          </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="submit" class="btn btn-primary">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Delete Garment Modal -->
+<div class="modal fade" id="deleteGarmentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="post" action="">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Prenda</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Está seguro que desea eliminar?</p>
+        <img id="delete-image" src="" class="img-thumbnail mb-3" style="width:100px;">
+        <p id="delete-name" class="fw-bold"></p>
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="id" id="delete-id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Eliminar</button>
       </div>
     </form>
   </div>
@@ -527,7 +540,14 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-tag').value = button.getAttribute('data-tag');
   document.getElementById('edit-state').value = button.getAttribute('data-state');
   document.getElementById('edit-pdate').value = button.getAttribute('data-pdate');
-  document.getElementById('edit-sdate').value = button.getAttribute('data-sdate');
+});
+
+var deleteModal = document.getElementById('deleteGarmentModal');
+deleteModal.addEventListener('show.bs.modal', function (event) {
+  var button = event.relatedTarget;
+  document.getElementById('delete-id').value = button.getAttribute('data-id');
+  document.getElementById('delete-name').textContent = button.getAttribute('data-name');
+  document.getElementById('delete-image').src = button.getAttribute('data-image');
 });
 </script>
 

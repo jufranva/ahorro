@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS garments (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   image_primary VARCHAR(255) NOT NULL,
-  image_secondary VARCHAR(255) NOT NULL,
+  image_secondary VARCHAR(255) DEFAULT NULL,
   purchase_value DECIMAL(10,2) NOT NULL,
   sale_value DECIMAL(10,2) NOT NULL,
   unique_code VARCHAR(100) NOT NULL,

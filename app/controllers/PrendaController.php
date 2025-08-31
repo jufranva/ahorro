@@ -75,7 +75,6 @@ class PrendaController
                     if ($sale < $purchase) {
                         $sale = $purchase;
                     }
-                    $code = $_POST['unique_code'] ?? '';
                     $condition = isset($_POST['condition']) ? max(0, min(100, (int)$_POST['condition'])) : 0;
                     $size = $_POST['size'] ?? '';
                     $comment = $_POST['comment'] ?? '';
@@ -85,7 +84,6 @@ class PrendaController
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
-                    $saleDate = $_POST['sale_date'] ?? null;
 
                     $imagePrimary = '';
                     if (isset($_FILES['image_primary']) && $_FILES['image_primary']['error'] === UPLOAD_ERR_OK) {
@@ -100,7 +98,7 @@ class PrendaController
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    $imageSecondary = '';
+                    $imageSecondary = null;
                     if (isset($_FILES['image_secondary']) && $_FILES['image_secondary']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/prendas/';
                         if (!is_dir($uploadDir)) {
@@ -113,8 +111,8 @@ class PrendaController
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    if ($name && $imagePrimary && $imageSecondary) {
-                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
+                    if ($name && $imagePrimary) {
+                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;
                 case 'update':
@@ -135,7 +133,6 @@ class PrendaController
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
-                    $saleDate = $_POST['sale_date'] ?? null;
 
                     $imagePrimary = $_POST['current_image_primary'] ?? '';
                     if (isset($_FILES['image_primary']) && $_FILES['image_primary']['error'] === UPLOAD_ERR_OK) {
@@ -150,7 +147,10 @@ class PrendaController
                             $imagePrimary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    $imageSecondary = $_POST['current_image_secondary'] ?? '';
+                    $imageSecondary = $_POST['current_image_secondary'] ?? null;
+                    if ($imageSecondary === '') {
+                        $imageSecondary = null;
+                    }
                     if (isset($_FILES['image_secondary']) && $_FILES['image_secondary']['error'] === UPLOAD_ERR_OK) {
                         $uploadDir = __DIR__ . '/../../assets/images/prendas/';
                         if (!is_dir($uploadDir)) {
@@ -163,8 +163,8 @@ class PrendaController
                             $imageSecondary = 'assets/images/prendas/' . $filename;
                         }
                     }
-                    if ($id && $name && $imagePrimary && $imageSecondary) {
-                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
+                    if ($id && $name && $imagePrimary) {
+                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate);
                     }
                     break;
                 case 'delete':
@@ -265,7 +265,8 @@ class PrendaController
             exit;
         }
 
-        $garments = Garment::all();
+        $search = $_GET['q'] ?? null;
+        $garments = Garment::all($search);
         $categories = Category::all();
         $providers = Provider::all();
         $tags = Tag::all();
