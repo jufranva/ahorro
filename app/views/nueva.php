@@ -138,7 +138,7 @@
                                 <?php endif; ?>
                                 <select name="perPage" class="nice-select rounded-0" aria-label=".form-select-sm example" onchange="this.form.submit()">
                                     <?php foreach ([9, 15, 24, 36, 51] as $pp): ?>
-                                        <option value="<?= $pp; ?>"<?= $perPage === $pp ? ' selected' : '' ?>>Show <?= $pp; ?> Per Page</option>
+                                        <option value="<?= $pp; ?>"<?= $perPage === $pp ? ' selected' : '' ?>>Ver <?= $pp; ?> por pagina</option>
                                     <?php endforeach; ?>
                                 </select>
                             </form>
