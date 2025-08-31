@@ -63,9 +63,7 @@
                             <div class="thumb">
                                 <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
                                     <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
-                                    <?php if (!empty($garment['image_secondary'])): ?>
-                                    <img class="second-image" src="<?= htmlspecialchars($garment['image_secondary']); ?>" alt="Product" />
-                                    <?php endif; ?>
+                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
                                 </a>
                                 <?php if (!empty($garment['tag_text'])): ?>
                                 <span class="badges">
