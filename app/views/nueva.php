@@ -165,10 +165,10 @@
                             <h3 class="widget-title">Categorias</h3>
                             <div class="sidebar-body">
                                 <ul class="sidebar-list">
-                                    <li><a href="#">All Product</a></li>
-                                    <li><a href="#">Best Seller (5)</a></li>
-                                    <li><a href="#">Featured (4)</a></li>
-                                    <li><a href="#">New Products (6)</a></li>
+                                    <li><a href="nueva.php"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
+                                    <?php foreach ($categories as $cat): ?>
+                                    <li><a href="nueva.php?category=<?= $cat['id']; ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                    <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
