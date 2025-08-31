@@ -78,6 +78,18 @@
                             </div>
                             <div class="content">
                                 <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
+                                
+                                
+                                 <!-- SKU Start -->
+                            <?php if (!empty($garment['unique_code'])): ?>
+                            <div class="sku mb-3">
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code']); ?></span>
+                            </div>
+                            <?php endif; ?>
+                            <!-- SKU End -->
+
+                                
+                                
                                 <span class="ratings">
                                     <span class="rating-wrap">
                                         <span class="star" style="width: 100%"></span>
