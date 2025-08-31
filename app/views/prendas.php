@@ -14,6 +14,12 @@
     <form method="get" class="mb-3">
         <div class="input-group">
             <input type="text" class="form-control" name="q" placeholder="Buscar por código, nombre o categoría" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+            <select class="form-select" name="state_id">
+              <option value="">Todos</option>
+              <?php foreach ($states as $st): ?>
+              <option value="<?= $st['id'] ?>" <?= isset($selectedState) && $selectedState == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
+              <?php endforeach; ?>
+            </select>
             <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </div>
     </form>
@@ -171,9 +177,8 @@
           <div class="col-md-6">
             <label class="form-label">Estado</label>
             <select class="form-select" name="state_id">
-              <option value="">Seleccione</option>
               <?php foreach ($states as $st): ?>
-              <option value="<?= $st['id'] ?>"><?= htmlspecialchars($st['name']) ?></option>
+              <option value="<?= $st['id'] ?>" <?= strtolower($st['name']) === 'recien llegado' ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
               <?php endforeach; ?>
             </select>
           </div>

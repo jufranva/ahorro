@@ -37,6 +37,19 @@ class State
         return $success;
     }
 
+    public static function getIdByName(string $name): ?int
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('SELECT id FROM states WHERE LOWER(name) = LOWER(?) LIMIT 1');
+        $stmt->bind_param('s', $name);
+        $stmt->execute();
+        $stmt->bind_result($id);
+        $found = $stmt->fetch();
+        $stmt->close();
+        $mysqli->close();
+        return $found ? $id : null;
+    }
+
     public static function delete(int $id): bool
     {
         $mysqli = obtenerConexion();
