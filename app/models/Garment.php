@@ -28,13 +28,36 @@ class Garment
         return $garments;
     }
 
-    public static function create(string $name, string $imagePrimary, string $imageSecondary, float $purchase, float $sale, string $code, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate, ?string $saleDate): bool
+    public static function create(string $name, string $imagePrimary, string $imageSecondary, float $purchase, float $sale, int $condition, string $size, string $comment, string $type, ?int $category, ?int $provider, ?int $tag, ?int $state, ?string $purchaseDate, ?string $saleDate): bool
     {
         $mysqli = obtenerConexion();
+        $code = '';
         $stmt = $mysqli->prepare('INSERT INTO garments (name, image_primary, image_secondary, purchase_value, sale_value, unique_code, `condition`, size, comment, type, category_id, provider_id, tag_id, state_id, purchase_date, sale_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bind_param('sssddsisssiiiiss', $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
         $success = $stmt->execute();
+        $id = $stmt->insert_id;
         $stmt->close();
+
+        if ($success) {
+            $prefix = '';
+            if ($provider !== null) {
+                $provStmt = $mysqli->prepare('SELECT name FROM providers WHERE id=?');
+                $provStmt->bind_param('i', $provider);
+                $provStmt->execute();
+                $provStmt->bind_result($provName);
+                if ($provStmt->fetch()) {
+                    $prefix = strtoupper(substr($provName, 0, 2));
+                }
+                $provStmt->close();
+            }
+            $typeCode = $type === 'usada' ? 'US' : 'NU';
+            $code = $prefix . $typeCode . '00' . $id;
+            $upd = $mysqli->prepare('UPDATE garments SET unique_code=? WHERE id=?');
+            $upd->bind_param('si', $code, $id);
+            $upd->execute();
+            $upd->close();
+        }
+
         $mysqli->close();
         return $success;
     }

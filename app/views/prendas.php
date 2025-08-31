@@ -105,10 +105,6 @@
             <input type="text" class="form-control" name="name" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label">Código único</label>
-            <input type="text" class="form-control" name="unique_code" required>
-          </div>
-          <div class="col-md-6">
             <label class="form-label">Imagen principal</label>
             <input type="file" class="form-control" name="image_primary" accept="image/png, image/jpeg" required>
           </div>

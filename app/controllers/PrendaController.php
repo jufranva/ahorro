@@ -75,7 +75,6 @@ class PrendaController
                     if ($sale < $purchase) {
                         $sale = $purchase;
                     }
-                    $code = $_POST['unique_code'] ?? '';
                     $condition = isset($_POST['condition']) ? max(0, min(100, (int)$_POST['condition'])) : 0;
                     $size = $_POST['size'] ?? '';
                     $comment = $_POST['comment'] ?? '';
@@ -114,7 +113,7 @@ class PrendaController
                         }
                     }
                     if ($name && $imagePrimary && $imageSecondary) {
-                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
+                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
                     }
                     break;
                 case 'update':
