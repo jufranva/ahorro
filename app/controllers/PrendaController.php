@@ -265,7 +265,8 @@ class PrendaController
             exit;
         }
 
-        $garments = Garment::all();
+        $search = $_GET['q'] ?? null;
+        $garments = Garment::all($search);
         $categories = Category::all();
         $providers = Provider::all();
         $tags = Tag::all();

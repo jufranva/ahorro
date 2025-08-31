@@ -4,17 +4,31 @@ require_once __DIR__ . '/Tag.php';
 
 class Garment
 {
-    public static function all(): array
+    public static function all(?string $search = null): array
     {
         $mysqli = obtenerConexion();
-        $sql = 'SELECT g.*, c.name AS category_name, p.name AS provider_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
-             . 'FROM garments g '
-             . 'LEFT JOIN categories c ON g.category_id = c.id '
-             . 'LEFT JOIN providers p ON g.provider_id = p.id '
-             . 'LEFT JOIN tags t ON g.tag_id = t.id '
-             . 'LEFT JOIN states s ON g.state_id = s.id';
-        $result = $mysqli->query($sql);
+        $baseSql = 'SELECT g.*, c.name AS category_name, p.name AS provider_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
+                 . 'FROM garments g '
+                 . 'LEFT JOIN categories c ON g.category_id = c.id '
+                 . 'LEFT JOIN providers p ON g.provider_id = p.id '
+                 . 'LEFT JOIN tags t ON g.tag_id = t.id '
+                 . 'LEFT JOIN states s ON g.state_id = s.id';
+
+        if ($search !== null && $search !== '') {
+            $sql = $baseSql . ' WHERE g.unique_code LIKE ? OR g.name LIKE ?';
+            $stmt = $mysqli->prepare($sql);
+            $like = '%' . $search . '%';
+            $stmt->bind_param('ss', $like, $like);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        } else {
+            $result = $mysqli->query($baseSql);
+        }
+
         $garments = $result->fetch_all(MYSQLI_ASSOC);
+        if (isset($stmt)) {
+            $stmt->close();
+        }
         $mysqli->close();
         $palette = Tag::palette();
         foreach ($garments as &$garment) {

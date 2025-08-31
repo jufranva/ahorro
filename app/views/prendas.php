@@ -11,6 +11,12 @@
             <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#stateModal">Estados</button>
         </div>
     </div>
+    <form method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" name="q" placeholder="Buscar por código o nombre" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+        </div>
+    </form>
     <table class="table table-striped">
         <thead>
             <tr>
