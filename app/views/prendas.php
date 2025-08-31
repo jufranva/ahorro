@@ -108,7 +108,7 @@
       <div class="modal-body">
         <input type="hidden" name="action" value="create">
         <div class="row g-3">
-          <div class="col-md-6">
+          <div class="col-md-12">
             <label class="form-label">Nombre</label>
             <input type="text" class="form-control" name="name" required>
           </div>
@@ -190,7 +190,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-success">Crear</button>
       </div>
     </form>
   </div>
@@ -342,7 +342,7 @@
           <label class="form-label">Nombre</label>
           <div class="input-group">
             <input type="text" class="form-control" name="name" required>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-success">Crear</button>
           </div>
         </form>
         <ul class="list-group">
@@ -352,7 +352,7 @@
               <input type="hidden" name="action" value="update_category">
               <input type="hidden" name="id" value="<?= $cat['id'] ?>">
               <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($cat['name']) ?>">
-              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($cat['usage_count'] == 0): ?>
             <form method="post" action="" onsubmit="return confirm('¿Eliminar categoría?');">
@@ -386,7 +386,7 @@
           <label class="form-label">Nombre</label>
           <div class="input-group">
             <input type="text" class="form-control" name="name" required>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-success">Crear</button>
           </div>
         </form>
         <ul class="list-group">
@@ -396,7 +396,7 @@
               <input type="hidden" name="action" value="update_provider">
               <input type="hidden" name="id" value="<?= $prov['id'] ?>">
               <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($prov['name']) ?>">
-              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($prov['usage_count'] == 0): ?>
             <form method="post" action="" onsubmit="return confirm('¿Eliminar proveedor?');">
@@ -442,7 +442,7 @@
                 </select>
               </div>
             <div class="col-auto align-self-end">
-              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </div>
         </form>
@@ -459,7 +459,7 @@
                   <option value="rojo" <?= $tag['color'] === 'rojo' ? 'selected' : '' ?>>Rojo</option>
                   <option value="verde" <?= $tag['color'] === 'verde' ? 'selected' : '' ?>>Verde</option>
                 </select>
-              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($tag['usage_count'] == 0): ?>
             <form method="post" action="" onsubmit="return confirm('¿Eliminar etiqueta?');">
@@ -493,7 +493,7 @@
           <label class="form-label">Nombre</label>
           <div class="input-group">
             <input type="text" class="form-control" name="name" required>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="submit" class="btn btn-success">Crear</button>
           </div>
         </form>
         <ul class="list-group">
@@ -503,7 +503,7 @@
               <input type="hidden" name="action" value="update_state">
               <input type="hidden" name="id" value="<?= $st['id'] ?>">
               <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($st['name']) ?>">
-              <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+              <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($st['usage_count'] == 0): ?>
             <form method="post" action="" onsubmit="return confirm('¿Eliminar estado?');">
