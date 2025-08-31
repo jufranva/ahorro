@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Garment.php';
 require_once __DIR__ . '/../models/Category.php';
+require_once __DIR__ . '/../models/Provider.php';
 require_once __DIR__ . '/../models/Tag.php';
 require_once __DIR__ . '/../models/State.php';
 
@@ -80,6 +81,7 @@ class PrendaController
                     $comment = $_POST['comment'] ?? '';
                     $type = $_POST['type'] ?? 'nueva';
                     $category = isset($_POST['category_id']) ? (int)$_POST['category_id'] : null;
+                    $provider = isset($_POST['provider_id']) ? (int)$_POST['provider_id'] : null;
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
@@ -112,7 +114,7 @@ class PrendaController
                         }
                     }
                     if ($name && $imagePrimary && $imageSecondary) {
-                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $tag, $state, $purchaseDate, $saleDate);
+                        Garment::create($name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
                     }
                     break;
                 case 'update':
@@ -129,6 +131,7 @@ class PrendaController
                     $comment = $_POST['comment'] ?? '';
                     $type = $_POST['type'] ?? 'nueva';
                     $category = isset($_POST['category_id']) ? (int)$_POST['category_id'] : null;
+                    $provider = isset($_POST['provider_id']) ? (int)$_POST['provider_id'] : null;
                     $tag = isset($_POST['tag_id']) && $_POST['tag_id'] !== '' ? (int)$_POST['tag_id'] : null;
                     $state = isset($_POST['state_id']) ? (int)$_POST['state_id'] : null;
                     $purchaseDate = $_POST['purchase_date'] ?? null;
@@ -161,7 +164,7 @@ class PrendaController
                         }
                     }
                     if ($id && $name && $imagePrimary && $imageSecondary) {
-                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $tag, $state, $purchaseDate, $saleDate);
+                        Garment::update($id, $name, $imagePrimary, $imageSecondary, $purchase, $sale, $code, $condition, $size, $comment, $type, $category, $provider, $tag, $state, $purchaseDate, $saleDate);
                     }
                     break;
                 case 'delete':
@@ -194,6 +197,25 @@ class PrendaController
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     if ($id) {
                         Category::delete($id);
+                    }
+                    break;
+                case 'create_provider':
+                    $name = $_POST['name'] ?? '';
+                    if ($name) {
+                        Provider::create($name);
+                    }
+                    break;
+                case 'update_provider':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    $name = $_POST['name'] ?? '';
+                    if ($id && $name) {
+                        Provider::update($id, $name);
+                    }
+                    break;
+                case 'delete_provider':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        Provider::delete($id);
                     }
                     break;
                 case 'create_tag':
@@ -245,6 +267,7 @@ class PrendaController
 
         $garments = Garment::all();
         $categories = Category::all();
+        $providers = Provider::all();
         $tags = Tag::all();
         $states = State::all();
         include __DIR__ . '/../views/prendas.php';
