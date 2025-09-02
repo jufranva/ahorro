@@ -25,7 +25,7 @@ class NuevaController
         }
         $garments = array_slice($garments, ($page - 1) * $perPage, $perPage);
 
-        $categories = Category::all();
+        $categories = Category::all('nueva');
         include __DIR__ . '/../views/nueva.php';
     }
 }
