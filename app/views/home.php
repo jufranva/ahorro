@@ -139,9 +139,6 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <?php if (!empty($garment['provider_name'])): ?>
-                                                <h4 class="sub-title"><a href="#"><?= htmlspecialchars($garment['provider_name']); ?></a></h4>
-                                                <?php endif; ?>
                                                 <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
@@ -192,9 +189,6 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <?php if (!empty($garment['provider_name'])): ?>
-                                                <h4 class="sub-title"><a href="#"><?= htmlspecialchars($garment['provider_name']); ?></a></h4>
-                                                <?php endif; ?>
                                                 <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
                                                 <span class="ratings">
                                                     <span class="rating-wrap">
