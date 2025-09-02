@@ -3,6 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 header('Content-Type: text/html; charset=UTF-8');
+if (!defined('BASE_URL')) {
+    $base = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+    define('BASE_URL', ($base === '' ? '/' : $base . '/'));
+}
 $menu = (function () {
     ob_start();
     include __DIR__ . '/menu.php';
@@ -17,22 +21,22 @@ echo "<!DOCTYPE html>\n";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El armario del ahorro</title>
     
-    <link rel="icon" href="/assets/favicon.ico">
-    <link rel="preload" href="/assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="<?= BASE_URL ?>assets/favicon.ico">
+    <link rel="preload" href="<?= BASE_URL ?>assets/fonts/fontAwesome/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin>
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" referrerpolicy="no-referrer">
 
-    <link rel="stylesheet" href="./assets/css/vendor/fontawesome.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="./assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/aos.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/nice-select.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/lightgallery.min.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/vendor/fontawesome.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/vendor/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/animate.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/aos.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/nice-select.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/jquery-ui.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/plugins/lightgallery.min.css" />
+    <link rel="stylesheet" href="<?= BASE_URL ?>assets/css/style.css" />
 </head>
 
 
@@ -74,7 +78,7 @@ echo "<!DOCTYPE html>\n";
                         <!-- Header Logo Start -->
                         <div class="col-xl-2 col-6">
                             <div class="header-logo">
-                                <a href="./index.php"><img src="./assets/images/logo/logo.png" alt="Site Logo" /></a>
+                                <a href="<?= BASE_URL ?>index.php"><img src="<?= BASE_URL ?>assets/images/logo/logo.png" alt="Site Logo" /></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->

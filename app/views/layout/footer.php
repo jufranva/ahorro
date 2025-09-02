@@ -123,38 +123,38 @@
         </a>
         <!-- Scroll Top End -->
     <!-- Vendors JS -->
-        <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
                 integrity="sha384-1D5yKv88o8J0QouShbmMBe6qT++1JwqOQIiRnBRPy1daYGjvidTPhG4nHWnzKada"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/jquery-ui-dist@1.12.1/jquery-ui.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
                 integrity="sha384-+qPB0eVx0XVkwZ9UR4FJe2exaLj9FrY+USxm1cShZnLSDJMGiPb5B7z4F4QRpMY3"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/jquery-ajaxchimp@1.3.0/jquery.ajaxchimp.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajaxchimp/1.3.0/jquery.ajaxchimp.min.js"
                 integrity="sha384-DzTOTemGJrt2Asp3JZuFodH+9UdV2HqOumHZm6X1eaURA/NrLgoGBZn2cPt+5jr3"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/jquery-nice-select@1.0/dist/jquery.nice-select.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.0/jquery.nice-select.min.js"
                 integrity="sha384-187Vg0dQYu9heaqPVUIXb+Lz+xtz+4sPp3xE8IQnwK67w4Sr87u8zcLk+dszQR8C"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/jquery-countdown@2.2.0/dist/jquery.countdown.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.2.0/jquery.countdown.min.js"
                 integrity="sha384-rJkQOcWKn6YQUe74B/7tz0VipPaDsWQmtLeRKWozL+kvkxcI/iKBkLzusZGyGovD"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery-all.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.10.0/js/lightgallery-all.min.js"
                 integrity="sha384-ADfj2ctKD5QjwJ1uB6gw4O3nnSWtD1dTN8MNO/rIcpNHWXhSWBWaKDVYBNsiDofM"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/theia-sticky-sidebar@1.7.0/dist/theia-sticky-sidebar.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/theia-sticky-sidebar/1.7.0/theia-sticky-sidebar.min.js"
                 integrity="sha384-n/uT81k5UX+UK7BU32n43ZSFr708UvQznxTyPLnai//gW2tavkDY0l2V//QQvuj9"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"
                 integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.min.js"
                 integrity="sha384-9TlXlLKqlLqU3HRqRzNVFq0t9Kn1igrCRDt0wBMjY2UbZBZs1NVtN9dqXT8PyW0v"
                 crossorigin="anonymous"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/swiper@6.3.5/swiper-bundle.min.js"
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.3.5/swiper-bundle.min.js"
                 integrity="sha384-i73MdCreZW9tk5VSJGWNJ+znm/falaNHlyL4MQrkypNp22iSPUCnbgGfjeHF3p52"
                 crossorigin="anonymous"></script>
         <!--Main JS-->
-        <script defer src="./assets/js/main.js"></script>
+        <script defer src="<?= BASE_URL ?>assets/js/main.js"></script>
     </body>
     
     </html>
