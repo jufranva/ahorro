@@ -9,6 +9,9 @@ class HomeController
 {
     public function index(): void
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $slides = Slide::all();
         $banners = Banner::all();
         $features = Feature::all();
