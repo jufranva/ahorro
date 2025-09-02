@@ -25,7 +25,7 @@ class UsadaController
         }
         $garments = array_slice($garments, ($page - 1) * $perPage, $perPage);
 
-        $categories = Category::all();
+        $categories = Category::all('usada');
         include __DIR__ . '/../views/usada.php';
     }
 }
