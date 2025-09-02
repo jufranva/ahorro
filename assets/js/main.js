@@ -117,7 +117,7 @@
 	
 	/* Product Carousel Activation */
     var productCarousel = new Swiper('.product-carousel .swiper-container', {
-		loop: true,
+                loop: false,
 		slidesPerView: 3,
 		spaceBetween: 0,
 		pagination: true,
@@ -165,7 +165,7 @@
 	});	
 	/* Modal Product Carousel Activation */
     var productCarousel = new Swiper('.modal-product-carousel .swiper-container', {
-		loop: true,
+                loop: false,
 		slidesPerView: 1,
 		spaceBetween: 0,
 		pagination: false,

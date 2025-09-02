@@ -96,15 +96,197 @@
 </div>
 <!-- Feature Section End -->
 
-<h1>Productos destacados</h1>
-<ul>
-<?php foreach ($products as $product): ?>
-    <li>
-        <strong><?= htmlspecialchars($product['title']) ?></strong>
-        - $<?= number_format($product['price'], 2) ?>
-    </li>
+<!-- Product Section Start -->
+<div class="section section-padding mt-0">
+    <div class="container">
+        <!-- Section Title & Tab Start -->
+        <div class="row">
+            <div class="col-12">
+                ROPA RECIEN LLEGADA
+                <ul class="product-tab-nav nav justify-content-center mb-10 title-border-bottom mt-n3">
+                    <li class="nav-item" data-aos="fade-up" data-aos-delay="300"><a class="nav-link active mt-3" data-bs-toggle="tab" href="#tab-new-arrivals">NUEVA</a></li>
+                    <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3" data-bs-toggle="tab" href="#tab-used-arrivals">USADA</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Section Title & Tab End -->
+
+        <!-- Products Tab Start -->
+        <div class="row">
+            <div class="col">
+                <div class="tab-content position-relative">
+                    <div class="tab-pane fade show active" id="tab-new-arrivals">
+                        <div class="product-carousel">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper mb-n10">
+                                    <?php foreach ($newArrivals as $garment): ?>
+                                    <div class="swiper-slide product-wrapper">
+                                        <div class="product product-border-left mb-10" data-aos="fade-up" data-aos-delay="200">
+                                            <div class="thumb">
+                                                <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
+                                                    <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
+                                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
+                                                </a>
+                                                <?php if (!empty($garment['tag_text'])): ?>
+                                                <span class="badges">
+                                                    <span class="<?= htmlspecialchars($garment['tag_color']); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color']); ?>;color:<?= htmlspecialchars($garment['tag_text_color']); ?>;">
+                                                        <?= htmlspecialchars($garment['tag_text']); ?>
+                                                    </span>
+                                                </span>
+                                                <?php endif; ?>
+                                                <div class="actions">
+                                                    <a href="#" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="pe-7s-search"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
+                                                <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
+                                                    </span>
+                                                    <span class="rating-num">(<?= round($garment['condition']); ?>/100)</span>
+                                                </span>
+                                                <span class="price">
+                                                    <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
+                                                </span>
+                                                <?php
+                                                $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                                $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                                ?>
+                                                <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="swiper-pagination d-md-none"></div>
+                                <div class="swiper-product-button-next swiper-button-next swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-right"></i></div>
+                                <div class="swiper-product-button-prev swiper-button-prev swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-used-arrivals">
+                        <div class="product-carousel">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper mb-n10">
+                                    <?php foreach ($usedArrivals as $garment): ?>
+                                    <div class="swiper-slide product-wrapper">
+                                        <div class="product product-border-left mb-10" data-aos="fade-up" data-aos-delay="200">
+                                            <div class="thumb">
+                                                <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
+                                                    <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
+                                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
+                                                </a>
+                                                <?php if (!empty($garment['tag_text'])): ?>
+                                                <span class="badges">
+                                                    <span class="<?= htmlspecialchars($garment['tag_color']); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color']); ?>;color:<?= htmlspecialchars($garment['tag_text_color']); ?>;">
+                                                        <?= htmlspecialchars($garment['tag_text']); ?>
+                                                    </span>
+                                                </span>
+                                                <?php endif; ?>
+                                                <div class="actions">
+                                                    <a href="#" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="pe-7s-search"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="content">
+                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
+                                                <span class="ratings">
+                                                    <span class="rating-wrap">
+                                                        <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
+                                                    </span>
+                                                    <span class="rating-num">(<?= round($garment['condition']); ?>/100)</span>
+                                                </span>
+                                                <span class="price">
+                                                    <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
+                                                </span>
+                                                <?php
+                                                $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                                $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                                ?>
+                                                <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div class="swiper-pagination d-md-none"></div>
+                                <div class="swiper-product-button-next swiper-button-next swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-right"></i></div>
+                                <div class="swiper-product-button-prev swiper-button-prev swiper-button-white d-md-flex d-none"><i class="pe-7s-angle-left"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Products Tab End -->
+    </div>
+</div>
+<!-- Product Section End -->
+
+<?php foreach (array_merge($newArrivals, $usedArrivals) as $garment): ?>
+    <div class="modalquickview modal fade" id="quickview-<?= $garment['id']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button class="btn close" data-bs-dismiss="modal">×</button>
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <div class="modal-product-carousel">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    <a class="swiper-slide" href="#">
+                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product">
+                                    </a>
+                                    <?php if (!empty($garment['image_secondary'])): ?>
+                                    <a class="swiper-slide" href="#">
+                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_secondary']); ?>" alt="Product">
+                                    </a>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="swiper-product-button-next swiper-button-next"><i class="pe-7s-angle-right"></i></div>
+                                <div class="swiper-product-button-prev swiper-button-prev"><i class="pe-7s-angle-left"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 overflow-hidden position-relative">
+                        <div class="product-summery">
+                            <div class="product-head mb-3">
+                                <h2 class="product-title"><?= htmlspecialchars($garment['name']); ?></h2>
+                            </div>
+                            <div class="price-box mb-2">
+                                <span class="regular-price">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
+                            </div>
+                            <?php if (!empty($garment['unique_code'])): ?>
+                            <div class="sku mb-3">
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code']); ?></span>
+                            </div>
+                            <?php endif; ?>
+                            <?php if (!empty($garment['comment'])): ?>
+                            <p class="desc-content mb-5"><?= htmlspecialchars($garment['comment']); ?></p>
+                            <?php endif; ?>
+                            <?php if (!empty($garment['size'])): ?>
+                            <div class="product-meta mb-3">
+                                <div class="product-size">
+                                    <span>Talla :</span>
+                                    <span><strong><?= htmlspecialchars($garment['size']); ?></strong></span>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                            <div class="cart-wishlist-btn pb-4 mb-n3">
+                                <div class="add-to_cart mb-3">
+                                    <?php
+                                    $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                    $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                    ?>
+                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>">Preguntar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php endforeach; ?>
-</ul>
 
 <?php if (isset($_SESSION['username'])): ?>
 
