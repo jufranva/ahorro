@@ -6,12 +6,12 @@
     <div class="breadcrumb-area bg-light">
         <div class="container-fluid">
             <div class="breadcrumb-content text-center">
-                <h1 class="title">ROPA USADA</h1>
+                <h1 class="title">PRODUCTOS DE 2DA MANO</h1>
                 <ul>
                     <li>
                         <a href="index.php">Inicio </a>
                     </li>
-                    <li class="active"> Ropa usada</li>
+                    <li class="active"> PRODUCTOS DE 2DA MANO</li>
                 </ul>
             </div>
         </div>

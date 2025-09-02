@@ -1,8 +1,8 @@
 <?php
 $menuItems = [
     ['href' => 'index.php', 'label' => 'INICIO'],
-    ['href' => 'nueva.php', 'label' => 'ROPA NUEVA'],
-    ['href' => 'usada.php', 'label' => 'ROPA USADA'],
+    ['href' => 'nueva.php', 'label' => 'NUEVOS'],
+    ['href' => 'usada.php', 'label' => '2DA MANO'],
 ];
 
 if (isset($_SESSION['username'])) {

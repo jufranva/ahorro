@@ -35,7 +35,7 @@
                     <div class="col d-none d-lg-block">
                         <div class="header-top-lan-curr-link">
                             <div class="header-top-links">
-                                <span>Pedidos al: </span><a href="tel:+593989818620"> +593 9898 18 620</a>
+                                <span>Pedidos al: </span><a href="https://wa.me/593999591820"> (+593) 99 959 1820</a>
                             </div>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
 
                     <!-- Header Top Message Start -->
                     <div class="col">
-                        <p class="header-top-message"><b>Prendas en oferta : </b> tenemos prendas en oferta con hasta el 50% de descuento. <a href="shop-grid.html">Ver Ofertas</a></p>
+                        <p class="header-top-message"><b>Productos en oferta: </b>. Revise nuestra lista de productos de 2da mano <a href="usada.php?perPage=9&sort=new">Ver productos</a></p>
                     </div>
                     <!-- Header Top Message End -->
 

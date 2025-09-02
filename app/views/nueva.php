@@ -6,12 +6,12 @@
     <div class="breadcrumb-area bg-light">
         <div class="container-fluid">
             <div class="breadcrumb-content text-center">
-                <h1 class="title">ROPA NUEVA</h1>
+                <h1 class="title">PRODUCTOS NUEVOS</h1>
                 <ul>
                     <li>
                         <a href="index.php">Inicio </a>
                     </li>
-                    <li class="active"> Ropa nueva</li>
+                    <li class="active"> PRODUCTOS NUEVOS</li>
                 </ul>
             </div>
         </div>
@@ -114,7 +114,7 @@
                                 </span>
                                 <div class="shop-list-btn">
                                     <?php
-                                    $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
+                                    $waMessage = 'Por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
                                     <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
