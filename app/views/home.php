@@ -16,13 +16,12 @@
               <?php $textClass = ((int)$slide['color'] === 2) ? 'text-white' : 'text-dark'; ?>
               <div class="hero-slide-item swiper-slide">
                       <div class="hero-slide-bg">
-                          <img src="<?= htmlspecialchars($slide['image']) ?>" alt="Slider Image" />
-                      </div>
+                          <img src="<?= htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8') ?>" alt="Slider Image" />                      </div>
                       <div class="container">
                           <div class="hero-slide-content">
-                              <h2 class="title <?= $textClass ?>"><?= nl2br(htmlspecialchars($slide['title'])) ?></h2>
-                              <p class="<?= $textClass ?>"><?= htmlspecialchars($slide['description']) ?></p>
-                              <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
+                               <h2 class="title <?= $textClass ?>"><?= nl2br(htmlspecialchars($slide['title'], ENT_QUOTES, 'UTF-8')) ?></h2>
+                              <p class="<?= $textClass ?>"><?= htmlspecialchars($slide['description'], ENT_QUOTES, 'UTF-8') ?></p>
+                              <a href="<?= htmlspecialchars($slide['link'] ?: 'index.php', ENT_QUOTES, 'UTF-8') ?>" class="btn btn-lg btn-primary btn-hover-dark">Ver más</a>
                           </div>
                       </div>
                   </div>
@@ -49,15 +48,13 @@
             <div class="col-md-6 col-12 mb-6" data-aos="<?= $index % 2 === 0 ? 'fade-right' : 'fade-left' ?>" data-aos-delay="300">
                 <div class="banner">
                     <div class="banner-image">
-                        <a href="<?= htmlspecialchars($banner['link']) ?>"><img src="<?= htmlspecialchars($banner['image']) ?>" alt="Banner Image"></a>
-                    </div>
+ <a href="<?= htmlspecialchars($banner['link'], ENT_QUOTES, 'UTF-8') ?>"><img src="<?= htmlspecialchars($banner['image'], ENT_QUOTES, 'UTF-8') ?>" alt="Banner Image"></a>                    </div>
                     <div class="info">
                         <div class="small-banner-content">
                             <?php $bannerTextClass = ((int)$banner['color'] === 2) ? 'text-white' : 'text-dark'; ?>
-                            <h4 class="sub-title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['subtitle']) ?></h4>
-                            <h3 class="title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['title']) ?></h3>
-                            <a href="<?= htmlspecialchars($banner['link']) ?>" class="btn btn-primary btn-hover-dark btn-sm">Ver más</a>
-                        </div>
+                            <h4 class="sub-title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['subtitle'], ENT_QUOTES, 'UTF-8') ?></h4>
+                            <h3 class="title <?= $bannerTextClass ?>"><?= htmlspecialchars($banner['title'], ENT_QUOTES, 'UTF-8') ?></h3>
+                            <a href="<?= htmlspecialchars($banner['link'], ENT_QUOTES, 'UTF-8') ?>" class="btn btn-primary btn-hover-dark btn-sm">Ver más</a>                        </div>
                     </div>
                 </div>
             </div>
@@ -81,11 +78,11 @@
                 <div class="col mb-5" data-aos="fade-up" data-aos-delay="<?= 300 + $index * 200 ?>">
                     <div class="feature">
                         <div class="icon text-primary align-self-center">
-                            <img src="<?= htmlspecialchars($feature['icon']) ?>" alt="Feature Icon">
+                            <img src="<?= htmlspecialchars($feature['icon'], ENT_QUOTES, 'UTF-8') ?>" alt="Feature Icon">
                         </div>
                         <div class="content">
-                            <h5 class="title"><?= htmlspecialchars($feature['title']) ?></h5>
-                            <p><?= nl2br(htmlspecialchars($feature['description'])) ?></p>
+                            <h5 class="title"><?= htmlspecialchars($feature['title'], ENT_QUOTES, 'UTF-8') ?></h5>
+                            <p><?= nl2br(htmlspecialchars($feature['description'], ENT_QUOTES, 'UTF-8')) ?></p>
                         </div>
                     </div>
                 </div>
@@ -124,13 +121,13 @@
                                         <div class="product product-border-left mb-10" data-aos="fade-up" data-aos-delay="200">
                                             <div class="thumb">
                                                 <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
-                                                    <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
-                                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
+                                              <img class="first-image" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
+                                              <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
                                                 </a>
                                                 <?php if (!empty($garment['tag_text'])): ?>
                                                 <span class="badges">
-                                                    <span class="<?= htmlspecialchars($garment['tag_color']); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color']); ?>;color:<?= htmlspecialchars($garment['tag_text_color']); ?>;">
-                                                        <?= htmlspecialchars($garment['tag_text']); ?>
+                                                     <span class="<?= htmlspecialchars($garment['tag_color'], ENT_QUOTES, 'UTF-8'); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color'], ENT_QUOTES, 'UTF-8'); ?>;color:<?= htmlspecialchars($garment['tag_text_color'], ENT_QUOTES, 'UTF-8'); ?>;">
+                                                        <?= htmlspecialchars($garment['tag_text'], ENT_QUOTES, 'UTF-8'); ?>
                                                     </span>
                                                 </span>
                                                 <?php endif; ?>
@@ -139,8 +136,7 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
-                                                <span class="ratings">
+                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                                <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
                                                     </span>
@@ -153,8 +149,7 @@
                                                 $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                 $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                 ?>
-                                                <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
-                                            </div>
+                                                <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>                                            </div>
                                         </div>
                                     </div>
                                     <?php endforeach; ?>
@@ -174,13 +169,13 @@
                                         <div class="product product-border-left mb-10" data-aos="fade-up" data-aos-delay="200">
                                             <div class="thumb">
                                                 <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
-                                                    <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
-                                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
+                                                <img class="first-image" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
+                                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
                                                 </a>
                                                 <?php if (!empty($garment['tag_text'])): ?>
                                                 <span class="badges">
-                                                    <span class="<?= htmlspecialchars($garment['tag_color']); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color']); ?>;color:<?= htmlspecialchars($garment['tag_text_color']); ?>;">
-                                                        <?= htmlspecialchars($garment['tag_text']); ?>
+                                                    <span class="<?= htmlspecialchars($garment['tag_color'], ENT_QUOTES, 'UTF-8'); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color'], ENT_QUOTES, 'UTF-8'); ?>;color:<?= htmlspecialchars($garment['tag_text_color'], ENT_QUOTES, 'UTF-8'); ?>;">
+                                                        <?= htmlspecialchars($garment['tag_text'], ENT_QUOTES, 'UTF-8'); ?>
                                                     </span>
                                                 </span>
                                                 <?php endif; ?>
@@ -189,9 +184,9 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
+                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                                
                                                 <span class="ratings">
-                                                    <span class="rating-wrap">
+                                                  <span class="rating-wrap">
                                                         <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
                                                     </span>
                                                     <span class="rating-num">(<?= round($garment['condition']); ?>/100)</span>
@@ -203,8 +198,7 @@
                                                 $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                 $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                 ?>
-                                                <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
-                                            </div>
+                                               <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>                                            </div>
                                         </div>
                                     </div>
                                     <?php endforeach; ?>
@@ -234,11 +228,11 @@
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <a class="swiper-slide" href="#">
-                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product">
+                                    <img class="w-100" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
                                     </a>
                                     <?php if (!empty($garment['image_secondary'])): ?>
                                     <a class="swiper-slide" href="#">
-                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_secondary']); ?>" alt="Product">
+                                     <img class="w-100" src="<?= htmlspecialchars($garment['image_secondary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
                                     </a>
                                     <?php endif; ?>
                                 </div>
@@ -250,24 +244,24 @@
                     <div class="col-md-6 col-12 overflow-hidden position-relative">
                         <div class="product-summery">
                             <div class="product-head mb-3">
-                                <h2 class="product-title"><?= htmlspecialchars($garment['name']); ?></h2>
+                                <h2 class="product-title"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
                             </div>
                             <div class="price-box mb-2">
                                 <span class="regular-price">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
                             </div>
                             <?php if (!empty($garment['unique_code'])): ?>
                             <div class="sku mb-3">
-                                <span>Código único: <?= htmlspecialchars($garment['unique_code']); ?></span>
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8'); ?></span>
                             </div>
                             <?php endif; ?>
                             <?php if (!empty($garment['comment'])): ?>
-                            <p class="desc-content mb-5"><?= htmlspecialchars($garment['comment']); ?></p>
+                            <p class="desc-content mb-5"><?= htmlspecialchars($garment['comment'], ENT_QUOTES, 'UTF-8'); ?></p>
                             <?php endif; ?>
                             <?php if (!empty($garment['size'])): ?>
                             <div class="product-meta mb-3">
                                 <div class="product-size">
                                     <span>Talla :</span>
-                                    <span><strong><?= htmlspecialchars($garment['size']); ?></strong></span>
+                                    <span><strong><?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></strong></span>
                                 </div>
                             </div>
                             <?php endif; ?>
@@ -277,7 +271,7 @@
                                     $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>">Preguntar</a>
+                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
                                 </div>
                             </div>
                         </div>
@@ -321,16 +315,22 @@
               </tr>
           </thead>
        <tbody>
+
+
+
+
+
+
               <?php foreach ($slides as $slide): ?>
               <tr>
                 <td>
-                  <img src="<?= htmlspecialchars($slide['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">
+                  <img src="<?= htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8') ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="preview-<?= $slide['id'] ?>">    
                   <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-<?= $slide['id'] ?>')" form="slide-form-<?= $slide['id'] ?>">
-                  <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image']) ?>" form="slide-form-<?= $slide['id'] ?>">
+                  <input type="hidden" name="current_image" value="<?= htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8') ?>" form="slide-form-<?= $slide['id'] ?>">
                 </td>
-                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
-                <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link']) ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td><input type="text" name="title" value="<?= htmlspecialchars($slide['title'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td><input type="text" name="description" value="<?= htmlspecialchars($slide['description'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
+                <td><input type="text" name="link" value="<?= htmlspecialchars($slide['link'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="slide-form-<?= $slide['id'] ?>"></td>
                 <td>
                   <input type="hidden" name="color" value="<?= $slide['color'] ?>" id="color-<?= $slide['id'] ?>" form="slide-form-<?= $slide['id'] ?>">
                   <div class="form-check">
@@ -359,7 +359,7 @@
 
                 <tr>
                   <td>
-                    <img src="" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="" class="img-thumbnail mb-1 d-none" style="max-width:80px;" id="preview-new">
                     <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'preview-new')" form="slide-form-new">
                   </td>
                   <td><input type="text" name="title" class="form-control" placeholder="Título" form="slide-form-new"></td>
@@ -414,13 +414,13 @@
             <?php foreach ($banners as $banner): ?>
             <tr>
               <td>
-                <img src="<?= htmlspecialchars($banner['image']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="banner-preview-<?= $banner['id'] ?>">
+                <img src="<?= htmlspecialchars($banner['image'], ENT_QUOTES, 'UTF-8') ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="banner-preview-<?= $banner['id'] ?>">
                 <input type="file" name="image" class="form-control form-control-sm" onchange="previewImage(this,'banner-preview-<?= $banner['id'] ?>')" form="banner-form-<?= $banner['id'] ?>">
-                <input type="hidden" name="current_image" value="<?= htmlspecialchars($banner['image']) ?>" form="banner-form-<?= $banner['id'] ?>">
+                <input type="hidden" name="current_image" value="<?= htmlspecialchars($banner['image'], ENT_QUOTES, 'UTF-8') ?>" form="banner-form-<?= $banner['id'] ?>">
               </td>
-              <td><input type="text" name="subtitle" value="<?= htmlspecialchars($banner['subtitle']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
-              <td><input type="text" name="title" value="<?= htmlspecialchars($banner['title']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
-              <td><input type="text" name="link" value="<?= htmlspecialchars($banner['link']) ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td><input type="text" name="subtitle" value="<?= htmlspecialchars($banner['subtitle'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td><input type="text" name="title" value="<?= htmlspecialchars($banner['title'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
+              <td><input type="text" name="link" value="<?= htmlspecialchars($banner['link'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="banner-form-<?= $banner['id'] ?>"></td>
               <td>
                 <input type="hidden" name="color" value="<?= $banner['color'] ?>" id="banner-color-<?= $banner['id'] ?>" form="banner-form-<?= $banner['id'] ?>">
                 <div class="form-check">
@@ -466,12 +466,12 @@
             <?php foreach ($features as $feature): ?>
             <tr>
               <td>
-                <img src="<?= htmlspecialchars($feature['icon']) ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="feature-preview-<?= $feature['id'] ?>">
-                <input type="file" name="icon" class="form-control form-control-sm" onchange="previewImage(this,'feature-preview-<?= $feature['id'] ?>')" form="feature-form-<?= $feature['id'] ?>">
-                <input type="hidden" name="current_icon" value="<?= htmlspecialchars($feature['icon']) ?>" form="feature-form-<?= $feature['id'] ?>">
+              <img src="<?= htmlspecialchars($feature['icon'], ENT_QUOTES, 'UTF-8') ?>" alt="" class="img-thumbnail mb-1" style="max-width:80px;" id="feature-preview-<?= $feature['id'] ?>">  
+              <input type="file" name="icon" class="form-control form-control-sm" onchange="previewImage(this,'feature-preview-<?= $feature['id'] ?>')" form="feature-form-<?= $feature['id'] ?>">
+              <input type="hidden" name="current_icon" value="<?= htmlspecialchars($feature['icon'], ENT_QUOTES, 'UTF-8') ?>" form="feature-form-<?= $feature['id'] ?>">
               </td>
-              <td><input type="text" name="title" value="<?= htmlspecialchars($feature['title']) ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
-              <td><input type="text" name="description" value="<?= htmlspecialchars($feature['description']) ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
+              <td><input type="text" name="title" value="<?= htmlspecialchars($feature['title'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
+              <td><input type="text" name="description" value="<?= htmlspecialchars($feature['description'], ENT_QUOTES, 'UTF-8') ?>" class="form-control" form="feature-form-<?= $feature['id'] ?>"></td>
               <td>
                 <input type="hidden" name="id" value="<?= $feature['id'] ?>" form="feature-form-<?= $feature['id'] ?>">
                 <button class="btn btn-success btn-sm" name="action" value="update" form="feature-form-<?= $feature['id'] ?>">Actualizar</button>

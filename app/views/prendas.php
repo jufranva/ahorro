@@ -13,11 +13,11 @@
     </div>
     <form method="get" class="mb-3">
         <div class="input-group">
-            <input type="text" class="form-control" name="q" placeholder="Buscar por código, nombre o categoría" value="<?= htmlspecialchars($_GET['q'] ?? '') ?>">
+            <input type="text" class="form-control" name="q" placeholder="Buscar por código, nombre o categoría" value="<?= htmlspecialchars($_GET['q'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
             <select class="form-select" name="state_id">
               <option value="">Todos</option>
               <?php foreach ($states as $st): ?>
-              <option value="<?= $st['id'] ?>" <?= isset($selectedState) && $selectedState == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
+                <option value="<?= $st['id'] ?>" <?= isset($selectedState) && $selectedState == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
             <button class="btn btn-outline-secondary" type="submit">Buscar</button>
@@ -39,15 +39,15 @@
         <tbody>
         <?php foreach ($garments as $garment): ?>
             <tr>
-                <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
-                <td><?= htmlspecialchars($garment['unique_code'], ENT_QUOTES) ?></td>
-                <td><?= htmlspecialchars($garment['name']) ?></td>
-                <td><?= htmlspecialchars($garment['sale_value']) ?></td>
-                <td><?= htmlspecialchars($garment['category_name']) ?></td>
+                <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8') ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
+                <td><?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($garment['sale_value'], ENT_QUOTES, 'UTF-8') ?></td>
+                <td><?= htmlspecialchars($garment['category_name'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td>
                     <?php if (!empty($garment['tag_id'])): ?>
-                    <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color']) ?>; color: <?= htmlspecialchars($garment['tag_text_color']) ?>;">
-                        <?= htmlspecialchars($garment['tag_text']) ?>
+                    <span class="badge" style="background-color: <?= htmlspecialchars($garment['tag_bg_color'], ENT_QUOTES, 'UTF-8') ?>; color: <?= htmlspecialchars($garment['tag_text_color'], ENT_QUOTES, 'UTF-8') ?>;">
+                        <?= htmlspecialchars($garment['tag_text'], ENT_QUOTES, 'UTF-8') ?>
                     </span>
                     <?php else: ?>
                     Ninguna
@@ -60,7 +60,7 @@
                         <select name="state_id" class="form-select form-select-sm" onchange="this.form.submit()">
                             <option value="">Seleccione</option>
                             <?php foreach ($states as $st): ?>
-                            <option value="<?= $st['id'] ?>" <?= $garment['state_id'] == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
+                              <option value="<?= $st['id'] ?>" <?= $garment['state_id'] == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
                             <?php endforeach; ?>
                         </select>
                     </form>
@@ -68,16 +68,16 @@
                 <td>
                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editGarmentModal"
                         data-id="<?= $garment['id'] ?>"
-                        data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES) ?>"
-                        data-image_primary="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>"
-                        data-image_secondary="<?= htmlspecialchars($garment['image_secondary'], ENT_QUOTES) ?>"
+                      data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-image_primary="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-image_secondary="<?= htmlspecialchars($garment['image_secondary'], ENT_QUOTES, 'UTF-8') ?>"
                         data-purchase="<?= $garment['purchase_value'] ?>"
                         data-sale="<?= $garment['sale_value'] ?>"
-                        data-code="<?= htmlspecialchars($garment['unique_code'], ENT_QUOTES) ?>"
+                        data-code="<?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8') ?>"
                         data-condition="<?= $garment['condition'] ?>"
-                        data-size="<?= htmlspecialchars($garment['size'], ENT_QUOTES) ?>"
-                        data-comment="<?= htmlspecialchars($garment['comment'], ENT_QUOTES) ?>"
-                        data-type="<?= htmlspecialchars($garment['type'], ENT_QUOTES) ?>"
+                        data-size="<?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-comment="<?= htmlspecialchars($garment['comment'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-type="<?= htmlspecialchars($garment['type'], ENT_QUOTES, 'UTF-8') ?>"
                         data-category="<?= $garment['category_id'] ?>"
                         data-provider="<?= $garment['provider_id'] ?>"
                         data-tag="<?= $garment['tag_id'] ?>"
@@ -86,8 +86,8 @@
                     >Editar</button>
                     <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteGarmentModal"
                         data-id="<?= $garment['id'] ?>"
-                        data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES) ?>"
-                        data-image="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES) ?>">
+                        data-name="<?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8') ?>"
+                        data-image="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8') ?>">
                         Eliminar
                     </button>
                 </td>
@@ -152,7 +152,7 @@
             <select class="form-select" name="category_id">
               <option value="">Seleccione</option>
               <?php foreach ($categories as $cat): ?>
-              <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+              <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -161,7 +161,7 @@
             <select class="form-select" name="provider_id">
               <option value="">Seleccione</option>
               <?php foreach ($providers as $prov): ?>
-              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name']) ?></option>
+              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -170,7 +170,7 @@
               <select class="form-select" name="tag_id">
                 <option value="">Ninguna</option>
                 <?php foreach ($tags as $tag): ?>
-                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
+                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text'], ENT_QUOTES, 'UTF-8') ?></option>
                 <?php endforeach; ?>
               </select>
           </div>
@@ -178,7 +178,7 @@
             <label class="form-label">Estado</label>
             <select class="form-select" name="state_id">
               <?php foreach ($states as $st): ?>
-              <option value="<?= $st['id'] ?>" <?= strtolower($st['name']) === 'recien llegado' ? 'selected' : '' ?>><?= htmlspecialchars($st['name']) ?></option>
+               <option value="<?= $st['id'] ?>" <?= strtolower($st['name']) === 'recien llegado' ? 'selected' : '' ?>><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -221,12 +221,12 @@
           <div class="col-md-6">
             <label class="form-label">Imagen principal</label>
             <input type="file" class="form-control" name="image_primary" accept="image/png, image/jpeg">
-            <img id="edit-image-primary-preview" src="" class="img-thumbnail mt-2" style="width:100px;">
+            <img id="edit-image-primary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
           </div>
           <div class="col-md-6">
             <label class="form-label">Imagen secundaria</label>
             <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
-            <img id="edit-image-secondary-preview" src="" class="img-thumbnail mt-2" style="width:100px;">
+            <img id="edit-image-secondary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
           </div>
           <div class="col-md-6">
             <label class="form-label">Valor de compra</label>
@@ -260,7 +260,7 @@
             <select class="form-select" name="category_id" id="edit-category">
               <option value="">Seleccione</option>
               <?php foreach ($categories as $cat): ?>
-              <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+              <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -269,7 +269,7 @@
             <select class="form-select" name="provider_id" id="edit-provider">
               <option value="">Seleccione</option>
               <?php foreach ($providers as $prov): ?>
-              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name']) ?></option>
+              <option value="<?= $prov['id'] ?>"><?= htmlspecialchars($prov['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -278,7 +278,7 @@
               <select class="form-select" name="tag_id" id="edit-tag">
                 <option value="">Ninguna</option>
                 <?php foreach ($tags as $tag): ?>
-                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text']) ?></option>
+                <option value="<?= $tag['id'] ?>"><?= htmlspecialchars($tag['text'], ENT_QUOTES, 'UTF-8') ?></option>
                 <?php endforeach; ?>
               </select>
           </div>
@@ -287,7 +287,7 @@
             <select class="form-select" name="state_id" id="edit-state">
               <option value="">Seleccione</option>
               <?php foreach ($states as $st): ?>
-              <option value="<?= $st['id'] ?>"><?= htmlspecialchars($st['name']) ?></option>
+              <option value="<?= $st['id'] ?>"><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -315,7 +315,7 @@
       </div>
       <div class="modal-body text-center">
         <p>¿Está seguro que desea eliminar?</p>
-        <img id="delete-image" src="" class="img-thumbnail mb-3" style="width:100px;">
+        <img id="delete-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mb-3" style="width:100px;">
         <p id="delete-name" class="fw-bold"></p>
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="id" id="delete-id">
@@ -351,7 +351,7 @@
             <form class="d-flex flex-grow-1 me-2" method="post" action="">
               <input type="hidden" name="action" value="update_category">
               <input type="hidden" name="id" value="<?= $cat['id'] ?>">
-              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($cat['name']) ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8') ?>">
               <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($cat['usage_count'] == 0): ?>
@@ -395,7 +395,7 @@
             <form class="d-flex flex-grow-1 me-2" method="post" action="">
               <input type="hidden" name="action" value="update_provider">
               <input type="hidden" name="id" value="<?= $prov['id'] ?>">
-              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($prov['name']) ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($prov['name'], ENT_QUOTES, 'UTF-8') ?>">
               <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($prov['usage_count'] == 0): ?>
@@ -452,7 +452,7 @@
             <form class="d-flex flex-grow-1 me-2" method="post" action="">
               <input type="hidden" name="action" value="update_tag">
               <input type="hidden" name="id" value="<?= $tag['id'] ?>">
-              <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text']) ?>">
+              <input type="text" name="text" class="form-control me-2" value="<?= htmlspecialchars($tag['text'], ENT_QUOTES, 'UTF-8') ?>">
                 <select name="color" class="form-select me-2">
                   <option value="amarillo" <?= $tag['color'] === 'amarillo' ? 'selected' : '' ?>>Amarillo</option>
                   <option value="azul" <?= $tag['color'] === 'azul' ? 'selected' : '' ?>>Azul</option>
@@ -502,7 +502,7 @@
             <form class="d-flex flex-grow-1 me-2" method="post" action="">
               <input type="hidden" name="action" value="update_state">
               <input type="hidden" name="id" value="<?= $st['id'] ?>">
-              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($st['name']) ?>">
+              <input type="text" name="name" class="form-control me-2" value="<?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?>">
               <button type="submit" class="btn btn-sm btn-info">Actualizar</button>
             </form>
             <?php if ($st['usage_count'] == 0): ?>

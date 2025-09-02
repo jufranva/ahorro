@@ -37,7 +37,7 @@
                             <h2 class="title mb-2">Ingresar al sistema</h2>
                             <p class="desc-content">Por favor ingrese sus credenciales de acceso.</p>
                             <?php if (!empty($error)): ?>
-                                <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error); ?></div>
+                                <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
                             <?php endif; ?>
                         </div>
                         <!-- Login Title & Content End -->

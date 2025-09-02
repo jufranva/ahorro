@@ -12,13 +12,13 @@
         <tbody>
         <?php foreach ($users as $user): ?>
             <tr>
-                <td><?php echo htmlspecialchars($user['id']); ?></td>
-                <td><?php echo htmlspecialchars($user['username']); ?></td>
-                <td><?php echo htmlspecialchars($user['name']); ?></td>
-                <td><?php echo htmlspecialchars($user['role']); ?></td>
+                <td><?php echo htmlspecialchars($user['id'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td>
-                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $user['id']; ?>" data-username="<?php echo htmlspecialchars($user['username'], ENT_QUOTES); ?>" data-name="<?php echo htmlspecialchars($user['name'], ENT_QUOTES); ?>" data-role="<?php echo htmlspecialchars($user['role'], ENT_QUOTES); ?>">Editar</button>
-                    <form method="post" action="" class="d-inline" onsubmit="return confirm('¿Eliminar usuario?');">
+                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $user['id']; ?>" data-username="<?php echo htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8'); ?>" data-name="<?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?>" data-role="<?php echo htmlspecialchars($user['role'], ENT_QUOTES, 'UTF-8'); ?>">Editar</button>
+                   <form method="post" action="" class="d-inline" onsubmit="return confirm('¿Eliminar usuario?');">
                         <input type="hidden" name="action" value="delete">
                         <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                         <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>

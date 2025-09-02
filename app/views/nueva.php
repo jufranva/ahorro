@@ -72,13 +72,13 @@
                         <div class="product-inner">
                             <div class="thumb">
                                 <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
-                                    <img class="first-image" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product" />
-                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']); ?>" alt="Product" />
+                                     <img class="first-image" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
+                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
                                 </a>
                                 <?php if (!empty($garment['tag_text'])): ?>
                                 <span class="badges">
-                                    <span class="<?= htmlspecialchars($garment['tag_color']); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color']); ?>;color:<?= htmlspecialchars($garment['tag_text_color']); ?>;">
-                                        <?= htmlspecialchars($garment['tag_text']); ?>
+                                    <span class="<?= htmlspecialchars($garment['tag_color'], ENT_QUOTES, 'UTF-8'); ?>" style="background-color:<?= htmlspecialchars($garment['tag_bg_color'], ENT_QUOTES, 'UTF-8'); ?>;color:<?= htmlspecialchars($garment['tag_text_color'], ENT_QUOTES, 'UTF-8'); ?>;">
+                                        <?= htmlspecialchars($garment['tag_text'], ENT_QUOTES, 'UTF-8'); ?>
                                     </span>
                                 </span>
                                 <?php endif; ?>
@@ -87,13 +87,12 @@
                                 </div>
                             </div>
                             <div class="content">
-                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name']); ?></a></h5>
-                                
+                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                
                                 
                                  <!-- SKU Start -->
                             <?php if (!empty($garment['unique_code'])): ?>
                             <div class="sku mb-3">
-                                <span>Código único: <?= htmlspecialchars($garment['unique_code']); ?></span>
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8'); ?></span>
                             </div>
                             <?php endif; ?>
                             <!-- SKU End -->
@@ -107,7 +106,7 @@
                                     <span class="rating-num">(<?= round($garment['condition']); ?>/100)</span>
                                 </span>
                                 <?php if (!empty($garment['comment'])): ?>
-                                <p><?= htmlspecialchars($garment['comment']); ?></p>
+                                <p><?= htmlspecialchars($garment['comment'], ENT_QUOTES, 'UTF-8'); ?></p>
                                 <?php endif; ?>
                                 <span class="price">
                                     <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
@@ -117,7 +116,7 @@
                                     $waMessage = 'Por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
                                 </div>
                             </div>
                         </div>
@@ -201,7 +200,7 @@
                                 <ul class="sidebar-list">
                                     <li><a href="nueva.php<?= $sort || $perPage ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage])) : '' ?>"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
                                     <?php foreach ($categories as $cat): ?>
-                                    <li><a href="nueva.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name']); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                        <li><a href="nueva.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?> (<?= $cat['usage_count']; ?>)</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
@@ -231,11 +230,11 @@
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <a class="swiper-slide" href="#">
-                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_primary']); ?>" alt="Product">
+                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
                                     </a>
                                     <?php if (!empty($garment['image_secondary'])): ?>
                                     <a class="swiper-slide" href="#">
-                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_secondary']); ?>" alt="Product">
+                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_secondary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
                                     </a>
                                     <?php endif; ?>
                                 </div>
@@ -257,7 +256,7 @@
 
                             <!-- Product Head Start -->
                             <div class="product-head mb-3">
-                                <h2 class="product-title"><?= htmlspecialchars($garment['name']); ?></h2>
+                                <h2 class="product-title"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></h2>
                             </div>
                             <!-- Product Head End -->
 
@@ -270,14 +269,14 @@
                             <!-- SKU Start -->
                             <?php if (!empty($garment['unique_code'])): ?>
                             <div class="sku mb-3">
-                                <span>Código único: <?= htmlspecialchars($garment['unique_code']); ?></span>
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8'); ?></span>
                             </div>
                             <?php endif; ?>
                             <!-- SKU End -->
 
                             <!-- Description Start -->
                             <?php if (!empty($garment['comment'])): ?>
-                            <p class="desc-content mb-5"><?= htmlspecialchars($garment['comment']); ?></p>
+                            <p class="desc-content mb-5"><?= htmlspecialchars($garment['comment'], ENT_QUOTES, 'UTF-8'); ?></p>
                             <?php endif; ?>
                             <!-- Description End -->
 
@@ -287,7 +286,7 @@
                                 <!-- Product Size Start -->
                                 <div class="product-size">
                                     <span>Talla :</span>
-                                    <span><strong><?= htmlspecialchars($garment['size']); ?></strong></span>
+                                    <span><strong><?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></strong></span>
                                 </div>
                                 <!-- Product Size End -->
                             </div>
@@ -302,7 +301,7 @@
                                     $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES); ?>">Preguntar</a>
+                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
                                 </div>
                             </div>
                             <!-- Cart & Wishlist Button End -->

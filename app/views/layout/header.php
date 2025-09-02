@@ -1,25 +1,37 @@
-<?php if (session_status() === PHP_SESSION_NONE) { session_start(); } ?>
-<!DOCTYPE html>
-<html lang="en">
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+header('Content-Type: text/html; charset=UTF-8');
+$menu = (function () {
+    ob_start();
+    include __DIR__ . '/menu.php';
+    return ob_get_clean();
+})();
+echo "<!DOCTYPE html>\n";
+?>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El armario del ahorro</title>
     
-    <link rel="shortcut icon" href="assets/images/favicon.ico">
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="/assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/vendor/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/css/vendor/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/animate.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/aos.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="assets/css/plugins/lightgallery.min.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="./assets/css/vendor/fontawesome.min.css">
+    <link rel="stylesheet" href="./assets/css/vendor/pe-icon-7-stroke.min.css">
+    <link rel="stylesheet" href="./assets/css/plugins/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" />
+    <link rel="stylesheet" href="./assets/css/plugins/aos.min.css" />
+    <link rel="stylesheet" href="./assets/css/plugins/nice-select.min.css" />
+    <link rel="stylesheet" href="./assets/css/plugins/jquery-ui.min.css" />
+    <link rel="stylesheet" href="./assets/css/plugins/lightgallery.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 
 
@@ -43,7 +55,7 @@
 
                     <!-- Header Top Message Start -->
                     <div class="col">
-                        <p class="header-top-message"><b>Productos en oferta: </b>. Revise nuestra lista de productos de 2da mano <a href="usada.php?perPage=9&sort=new">Ver productos</a></p>
+                        <p class="header-top-message"><b>Productos en oferta: </b>. Revise nuestra lista de productos de 2da mano <a href="./usada.php?perPage=9&sort=new">Ver productos</a></p>
                     </div>
                     <!-- Header Top Message End -->
 
@@ -61,7 +73,7 @@
                         <!-- Header Logo Start -->
                         <div class="col-xl-2 col-6">
                             <div class="header-logo">
-                                <a href="index.php"><img src="assets/images/logo/logo.png" alt="Site Logo" /></a>
+                                <a href="./index.php"><img src="./assets/images/logo/logo.png" alt="Site Logo" /></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -70,7 +82,7 @@
                         <div class="col-xl-8 d-none d-xl-block">
                             <div class="main-menu position-relative">
                                 <ul>
-                                <?php include __DIR__.'/menu.php'; ?>
+                                    <?= $menu ?>
                                 </ul>
                             </div>
                         </div>
@@ -112,7 +124,7 @@
                 <div class="mobile-navigation">
                     <nav>
                         <ul class="mobile-menu">
-                        <?php include __DIR__.'/menu.php'; ?>
+                        <?= $menu ?>
                         </ul>
                     </nav>
                 </div>
