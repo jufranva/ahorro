@@ -15,7 +15,9 @@ echo "<!DOCTYPE html>\n";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>El armario del ahorro</title>
+    <title>El armario del ahorro</title>    
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="preload" href="./assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="icon" href="<?= asset('assets/favicon.ico') ?>">
     <link rel="preload" href="<?= asset('assets/fonts/fontAwesome/fontawesome-webfont.woff2?v=4.7.0') ?>" as="font" type="font/woff2" crossorigin>
