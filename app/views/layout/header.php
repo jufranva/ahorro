@@ -17,8 +17,8 @@ echo "<!DOCTYPE html>\n";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El armario del ahorro</title>
     
-    <link rel="icon" href="/assets/favicon.ico">
-    <link rel="preload" href="/assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="preload" href="./assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
