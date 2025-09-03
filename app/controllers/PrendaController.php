@@ -278,4 +278,4 @@ class PrendaController
         include __DIR__ . '/../views/prendas.php';
     }
 }
-?>
+
