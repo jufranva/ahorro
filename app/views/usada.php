@@ -118,7 +118,7 @@
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
                                     <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
-                                    <?php $detailUrl = asset('prendas.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                    <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                     <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-secondary btn-hover-primary ms-1">Ver detalle</a>
                                 </div>
                             </div>
@@ -305,7 +305,7 @@
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
                                     <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
-                                    <?php $detailUrl = asset('prendas.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                    <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                     <a class="btn btn-outline-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>">Ver detalle</a>
                                 </div>
                             </div>
