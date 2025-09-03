@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../../bootstrap.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,29 +12,28 @@ $menu = (function () {
 echo "<!DOCTYPE html>\n";
 ?>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>El armario del ahorro</title>
-    
+    <title>El armario del ahorro</title>    
     <link rel="icon" href="./assets/favicon.ico">
     <link rel="preload" href="./assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
 
+    <link rel="icon" href="<?= asset('assets/favicon.ico') ?>">
+    <link rel="preload" href="<?= asset('assets/fonts/fontAwesome/fontawesome-webfont.woff2?v=4.7.0') ?>" as="font" type="font/woff2" crossorigin>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./assets/css/vendor/fontawesome.min.css">
-    <link rel="stylesheet" href="./assets/css/vendor/pe-icon-7-stroke.min.css">
-    <link rel="stylesheet" href="./assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/aos.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/nice-select.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="./assets/css/plugins/lightgallery.min.css" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="<?= asset('assets/css/vendor/fontawesome.min.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/vendor/pe-icon-7-stroke.min.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/swiper-bundle.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/animate.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/aos.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/nice-select.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/jquery-ui.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/plugins/lightgallery.min.css') ?>" />
+    <link rel="stylesheet" href="<?= asset('assets/css/style.css') ?>" />
 </head>
-
 
 <body>
     <div class="header section">
@@ -55,7 +55,7 @@ echo "<!DOCTYPE html>\n";
 
                     <!-- Header Top Message Start -->
                     <div class="col">
-                        <p class="header-top-message"><b>Productos en oferta: </b>. Revise nuestra lista de productos de 2da mano <a href="./usada.php?perPage=9&sort=new">Ver productos</a></p>
+                        <p class="header-top-message"><b>Productos en oferta: </b>. Revise nuestra lista de productos de 2da mano <a href="<?= asset('usada.php') ?>?perPage=9&amp;sort=new">Ver productos</a></p>
                     </div>
                     <!-- Header Top Message End -->
 
@@ -73,7 +73,7 @@ echo "<!DOCTYPE html>\n";
                         <!-- Header Logo Start -->
                         <div class="col-xl-2 col-6">
                             <div class="header-logo">
-                                <a href="./index.php"><img src="./assets/images/logo/logo.png" alt="Site Logo" /></a>
+                                <a href="<?= asset('index.php') ?>"><img src="<?= asset('assets/images/logo/logo.png') ?>" alt="Site Logo" /></a>
                             </div>
                         </div>
                         <!-- Header Logo End -->
@@ -87,7 +87,7 @@ echo "<!DOCTYPE html>\n";
                             </div>
                         </div>
                         <!-- Header Menu End -->
- <!-- Header Action Start -->
+                        <!-- Header Action Start -->
                         <div class="col-xl-2 col-6">
                             <div class="header-actions">
 
@@ -128,7 +128,6 @@ echo "<!DOCTYPE html>\n";
                         </ul>
                     </nav>
                 </div>
-              
 
                 <!-- Contact Links/Social Links Start -->
                 <div class="mt-auto">

@@ -122,22 +122,23 @@
             <i class="arrow-bottom fa fa-long-arrow-up"></i>
         </a>
         <!-- Scroll Top End -->
-    <!-- Vendors JS -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="./assets/js/vendor/jquery-3.6.0.min.js"></script>
-        <script src="./assets/js/vendor/jquery-migrate-3.3.2.min.js"></script>
-        <script src="./assets/js/vendor/modernizr-3.11.2.min.js"></script>
+            <!-- Vendors JS -->
+        <script src="<?= asset('assets/js/vendor/jquery-3.6.0.min.js') ?>" defer></script>
+        <script>window.jQuery && (jQuery.migrateMute = true, jQuery.migrateTrace = false);</script>
+        <script src="<?= asset('assets/js/vendor/jquery-migrate-3.3.2.min.js') ?>" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+        <script src="<?= asset('assets/js/vendor/modernizr-3.11.2.min.js') ?>" defer></script>
         <!-- Plugins JS -->
-        <script src="./assets/js/plugins/countdown.min.js"></script>
-        <script src="./assets/js/plugins/aos.min.js"></script>
-        <script src="./assets/js/plugins/swiper-bundle.min.js"></script>
-        <script src="./assets/js/plugins/nice-select.min.js"></script>
-        <script src="./assets/js/plugins/jquery.ajaxchimp.min.js"></script>
-        <script src="./assets/js/plugins/jquery-ui.min.js"></script>
-        <script src="./assets/js/plugins/lightgallery-all.min.js"></script>
-        <script src="./assets/js/plugins/thia-sticky-sidebar.min.js"></script>
+        <script src="<?= asset('assets/js/plugins/countdown.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/aos.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/swiper-bundle.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/nice-select.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/jquery.ajaxchimp.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/jquery-ui.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/lightgallery-all.min.js') ?>" defer></script>
+        <script src="<?= asset('assets/js/plugins/thia-sticky-sidebar.min.js') ?>" defer></script>
         <!--Main JS-->
-        <script src="./assets/js/main.js"></script>
+        <script src="<?= asset('assets/js/main.js') ?>" defer></script>
     </body>
     
     </html>

@@ -156,6 +156,26 @@ class Garment
         return $success;
     }
 
+
+    public static function find(int $id): ?array
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('SELECT g.*, c.name AS category_name, t.text AS tag_text, t.color AS tag_color FROM garments g LEFT JOIN categories c ON g.category_id = c.id LEFT JOIN tags t ON g.tag_id = t.id WHERE g.id = ? LIMIT 1');
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $garment = $result->fetch_assoc();
+        $stmt->close();
+        $mysqli->close();
+        if ($garment && !empty($garment['tag_color'])) {
+            $palette = Tag::palette();
+            if (isset($palette[$garment['tag_color']])) {
+                [$garment['tag_bg_color'], $garment['tag_text_color']] = $palette[$garment['tag_color']];
+            }
+        }
+        return $garment ?: null;
+    }
+
     public static function updateState(int $id, ?int $stateId): bool
     {
         $mysqli = obtenerConexion();
