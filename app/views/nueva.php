@@ -72,8 +72,8 @@
                         <div class="product-inner">
                             <div class="thumb">
                                 <a href="#" class="image" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>">
-                                     <img class="first-image" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
-                                    <img class="second-image" src="<?= htmlspecialchars(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
+                                     <img class="first-image" src="<?= htmlspecialchars(asset($garment['image_primary']), ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
+                                    <img class="second-image" src="<?= htmlspecialchars(asset(!empty($garment['image_secondary']) ? $garment['image_secondary'] : $garment['image_primary']), ENT_QUOTES, 'UTF-8'); ?>" alt="Product" />
                                 </a>
                                 <?php if (!empty($garment['tag_text'])): ?>
                                 <span class="badges">
@@ -117,6 +117,8 @@
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
                                     <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                    <?php $detailUrl = asset('prendas.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-secondary btn-hover-primary ms-1">Ver detalle</a>
                                 </div>
                             </div>
                         </div>
@@ -230,7 +232,7 @@
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <a class="swiper-slide" href="#">
-                                        <img class="w-100" src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
+                                        <img class="w-100" src="<?= htmlspecialchars(asset($garment['image_primary']), ENT_QUOTES, 'UTF-8'); ?>" alt="Product">
                                     </a>
                                     <?php if (!empty($garment['image_secondary'])): ?>
                                     <a class="swiper-slide" href="#">
@@ -302,6 +304,8 @@
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
                                     <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
+                                    <?php $detailUrl = asset('prendas.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                    <a class="btn btn-outline-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>">Ver detalle</a>
                                 </div>
                             </div>
                             <!-- Cart & Wishlist Button End -->

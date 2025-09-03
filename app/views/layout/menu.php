@@ -13,7 +13,7 @@ if (isset($_SESSION['username'])) {
 }
 
 foreach ($menuItems as $item) {
-    $href = htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8');
+    $href = htmlspecialchars(asset($item['href']), ENT_QUOTES, 'UTF-8');
     $label = htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8');
     echo "    <li class=\"has-children\"><a href=\"$href\">$label </a></li>\n";
 }
