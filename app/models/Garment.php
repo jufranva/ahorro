@@ -204,4 +204,4 @@ class Garment
         return $success;
     }
 }
-?>
+
