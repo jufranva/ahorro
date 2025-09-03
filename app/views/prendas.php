@@ -39,7 +39,18 @@
         <tbody>
         <?php foreach ($garments as $garment): ?>
             <tr>
-                <td><img src="<?= htmlspecialchars($garment['image_primary'], ENT_QUOTES, 'UTF-8') ?>" alt="Imagen" class="img-thumbnail" style="width:60px;"></td>
+                <?php
+                $primary = $garment['image_primary'] ?? '';
+                $primaryPath = '';
+                if ($primary && (filter_var($primary, FILTER_VALIDATE_URL) || is_file($_SERVER['DOCUMENT_ROOT'] . '/' . ltrim($primary, '/')))) {
+                    $primaryPath = htmlspecialchars($primary, ENT_QUOTES, 'UTF-8');
+                }
+                ?>
+                <td>
+                    <?php if ($primaryPath): ?>
+                    <img src="<?= $primaryPath ?>" alt="Imagen" class="img-thumbnail" style="width:60px;">
+                    <?php endif; ?>
+                </td>
                 <td><?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8') ?></td>
                 <td><?= htmlspecialchars($garment['sale_value'], ENT_QUOTES, 'UTF-8') ?></td>
