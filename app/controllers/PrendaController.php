@@ -263,7 +263,7 @@ class PrendaController
                     }
                     break;
             }
-            header('Location: prendas.php');
+            header('Location: ' . BASE_URL . '/prendas.php');
             exit;
         }
 
