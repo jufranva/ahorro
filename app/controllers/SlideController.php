@@ -5,7 +5,6 @@ class SlideController
 {
     public function handle(): void
     {
-        session_start();
         if (!isset($_SESSION['username'])) {
             header('Location: inicio.php');
             exit;

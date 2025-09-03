@@ -5,7 +5,6 @@ class UserController
 {
     public function index(): void
     {
-        session_start();
         if (!isset($_SESSION['username'])) {
             header('Location: inicio.php');
             exit;

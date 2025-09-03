@@ -5,7 +5,6 @@ class AuthController
 {
     public function login(): void
     {
-        session_start();
         $error = '';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'] ?? '';
@@ -28,7 +27,6 @@ class AuthController
 
     public function logout(): void
     {
-        session_start();
         session_unset();
         session_destroy();
         header('Location: index.php');

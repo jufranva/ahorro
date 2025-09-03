@@ -6,9 +6,6 @@ class UsadaController
 {
     public function index(): void
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
         $categoryId = isset($_GET['category']) ? (int)$_GET['category'] : null;
         $sort = $_GET['sort'] ?? null;
         $perPage = isset($_GET['perPage']) ? (int)$_GET['perPage'] : 9;

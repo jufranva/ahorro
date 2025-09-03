@@ -11,6 +11,7 @@ if (!defined('BASE_URL')) {
 $cookiePath = BASE_URL === '' ? '/' : BASE_URL;
 if (session_status() === PHP_SESSION_NONE) {
     session_set_cookie_params(['path' => $cookiePath]);
+    session_start();
 }
 
 function asset(string $path): string
