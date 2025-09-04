@@ -93,7 +93,7 @@
                                  <!-- SKU Start -->
                             <?php if (!empty($garment['unique_code'])): ?>
                             <div class="sku mb-3">
-                                span>Código único: <?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8'); ?></span>
+                                <span>Código único: <?= htmlspecialchars($garment['unique_code'], ENT_QUOTES, 'UTF-8'); ?></span>
                             </div>
                             <?php endif; ?>
                             <!-- SKU End -->
