@@ -28,7 +28,7 @@ class Cart
     {
         $sessionId = self::getSessionId();
         $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('SELECT ci.id, ci.quantity, g.name, g.sale_value FROM cart_items ci JOIN garments g ON ci.garment_id = g.id WHERE ci.session_id = ?');
+        $stmt = $mysqli->prepare('SELECT ci.id, ci.quantity, ci.garment_id, g.name, g.sale_value, g.image_primary FROM cart_items ci JOIN garments g ON ci.garment_id = g.id WHERE ci.session_id = ?');
         $stmt->bind_param('s', $sessionId);
         $stmt->execute();
         $result = $stmt->get_result();
