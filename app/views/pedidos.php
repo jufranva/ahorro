@@ -72,13 +72,41 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <ul class="list-group">
-                  <?php foreach ($order['items'] as $item): ?>
-                    <li class="list-group-item">
-                      <?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?> x<?= (int)$item['quantity']; ?>
-                    </li>
-                  <?php endforeach; ?>
-                  </ul>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Imagen</th>
+                          <th>Nombre</th>
+                          <th>Código</th>
+                          <th>Precio</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $total = 0; foreach ($order['items'] as $item): $total += $item['sale_value'] * $item['quantity']; ?>
+                        <tr>
+                          <td>
+                            <?php
+                              $basePath = __DIR__ . '/../../';
+                              $img = $item['image_primary'] ?? '';
+                              $imgSrc = '';
+                              if ($img && (filter_var($img, FILTER_VALIDATE_URL) || is_file($basePath . $img))) {
+                                $imgSrc = asset($img);
+                              }
+                            ?>
+                            <?php if ($imgSrc): ?>
+                              <img class="img-thumbnail" style="width: 60px;" src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                            <?php endif; ?>
+                          </td>
+                          <td><?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                          <td><?= htmlspecialchars($item['unique_code'], ENT_QUOTES, 'UTF-8'); ?></td>
+                          <td>$<?= number_format((float)$item['sale_value'], 2); ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                    <div class="text-end"><strong>Total: $<?= number_format($total, 2); ?></strong></div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

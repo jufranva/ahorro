@@ -49,7 +49,7 @@ class Order
     public static function items(int $orderId): array
     {
         $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('SELECT oi.garment_id, oi.quantity, g.name FROM order_items oi JOIN garments g ON oi.garment_id = g.id WHERE oi.order_id = ?');
+        $stmt = $mysqli->prepare('SELECT oi.garment_id, oi.quantity, g.name, g.unique_code, g.image_primary, g.sale_value FROM order_items oi JOIN garments g ON oi.garment_id = g.id WHERE oi.order_id = ?');
         $stmt->bind_param('i', $orderId);
         $stmt->execute();
         $result = $stmt->get_result();
