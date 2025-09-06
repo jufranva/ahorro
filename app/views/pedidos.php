@@ -2,6 +2,21 @@
 <div class="section section-margin">
   <div class="container">
     <h3>Pedidos</h3>
+    <form method="get" class="mb-3">
+      <div class="row g-2">
+        <div class="col-auto">
+          <select name="status" class="form-select">
+            <option value="" <?= $currentStatus === '' ? 'selected' : ''; ?>>Todos</option>
+            <option value="pending" <?= $currentStatus === 'pending' ? 'selected' : ''; ?>>Pendientes</option>
+            <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Confirmados</option>
+            <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+      </div>
+    </form>
     <?php if (empty($orders)): ?>
       <p>No hay pedidos.</p>
     <?php else: ?>
@@ -12,6 +27,7 @@
             <th>Nombre</th>
             <th>Teléfono</th>
             <th>Método</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -21,6 +37,17 @@
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['payment_method'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td>
+              <?php
+                $iconClass = 'pe-7s-clock text-warning';
+                if ($order['status'] === 'confirmed') {
+                    $iconClass = 'pe-7s-check text-success';
+                } elseif ($order['status'] === 'rejected') {
+                    $iconClass = 'pe-7s-close-circle text-danger';
+                }
+              ?>
+              <i class="<?= $iconClass; ?>"></i>
+            </td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
               <?php if ($order['status'] === 'pending'): ?>

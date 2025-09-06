@@ -5,10 +5,13 @@ class PedidoController
 {
     public function index(): void
     {
-        $orders = Order::all();
+        $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
+        $statusFilter = in_array($status, ['pending', 'confirmed', 'rejected'], true) ? $status : null;
+        $orders = Order::all($statusFilter);
         foreach ($orders as $index => $order) {
             $orders[$index]['items'] = Order::items((int)$order['id']);
         }
+        $currentStatus = $statusFilter ?? '';
         include __DIR__ . '/../views/pedidos.php';
     }
 

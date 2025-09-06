@@ -27,12 +27,21 @@ class Order
         return $orderId;
     }
 
-    public static function all(): array
+    public static function all(?string $status = null): array
     {
         $mysqli = obtenerConexion();
-        $result = $mysqli->query('SELECT id, buyer_name, phone, payment_method, status FROM orders ORDER BY id DESC');
-        $orders = $result->fetch_all(MYSQLI_ASSOC);
-        $result->close();
+        if ($status && in_array($status, ['pending', 'confirmed', 'rejected'], true)) {
+            $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status FROM orders WHERE status = ? ORDER BY id DESC');
+            $stmt->bind_param('s', $status);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $orders = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+        } else {
+            $result = $mysqli->query('SELECT id, buyer_name, phone, payment_method, status FROM orders ORDER BY id DESC');
+            $orders = $result->fetch_all(MYSQLI_ASSOC);
+            $result->close();
+        }
         $mysqli->close();
         return $orders;
     }
