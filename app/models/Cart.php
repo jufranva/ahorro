@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../../conexion.php';
+require_once __DIR__ . '/Garment.php';
 
 class Cart
 {
@@ -21,6 +22,9 @@ class Cart
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
+        if ($success) {
+            Garment::markReserved($garmentId);
+        }
         return $success;
     }
 
@@ -42,11 +46,22 @@ class Cart
     {
         $sessionId = self::getSessionId();
         $mysqli = obtenerConexion();
+
+        $find = $mysqli->prepare('SELECT garment_id FROM cart_items WHERE id=? AND session_id=?');
+        $find->bind_param('is', $id, $sessionId);
+        $find->execute();
+        $find->bind_result($garmentId);
+        $find->fetch();
+        $find->close();
+
         $stmt = $mysqli->prepare('DELETE FROM cart_items WHERE id=? AND session_id=?');
         $stmt->bind_param('is', $id, $sessionId);
         $success = $stmt->execute();
         $stmt->close();
         $mysqli->close();
+        if ($success && $garmentId) {
+            Garment::releaseReservation($garmentId);
+        }
         return $success;
     }
 

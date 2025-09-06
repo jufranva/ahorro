@@ -176,6 +176,44 @@ class Garment
         return $garment ?: null;
     }
 
+    public static function markReserved(int $id): bool
+    {
+        $mysqli = obtenerConexion();
+        $tagStmt = $mysqli->prepare("SELECT id FROM tags WHERE LOWER(text)='reservado' LIMIT 1");
+        $tagStmt->execute();
+        $tagStmt->bind_result($tagId);
+        $tagStmt->fetch();
+        $tagStmt->close();
+        if (empty($tagId)) {
+            $mysqli->close();
+            return false;
+        }
+        $upd = $mysqli->prepare('UPDATE garments SET tag_id=? WHERE id=?');
+        $upd->bind_param('ii', $tagId, $id);
+        $success = $upd->execute();
+        $upd->close();
+        $mysqli->close();
+        return $success;
+    }
+
+    public static function releaseReservation(int $id): void
+    {
+        $mysqli = obtenerConexion();
+        $check = $mysqli->prepare('SELECT COUNT(*) FROM cart_items WHERE garment_id=?');
+        $check->bind_param('i', $id);
+        $check->execute();
+        $check->bind_result($count);
+        $check->fetch();
+        $check->close();
+        if ($count == 0) {
+            $upd = $mysqli->prepare('UPDATE garments SET tag_id=NULL WHERE id=?');
+            $upd->bind_param('i', $id);
+            $upd->execute();
+            $upd->close();
+        }
+        $mysqli->close();
+    }
+
     public static function updateState(int $id, ?int $stateId): bool
     {
         $mysqli = obtenerConexion();
