@@ -88,3 +88,13 @@ CREATE TABLE IF NOT EXISTS garments (
   FOREIGN KEY (tag_id) REFERENCES tags(id),
   FOREIGN KEY (state_id) REFERENCES states(id)
 );
+
+CREATE TABLE IF NOT EXISTS cart_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  session_id VARCHAR(64) NOT NULL,
+  garment_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_cart (session_id, garment_id),
+  FOREIGN KEY (garment_id) REFERENCES garments(id) ON DELETE CASCADE
+);
