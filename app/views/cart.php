@@ -31,9 +31,7 @@
                           }
                         ?>
                         <?php if ($imgSrc): ?>
-                          <a href="<?= htmlspecialchars(asset('prenda.php?id=' . (int)$item['garment_id']), ENT_QUOTES, 'UTF-8'); ?>">
-                            <img class="img-fluid" src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
-                          </a>
+                          <img class="img-thumbnail" style="width: 60px;" src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
                         <?php endif; ?>
                       </td>
                       <td class="pro-title">
