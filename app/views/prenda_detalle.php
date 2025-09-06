@@ -32,10 +32,7 @@
         <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mt-3">
           <input type="hidden" name="action" value="add">
           <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
-          <div class="mb-2">
-            <label for="quantity" class="form-label">Cantidad</label>
-            <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control w-25">
-          </div>
+          <input type="hidden" name="quantity" value="1">
           <button type="submit" class="btn btn-success">Agregar al carrito</button>
         </form>
       </div>

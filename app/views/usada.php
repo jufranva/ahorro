@@ -113,11 +113,17 @@
                                     <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
                                 </span>
                                 <div class="shop-list-btn">
+                                    <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="btn btn-sm btn-success btn-hover-primary">Agregar al carrito</button>
+                                    </form>
                                     <?php
                                     $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary">Preguntar</a>
+                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-dark btn-hover-primary ms-1">Preguntar</a>
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                     <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-outline-secondary btn-hover-primary ms-1">Ver detalle</a>
                                 </div>
@@ -300,11 +306,17 @@
                             <!-- Cart & Wishlist Button Start -->
                             <div class="cart-wishlist-btn pb-4 mb-n3">
                                 <div class="add-to_cart mb-3">
+                                    <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="btn btn-dark btn-hover-primary">Agregar al carrito</button>
+                                    </form>
                                     <?php
                                     $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a class="btn btn-outline-dark btn-hover-primary" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
+                                    <a class="btn btn-outline-dark btn-hover-primary ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>">Preguntar</a>
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                     <a class="btn btn-outline-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>">Ver detalle</a>
                                 </div>
