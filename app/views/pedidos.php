@@ -31,8 +31,8 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody>
-        <?php foreach ($orders as $order): ?>
+          <tbody>
+          <?php $orderModals = []; foreach ($orders as $order): ?>
           <tr>
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -63,67 +63,70 @@
               </form>
               <?php endif; ?>
             </td>
-          </tr>
-          <div class="modal fade" id="order-<?= (int)$order['id']; ?>" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Prendas del pedido #<?= (int)$order['id']; ?></h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="table-responsive">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th>Imagen</th>
-                          <th>Nombre</th>
-                          <th>Código Único</th>
-                          <th>Precio</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php $total = 0; foreach ($order['items'] as $item): $total += $item['sale_value'] * $item['quantity']; ?>
-                        <tr>
-                          <td>
-                            <?php
-                              $basePath = __DIR__ . '/../../';
-                              $img = $item['image_primary'] ?? '';
-                              $imgSrc = '';
-                              if ($img && (filter_var($img, FILTER_VALIDATE_URL) || is_file($basePath . $img))) {
-                                $imgSrc = asset($img);
-                              }
-                            ?>
-                            <?php if ($imgSrc): ?>
-                              <img class="img-thumbnail" style="width: 60px;" src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
-                            <?php endif; ?>
-                          </td>
-                          <td><?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                          <td><?= htmlspecialchars($item['unique_code'], ENT_QUOTES, 'UTF-8'); ?></td>
-                          <td>$<?= number_format((float)$item['sale_value'], 2); ?></td>
-                        </tr>
-                        <?php endforeach; ?>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <td colspan="3" class="text-end"><strong>Total</strong></td>
-                          <td><strong>$<?= number_format($total, 2); ?></strong></td>
-                        </tr>
-                      </tfoot>
-                    </table>
+            </tr>
+            <?php ob_start(); ?>
+            <div class="modal fade" id="order-<?= (int)$order['id']; ?>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Prendas del pedido #<?= (int)$order['id']; ?></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <div class="modal-body">
+                    <div class="table-responsive">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Código Único</th>
+                            <th>Precio</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php $total = 0; foreach ($order['items'] as $item): $total += $item['sale_value'] * $item['quantity']; ?>
+                          <tr>
+                            <td>
+                              <?php
+                                $basePath = __DIR__ . '/../../';
+                                $img = $item['image_primary'] ?? '';
+                                $imgSrc = '';
+                                if ($img && (filter_var($img, FILTER_VALIDATE_URL) || is_file($basePath . $img))) {
+                                  $imgSrc = asset($img);
+                                }
+                              ?>
+                              <?php if ($imgSrc): ?>
+                                <img class="img-thumbnail" style="width: 60px;" src="<?= htmlspecialchars($imgSrc, ENT_QUOTES, 'UTF-8'); ?>" alt="<?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                              <?php endif; ?>
+                            </td>
+                            <td><?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td><?= htmlspecialchars($item['unique_code'], ENT_QUOTES, 'UTF-8'); ?></td>
+                            <td>$<?= number_format((float)$item['sale_value'], 2); ?></td>
+                          </tr>
+                          <?php endforeach; ?>
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colspan="3" class="text-end"><strong>Total</strong></td>
+                            <td><strong>$<?= number_format($total, 2); ?></strong></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        <?php endforeach; ?>
-        </tbody>
-      </table>
+            <?php $orderModals[] = ob_get_clean(); ?>
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+        <?php foreach ($orderModals as $modal) echo $modal; ?>
+      </div>
+      <?php endif; ?>
     </div>
-    <?php endif; ?>
   </div>
-</div>
-<?php include __DIR__ . '/layout/footer.php'; ?>
+  <?php include __DIR__ . '/layout/footer.php'; ?>
