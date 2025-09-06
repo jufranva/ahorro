@@ -145,17 +145,26 @@
                                                   <span class="price">
                                                       <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
                                                   </span>
+                                                  <?php
+                                                  $tag = strtolower($garment['tag_text'] ?? '');
+                                                  $showCart = $tag !== 'reservado' && $tag !== 'vendido';
+                                                  $showAsk  = $tag !== 'vendido';
+                                                  ?>
+                                                  <?php if ($showCart): ?>
                                                   <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
                                                       <input type="hidden" name="action" value="add">
                                                       <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
                                                       <input type="hidden" name="quantity" value="1">
                                                       <button type="submit" class="btn btn-sm btn-success btn-hover-primary"><i class="pe-7s-shopbag"></i></button>
                                                   </form>
+                                                  <?php endif; ?>
+                                                  <?php if ($showAsk): ?>
                                                   <?php
                                                   $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                   ?>
                                                   <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-info btn-hover-primary ms-1"><i class="pe-7s-help1"></i></a>
+                                                  <?php endif; ?>
                                                   <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1"><i class="pe-7s-look"></i></a>                                            </div>
                                         </div>
@@ -202,17 +211,26 @@
                                                   <span class="price">
                                                       <span class="new">$<?= number_format((float)$garment['sale_value'], 2); ?></span>
                                                   </span>
+                                                  <?php
+                                                  $tag = strtolower($garment['tag_text'] ?? '');
+                                                  $showCart = $tag !== 'reservado' && $tag !== 'vendido';
+                                                  $showAsk  = $tag !== 'vendido';
+                                                  ?>
+                                                  <?php if ($showCart): ?>
                                                   <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
                                                       <input type="hidden" name="action" value="add">
                                                       <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
                                                       <input type="hidden" name="quantity" value="1">
                                                       <button type="submit" class="btn btn-sm btn-success btn-hover-primary"><i class="pe-7s-shopbag"></i></button>
                                                   </form>
+                                                  <?php endif; ?>
+                                                  <?php if ($showAsk): ?>
                                                   <?php
                                                   $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                   ?>
                                                  <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-info btn-hover-primary ms-1"><i class="pe-7s-help1"></i></a>
+                                                  <?php endif; ?>
                                                   <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1"><i class="pe-7s-look"></i></a>                                            </div>
                                         </div>
@@ -281,23 +299,32 @@
                                 </div>
                             </div>
                             <?php endif; ?>
-                            <div class="cart-wishlist-btn pb-4 mb-n3">
-                                <div class="add-to_cart mb-3">
-                                    <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                                        <input type="hidden" name="action" value="add">
-                                        <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="btn btn-success btn-hover-primary"><i class="pe-7s-shopbag"></i></button>
-                                    </form>
-                                    <?php
-                                    $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
-                                    $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
-                                    ?>
-                                    <a class="btn btn-info btn-hover-primary ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>"><i class="pe-7s-help1"></i></a>
-                                    <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                    <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>"><i class="pe-7s-look"></i></a>
+                                <?php
+                                $tag = strtolower($garment['tag_text'] ?? '');
+                                $showCart = $tag !== 'reservado' && $tag !== 'vendido';
+                                $showAsk  = $tag !== 'vendido';
+                                ?>
+                                <div class="cart-wishlist-btn pb-4 mb-n3">
+                                    <div class="add-to_cart mb-3">
+                                        <?php if ($showCart): ?>
+                                        <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                                            <input type="hidden" name="action" value="add">
+                                            <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="btn btn-success btn-hover-primary"><i class="pe-7s-shopbag"></i></button>
+                                        </form>
+                                        <?php endif; ?>
+                                        <?php if ($showAsk): ?>
+                                        <?php
+                                        $waMessage = 'por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                        $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                        ?>
+                                        <a class="btn btn-info btn-hover-primary ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>"><i class="pe-7s-help1"></i></a>
+                                        <?php endif; ?>
+                                        <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                        <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>"><i class="pe-7s-look"></i></a>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
