@@ -78,7 +78,7 @@
                         <tr>
                           <th>Imagen</th>
                           <th>Nombre</th>
-                          <th>Código</th>
+                          <th>Código Único</th>
                           <th>Precio</th>
                         </tr>
                       </thead>
@@ -104,8 +104,13 @@
                         </tr>
                         <?php endforeach; ?>
                       </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="3" class="text-end"><strong>Total</strong></td>
+                          <td><strong>$<?= number_format($total, 2); ?></strong></td>
+                        </tr>
+                      </tfoot>
                     </table>
-                    <div class="text-end"><strong>Total: $<?= number_format($total, 2); ?></strong></div>
                   </div>
                 </div>
                 <div class="modal-footer">
