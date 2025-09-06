@@ -6,8 +6,8 @@ class PedidoController
     public function index(): void
     {
         $orders = Order::all();
-        foreach ($orders as &$order) {
-            $order['items'] = Order::items((int)$order['id']);
+        foreach ($orders as $index => $order) {
+            $orders[$index]['items'] = Order::items((int)$order['id']);
         }
         include __DIR__ . '/../views/pedidos.php';
     }
