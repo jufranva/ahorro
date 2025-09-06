@@ -59,15 +59,13 @@
         </div>
       </div>
       <?php
-        $subtotal = array_reduce(
+        $total = array_reduce(
           $items,
           function ($carry, $i) {
             return $carry + $i['sale_value'] * $i['quantity'];
           },
           0
         );
-        $shipping = 0;
-        $total = $subtotal + $shipping;
       ?>
       <div class="row">
         <div class="col-lg-5 ms-auto col-custom">
@@ -76,14 +74,6 @@
               <h3 class="title">Valor total</h3>
               <div class="table-responsive">
                 <table class="table">
-                  <tr>
-                    <td>Sub Total</td>
-                    <td>$<?= number_format($subtotal, 2); ?></td>
-                  </tr>
-                  <tr>
-                    <td>Envio</td>
-                    <td>$<?= number_format($shipping, 2); ?></td>
-                  </tr>
                   <tr class="total">
                     <td>Total</td>
                     <td class="total-amount">$<?= number_format($total, 2); ?></td>
