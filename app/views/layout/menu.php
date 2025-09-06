@@ -5,10 +5,6 @@ $menuItems = [
     ['href' => 'usada.php', 'label' => '2DA MANO'],
 ];
 
-require_once __DIR__ . '/../../models/Cart.php';
-$cartCount = Cart::count();
-$menuItems[] = ['href' => 'cart.php', 'label' => $cartCount > 0 ? 'CARRITO (' . $cartCount . ')' : 'CARRITO'];
-
 if (isset($_SESSION['username'])) {
     $menuItems[] = ['href' => 'prendas.php', 'label' => 'PRENDAS'];
     $menuItems[] = ['href' => 'logout.php', 'label' => 'CERRAR SESION'];
