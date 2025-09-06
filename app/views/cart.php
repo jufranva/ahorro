@@ -32,7 +32,16 @@
         </tbody>
       </table>
       <p class="text-end">
-        Total: $<?= number_format(array_reduce($items, fn($carry, $i) => $carry + $i['sale_value'] * $i['quantity'], 0), 2); ?>
+        <?php
+        $total = array_reduce(
+          $items,
+          function ($carry, $i) {
+            return $carry + $i['sale_value'] * $i['quantity'];
+          },
+          0
+        );
+        ?>
+        Total: $<?= number_format($total, 2); ?>
       </p>
     <?php endif; ?>
   </div>
