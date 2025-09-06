@@ -7,6 +7,7 @@ $menuItems = [
 
 if (isset($_SESSION['username'])) {
     $menuItems[] = ['href' => 'prendas.php', 'label' => 'PRENDAS'];
+    $menuItems[] = ['href' => 'pedidos.php', 'label' => 'PEDIDOS'];
     $menuItems[] = ['href' => 'logout.php', 'label' => 'CERRAR SESION'];
 } else {
     $menuItems[] = ['href' => 'inicio.php', 'label' => 'INICIAR SESION'];

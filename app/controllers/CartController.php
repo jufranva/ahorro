@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/Cart.php';
+require_once __DIR__ . '/../models/Order.php';
 
 class CartController
 {
@@ -30,6 +31,20 @@ class CartController
             Cart::remove($id);
         }
         header('Location: ' . asset('cart.php'), true, 302);
+        exit;
+    }
+
+    public function checkout(): void
+    {
+        $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
+        $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING));
+        $payment = filter_input(INPUT_POST, 'payment', FILTER_SANITIZE_STRING);
+        $items = Cart::items();
+        if ($name !== '' && $phone !== '' && $payment && !empty($items)) {
+            Order::create($name, $phone, $payment, $items);
+            Cart::clear(false);
+        }
+        header('Location: ' . asset('index.php'), true, 302);
         exit;
     }
 }

@@ -1,19 +1,16 @@
 <?php
 require_once __DIR__ . '/bootstrap.php';
-require_once __DIR__ . '/app/controllers/CartController.php';
+require_once __DIR__ . '/app/controllers/PedidoController.php';
 
-$controller = new CartController();
+$controller = new PedidoController();
 $action = $_SERVER['REQUEST_METHOD'] === 'POST' ? ($_POST['action'] ?? 'index') : ($_GET['action'] ?? 'index');
 
 switch ($action) {
-    case 'add':
-        $controller->add();
+    case 'confirm':
+        $controller->confirm();
         break;
-    case 'remove':
-        $controller->remove();
-        break;
-    case 'checkout':
-        $controller->checkout();
+    case 'reject':
+        $controller->reject();
         break;
     default:
         $controller->index();

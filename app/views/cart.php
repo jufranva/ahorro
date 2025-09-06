@@ -79,11 +79,65 @@
                 </table>
               </div>
             </div>
-            <a href="#" class="btn btn-dark btn-hover-primary rounded-0 w-100">Confirmar pedido</a>
+            <button type="button" class="btn btn-dark btn-hover-primary rounded-0 w-100" data-bs-toggle="modal" data-bs-target="#checkoutModal">Confirmar pedido</button>
           </div>
         </div>
       </div>
     <?php endif; ?>
   </div>
 </div>
+<?php if (!empty($items)): ?>
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>">
+      <input type="hidden" name="action" value="checkout">
+      <div class="modal-header">
+        <h5 class="modal-title">Resumen de compra</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group mb-3">
+          <?php foreach ($items as $item): ?>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <?= htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?> x<?= (int)$item['quantity']; ?>
+            <span>$<?= number_format($item['sale_value'] * $item['quantity'], 2); ?></span>
+          </li>
+          <?php endforeach; ?>
+          <li class="list-group-item d-flex justify-content-between">
+            <strong>Total</strong>
+            <strong>$<?= number_format($total, 2); ?></strong>
+          </li>
+        </ul>
+        <div class="mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Teléfono</label>
+          <input type="text" name="phone" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Método de pago</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="payCard" value="Tarjeta" required>
+            <label class="form-check-label" for="payCard">Tarjeta de crédito</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="payTransfer" value="Transferencia" required>
+            <label class="form-check-label" for="payTransfer">Transferencia</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="payment" id="payCash" value="Efectivo" required>
+            <label class="form-check-label" for="payCash">Efectivo</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    </form>
+  </div>
+</div>
+<?php endif; ?>
 <?php include __DIR__ . '/layout/footer.php'; ?>

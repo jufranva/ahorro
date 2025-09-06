@@ -98,3 +98,21 @@ CREATE TABLE IF NOT EXISTS cart_items (
   UNIQUE KEY uniq_cart (session_id, garment_id),
   FOREIGN KEY (garment_id) REFERENCES garments(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  buyer_name VARCHAR(100) NOT NULL,
+  phone VARCHAR(30) NOT NULL,
+  payment_method VARCHAR(20) NOT NULL,
+  status ENUM('pending','confirmed','rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  garment_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (garment_id) REFERENCES garments(id)
+);

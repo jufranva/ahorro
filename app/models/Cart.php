@@ -78,4 +78,21 @@ class Cart
         $mysqli->close();
         return (int)$count;
     }
+
+    public static function clear(bool $release = true): void
+    {
+        $sessionId = self::getSessionId();
+        $items = $release ? self::items() : [];
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('DELETE FROM cart_items WHERE session_id=?');
+        $stmt->bind_param('s', $sessionId);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        if ($release) {
+            foreach ($items as $item) {
+                Garment::releaseReservation((int)$item['garment_id']);
+            }
+        }
+    }
 }

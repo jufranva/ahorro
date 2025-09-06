@@ -196,6 +196,26 @@ class Garment
         return $success;
     }
 
+    public static function markSold(int $id): bool
+    {
+        $mysqli = obtenerConexion();
+        $tagStmt = $mysqli->prepare("SELECT id FROM tags WHERE LOWER(text)='vendido' LIMIT 1");
+        $tagStmt->execute();
+        $tagStmt->bind_result($tagId);
+        $tagStmt->fetch();
+        $tagStmt->close();
+        if (empty($tagId)) {
+            $mysqli->close();
+            return false;
+        }
+        $upd = $mysqli->prepare('UPDATE garments SET tag_id=? WHERE id=?');
+        $upd->bind_param('ii', $tagId, $id);
+        $success = $upd->execute();
+        $upd->close();
+        $mysqli->close();
+        return $success;
+    }
+
     public static function releaseReservation(int $id): void
     {
         $mysqli = obtenerConexion();
