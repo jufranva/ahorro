@@ -81,7 +81,7 @@
                 </table>
               </div>
             </div>
-            <a href="#" class="btn btn-dark btn-hover-primary rounded-0 w-100">Verificar</a>
+            <a href="#" class="btn btn-dark btn-hover-primary rounded-0 w-100">Confirmar pedido</a>
           </div>
         </div>
       </div>
