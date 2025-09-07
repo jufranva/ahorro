@@ -269,12 +269,14 @@ class PrendaController
 
         $search = $_GET['q'] ?? null;
         $stateFilter = isset($_GET['state_id']) && $_GET['state_id'] !== '' ? (int)$_GET['state_id'] : null;
-        $garments = Garment::all($search, $stateFilter);
+        $tagFilter = isset($_GET['tag_id']) && $_GET['tag_id'] !== '' ? (int)$_GET['tag_id'] : null;
+        $garments = Garment::all($search, $stateFilter, null, $tagFilter);
         $categories = Category::all();
         $providers = Provider::all();
         $tags = Tag::all();
         $states = State::all();
         $selectedState = $stateFilter;
+        $selectedTag = $tagFilter;
         include __DIR__ . '/../views/prendas.php';
     }
 }

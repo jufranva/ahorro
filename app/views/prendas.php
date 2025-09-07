@@ -20,6 +20,12 @@
                 <option value="<?= $st['id'] ?>" <?= isset($selectedState) && $selectedState == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
+            <select class="form-select" name="tag_id">
+              <option value="">Todas</option>
+              <?php foreach ($tags as $tag): ?>
+                <option value="<?= $tag['id'] ?>" <?= isset($selectedTag) && $selectedTag == $tag['id'] ? 'selected' : '' ?>><?= htmlspecialchars($tag['text'], ENT_QUOTES, 'UTF-8') ?></option>
+              <?php endforeach; ?>
+            </select>
             <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </div>
     </form>

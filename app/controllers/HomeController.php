@@ -14,7 +14,7 @@ class HomeController
         $features = Feature::all();
 
         $stateId = State::getIdByName('Recien llegado');
-        $garments = $stateId === null ? [] : Garment::all(null, $stateId, null, 'new');
+        $garments = $stateId === null ? [] : Garment::all(null, $stateId, null, null, 'new');
         $newArrivals = array_values(array_filter($garments, function ($g) {
             return ($g['type'] ?? '') === 'nueva';
         }));
