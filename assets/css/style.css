@@ -17549,7 +17549,7 @@ input[type="checkbox"]:checked + label:after {
 
 .btn-success:hover, .btn-success:focus {
   border-color: transparent;
-  background-color: #025ce2;
+  background-color: #1a8a44;
   color: #fff;
 }
 
