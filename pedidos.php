@@ -12,6 +12,9 @@ switch ($action) {
     case 'reject':
         $controller->reject();
         break;
+    case 'delete':
+        $controller->delete();
+        break;
     default:
         $controller->index();
         break;

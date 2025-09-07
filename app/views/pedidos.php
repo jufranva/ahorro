@@ -37,16 +37,19 @@
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['payment_method'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td>
+            <td class="text-center">
               <?php
                 $iconClass = 'pe-7s-clock text-warning';
+                $orden= 'Pedido Pendiente';
                 if ($order['status'] === 'confirmed') {
                     $iconClass = 'pe-7s-check text-success';
+                    $orden= 'Pedido Confirmado';
                 } elseif ($order['status'] === 'rejected') {
                     $iconClass = 'pe-7s-close-circle text-danger';
+                    $orden= 'Pedido Rechazado';
                 }
               ?>
-              <i class="<?= $iconClass; ?>"></i>
+              <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
             </td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
@@ -60,6 +63,12 @@
                 <input type="hidden" name="action" value="reject">
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
                 <button type="submit" class="btn btn-sm btn-danger">Rechazar</button>
+              </form>
+              <?php else: ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
               </form>
               <?php endif; ?>
             </td>
