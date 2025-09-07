@@ -39,7 +39,7 @@
           <input type="hidden" name="action" value="add">
           <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
           <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="btn btn-cart" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
+          <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
         </form>
         <?php endif; ?>
       </div>
