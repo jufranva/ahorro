@@ -99,6 +99,18 @@ CREATE TABLE IF NOT EXISTS cart_items (
   FOREIGN KEY (garment_id) REFERENCES garments(id) ON DELETE CASCADE
 );
 
+DROP TRIGGER IF EXISTS cart_item_after_delete;
+DELIMITER //
+CREATE TRIGGER cart_item_after_delete
+AFTER DELETE ON cart_items
+FOR EACH ROW
+BEGIN
+  IF (SELECT COUNT(*) FROM cart_items WHERE garment_id = OLD.garment_id) = 0 THEN
+    UPDATE garments SET tag_id = NULL WHERE id = OLD.garment_id;
+  END IF;
+END//
+DELIMITER ;
+
 CREATE TABLE IF NOT EXISTS orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   buyer_name VARCHAR(100) NOT NULL,

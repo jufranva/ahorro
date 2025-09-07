@@ -104,12 +104,12 @@ class Cart
             $rows = $res->fetch_all(MYSQLI_ASSOC);
             $res->close();
             foreach ($rows as $row) {
-                Garment::releaseReservation((int)$row['garment_id']);
                 $del = $mysqli->prepare('DELETE FROM cart_items WHERE id=?');
                 $id = (int)$row['id'];
                 $del->bind_param('i', $id);
                 $del->execute();
                 $del->close();
+                Garment::releaseReservation((int)$row['garment_id']);
             }
         }
         $mysqli->close();
