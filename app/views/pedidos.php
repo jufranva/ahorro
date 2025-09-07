@@ -61,6 +61,12 @@
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
                 <button type="submit" class="btn btn-sm btn-danger">Rechazar</button>
               </form>
+              <?php else: ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+              </form>
               <?php endif; ?>
             </td>
             </tr>

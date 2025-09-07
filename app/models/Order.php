@@ -86,4 +86,14 @@ class Order
         $upd->close();
         $mysqli->close();
     }
+
+    public static function delete(int $orderId): void
+    {
+        $mysqli = obtenerConexion();
+        $del = $mysqli->prepare('DELETE FROM orders WHERE id = ?');
+        $del->bind_param('i', $orderId);
+        $del->execute();
+        $del->close();
+        $mysqli->close();
+    }
 }
