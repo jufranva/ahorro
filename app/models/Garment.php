@@ -4,8 +4,14 @@ require_once __DIR__ . '/Tag.php';
 
 class Garment
 {
-    public static function all(?string $search = null, ?int $stateId = null, ?int $categoryId = null, ?int $tagId = null, ?string $sort = null): array
-    {
+    public static function all(
+        ?string $search = null,
+        ?int $stateId = null,
+        ?int $categoryId = null,
+        ?int $tagId = null,
+        ?string $sort = null,
+        ?int $excludeStateId = null
+    ): array {
         $mysqli = obtenerConexion();
         $baseSql = 'SELECT g.*, c.name AS category_name, p.name AS provider_name, t.text AS tag_text, t.color AS tag_color, s.name AS state_name '
                  . 'FROM garments g '
@@ -33,6 +39,9 @@ class Garment
         }
         if ($tagId !== null) {
             $conditions[] = 'g.tag_id = ' . (int)$tagId;
+        }
+        if ($excludeStateId !== null) {
+            $conditions[] = '(g.state_id IS NULL OR g.state_id != ' . (int)$excludeStateId . ')';
         }
 
         $sql = $baseSql;
