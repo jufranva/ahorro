@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Garment.php';
 require_once __DIR__ . '/../models/Category.php';
+require_once __DIR__ . '/../models/State.php';
 
 class NuevaController
 {
@@ -15,7 +16,8 @@ class NuevaController
         }
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 
-        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, null, $sort), function ($g) {
+        $noVisibleId = State::getIdByName('No visible');
+        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, null, $sort, $noVisibleId), function ($g) {
             return ($g['type'] ?? '') === 'nueva';
         }));
         $total = count($garments);
@@ -27,7 +29,7 @@ class NuevaController
 
         $categories = array_values(
             array_filter(
-                Category::all('nueva'),
+                Category::all('nueva', $noVisibleId),
                 static function ($cat) {
                     return (int)($cat['usage_count'] ?? 0) > 0;
                 }

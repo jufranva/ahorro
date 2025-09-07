@@ -3,26 +3,41 @@ require_once __DIR__ . '/../../conexion.php';
 
 class Category
 {
-    public static function all(?string $type = null): array
+    public static function all(?string $type = null, ?int $excludeStateId = null): array
     {
         $mysqli = obtenerConexion();
+
+        $joinConditions = ['g.category_id = c.id'];
+        $types = '';
+        $params = [];
+
         if ($type !== null) {
-            $stmt = $mysqli->prepare('SELECT c.id, c.name, COUNT(g.id) AS usage_count
-                FROM categories c
-                LEFT JOIN garments g ON g.category_id = c.id AND g.type = ?
-                GROUP BY c.id, c.name');
-            $stmt->bind_param('s', $type);
+            $joinConditions[] = 'g.type = ?';
+            $types .= 's';
+            $params[] = &$type;
+        }
+        if ($excludeStateId !== null) {
+            $joinConditions[] = '(g.state_id IS NULL OR g.state_id != ?)';
+            $types .= 'i';
+            $params[] = &$excludeStateId;
+        }
+
+        $sql = 'SELECT c.id, c.name, COUNT(g.id) AS usage_count '
+            . 'FROM categories c LEFT JOIN garments g ON ' . implode(' AND ', $joinConditions)
+            . ' GROUP BY c.id, c.name';
+
+        if (!empty($params)) {
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param($types, ...$params);
             $stmt->execute();
             $result = $stmt->get_result();
             $categories = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
         } else {
-            $sql = 'SELECT c.id, c.name, COUNT(g.id) AS usage_count
-                FROM categories c LEFT JOIN garments g ON g.category_id = c.id
-                GROUP BY c.id, c.name';
             $result = $mysqli->query($sql);
             $categories = $result->fetch_all(MYSQLI_ASSOC);
         }
+
         $mysqli->close();
         return $categories;
     }
