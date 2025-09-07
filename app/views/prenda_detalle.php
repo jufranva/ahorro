@@ -25,21 +25,21 @@
         <?php endif; ?>
         <p>Precio: $<?= number_format((float)$garment['sale_value'], 2); ?></p>
         <?php
-          $waMessage = 'Por favor enviar información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+          $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
           $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
           $tag = strtolower($garment['tag_text'] ?? '');
           $showCart = $tag !== 'reservado' && $tag !== 'vendido';
           $showAsk  = $tag !== 'vendido';
         ?>
         <?php if ($showAsk): ?>
-        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-info"><i class="pe-7s-help1"></i></a>
+        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-info" title="Preguntar por esta prenda"><i class="pe-7s-help1"></i></a>
         <?php endif; ?>
         <?php if ($showCart): ?>
         <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mt-3">
           <input type="hidden" name="action" value="add">
           <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
           <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="btn btn-success"><i class="pe-7s-shopbag"></i></button>
+          <button type="submit" class="btn btn-success" title="Agregar al carrito"><i class="pe-7s-shopbag"></i></button>
         </form>
         <?php endif; ?>
       </div>
