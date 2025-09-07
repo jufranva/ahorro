@@ -90,7 +90,7 @@ echo "<!DOCTYPE html>\n";
                         <div class="col-xl-2 col-6">
                             <div class="header-actions">
                                 <a href="<?= asset('cart.php') ?>" class="header-action-btn header-action-btn-cart">
-                                    <i class="pe-7s-shopbag"></i>
+                                    <i class="fa fa-cart-plus"></i>
                                     <span class="header-action-num"><?= htmlspecialchars((string)$cartCount, ENT_QUOTES, 'UTF-8') ?></span>
                                 </a>
 
