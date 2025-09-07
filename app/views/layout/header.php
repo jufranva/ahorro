@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../bootstrap.php';
+require_once __DIR__ . '/../../models/Cart.php';
 header('Content-Type: text/html; charset=UTF-8');
+$cartCount = Cart::count();
 $menu = (function () {
     ob_start();
     include __DIR__ . '/menu.php';
@@ -87,6 +89,10 @@ echo "<!DOCTYPE html>\n";
                         <!-- Header Action Start -->
                         <div class="col-xl-2 col-6">
                             <div class="header-actions">
+                                <a href="<?= asset('cart.php') ?>" class="header-action-btn header-action-btn-cart">
+                                    <i class="pe-7s-shopbag"></i>
+                                    <span class="header-action-num"><?= htmlspecialchars((string)$cartCount, ENT_QUOTES, 'UTF-8') ?></span>
+                                </a>
 
                                 <!-- Mobile Menu Hambarger Action Button Start -->
                                 <a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-xl-none d-lg-block">

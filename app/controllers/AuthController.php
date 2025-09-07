@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/User.php';
+require_once __DIR__ . '/../models/Cart.php';
 
 class AuthController
 {
@@ -27,6 +28,7 @@ class AuthController
 
     public function logout(): void
     {
+        Cart::clear();
         session_unset();
         session_destroy();
         header('Location: index.php');

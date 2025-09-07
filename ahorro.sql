@@ -88,3 +88,43 @@ CREATE TABLE IF NOT EXISTS garments (
   FOREIGN KEY (tag_id) REFERENCES tags(id),
   FOREIGN KEY (state_id) REFERENCES states(id)
 );
+
+CREATE TABLE IF NOT EXISTS cart_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  session_id VARCHAR(64) NOT NULL,
+  garment_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_cart (session_id, garment_id),
+  FOREIGN KEY (garment_id) REFERENCES garments(id) ON DELETE CASCADE
+);
+
+DROP TRIGGER IF EXISTS cart_item_after_delete;
+DELIMITER //
+CREATE TRIGGER cart_item_after_delete
+AFTER DELETE ON cart_items
+FOR EACH ROW
+BEGIN
+  IF (SELECT COUNT(*) FROM cart_items WHERE garment_id = OLD.garment_id) = 0 THEN
+    UPDATE garments SET tag_id = NULL WHERE id = OLD.garment_id;
+  END IF;
+END//
+DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  buyer_name VARCHAR(100) NOT NULL,
+  phone VARCHAR(30) NOT NULL,
+  payment_method VARCHAR(20) NOT NULL,
+  status ENUM('pending','confirmed','rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  garment_id INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 1,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+  FOREIGN KEY (garment_id) REFERENCES garments(id)
+);
