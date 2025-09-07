@@ -164,7 +164,7 @@
                                                   $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                   ?>
-                                                  <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-whatsapp ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+                                                  <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
                                                   <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>                                            </div>
@@ -232,7 +232,7 @@
                                                   $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                                   ?>
-                                                 <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-whatsapp ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+                                                 <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
                                                   <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>                                            </div>
@@ -323,7 +323,7 @@
                                         $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                         $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                         ?>
-                                        <a class="btn btn-whatsapp ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+                                        <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                         <?php endif; ?>
                                         <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                         <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="pe-7s-look"></i></a>

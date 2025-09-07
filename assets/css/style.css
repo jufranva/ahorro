@@ -22346,16 +22346,3 @@ input[type="checkbox"]:checked + label:after {
   font-size: 1.25rem;
 }
 
-/* Custom action buttons */
-.btn-whatsapp {
-  background-color: #23cc62;
-  border-color: #23cc62;
-  color: #fff;
-}
-
-.btn-whatsapp:hover,
-.btn-whatsapp:focus {
-  background-color: #1ea956;
-  border-color: #1ea956;
-  color: #fff;
-}
