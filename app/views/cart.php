@@ -4,6 +4,9 @@
     <?php if (empty($items)): ?>
       <p>Tu carrito está vacío.</p>
     <?php else: ?>
+      <div class="alert alert-warning" role="alert">
+        Si en una hora no confirmas la compra, el carrito se vacía automáticamente.
+      </div>
       <div class="row">
         <div class="col-12">
           <div class="cart-table">

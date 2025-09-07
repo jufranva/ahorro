@@ -14,6 +14,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/app/models/Cart.php';
+Cart::purgeExpired();
+
 function asset(string $path): string
 {
     return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');

@@ -95,4 +95,23 @@ class Cart
             }
         }
     }
+
+    public static function purgeExpired(): void
+    {
+        $mysqli = obtenerConexion();
+        $res = $mysqli->query("SELECT id, garment_id FROM cart_items WHERE created_at < (NOW() - INTERVAL 1 HOUR)");
+        if ($res) {
+            $rows = $res->fetch_all(MYSQLI_ASSOC);
+            $res->close();
+            foreach ($rows as $row) {
+                Garment::releaseReservation((int)$row['garment_id']);
+                $del = $mysqli->prepare('DELETE FROM cart_items WHERE id=?');
+                $id = (int)$row['id'];
+                $del->bind_param('i', $id);
+                $del->execute();
+                $del->close();
+            }
+        }
+        $mysqli->close();
+    }
 }
