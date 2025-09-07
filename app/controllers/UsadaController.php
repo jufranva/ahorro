@@ -25,7 +25,10 @@ class UsadaController
         }
         $garments = array_slice($garments, ($page - 1) * $perPage, $perPage);
 
-        $categories = Category::all('usada');
+        $categories = array_values(array_filter(
+            Category::all('usada'),
+            static fn($cat) => (int)($cat['usage_count'] ?? 0) > 0
+        ));
         include __DIR__ . '/../views/usada.php';
     }
 }
