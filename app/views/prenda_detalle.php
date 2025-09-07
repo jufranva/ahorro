@@ -32,7 +32,7 @@
           $showAsk  = $tag !== 'vendido';
         ?>
         <?php if ($showAsk): ?>
-        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-info" title="Preguntar por esta prenda"><i class="pe-7s-help1"></i></a>
+        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-success" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
         <?php endif; ?>
         <?php if ($showCart): ?>
         <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mt-3">
