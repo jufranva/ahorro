@@ -22340,3 +22340,8 @@ input[type="checkbox"]:checked + label:after {
 .faq_content_wrapper p {
   font-size: 14px;
 }
+
+/* Improve button icon visibility */
+.btn i {
+  font-size: 1.25rem;
+}
