@@ -25,10 +25,6 @@ class Order
         $mysqli->commit();
         $mysqli->close();
 
-        foreach ($items as $item) {
-            Garment::markReserved((int)$item['garment_id']);
-        }
-
         return $orderId;
     }
 

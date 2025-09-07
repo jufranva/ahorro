@@ -179,15 +179,7 @@ class Garment
     public static function markReserved(int $id): bool
     {
         $mysqli = obtenerConexion();
-        $tagStmt = $mysqli->prepare("SELECT id FROM tags WHERE LOWER(text)='reservado' LIMIT 1");
-        $tagStmt->execute();
-        $tagStmt->bind_result($tagId);
-        $tagStmt->fetch();
-        $tagStmt->close();
-        if (empty($tagId)) {
-            $mysqli->close();
-            return false;
-        }
+        $tagId = 2;
         $upd = $mysqli->prepare('UPDATE garments SET tag_id=? WHERE id=?');
         $upd->bind_param('ii', $tagId, $id);
         $success = $upd->execute();

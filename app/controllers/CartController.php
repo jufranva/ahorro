@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Cart.php';
 require_once __DIR__ . '/../models/Order.php';
+require_once __DIR__ . '/../models/Garment.php';
 
 class CartController
 {
@@ -43,6 +44,9 @@ class CartController
         if ($name !== '' && $phone !== '' && $payment && !empty($items)) {
             Order::create($name, $phone, $payment, $items);
             Cart::clear(false);
+            foreach ($items as $item) {
+                Garment::markReserved((int)$item['garment_id']);
+            }
         }
         header('Location: ' . asset('index.php'), true, 302);
         exit;
