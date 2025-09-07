@@ -15,7 +15,7 @@ class UsadaController
         }
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 
-        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, $sort), function ($g) {
+        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, null, $sort), function ($g) {
             return ($g['type'] ?? '') === 'usada';
         }));
         $total = count($garments);
