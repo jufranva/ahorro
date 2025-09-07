@@ -22345,3 +22345,30 @@ input[type="checkbox"]:checked + label:after {
 .btn i {
   font-size: 1.25rem;
 }
+
+/* Custom action buttons */
+.btn-whatsapp {
+  background-color: #23cc62;
+  border-color: #23cc62;
+  color: #fff;
+}
+
+.btn-whatsapp:hover,
+.btn-whatsapp:focus {
+  background-color: #1ea956;
+  border-color: #1ea956;
+  color: #fff;
+}
+
+.btn-cart {
+  background-color: #FD0D0D;
+  border-color: #FD0D0D;
+  color: #fff;
+}
+
+.btn-cart:hover,
+.btn-cart:focus {
+  background-color: #e60c0c;
+  border-color: #e60c0c;
+  color: #fff;
+}
