@@ -24,6 +24,7 @@ class Order
         $itemStmt->close();
         $mysqli->commit();
         $mysqli->close();
+
         return $orderId;
     }
 
