@@ -17542,8 +17542,8 @@ input[type="checkbox"]:checked + label:after {
 }
 
 .btn-success {
-  border-color: #0D6EFD;
-  background-color: #0D6EFD;
+  border-color: #23cc62;
+  background-color: #23cc62;
   color: #fff;
 }
 
@@ -17554,8 +17554,8 @@ input[type="checkbox"]:checked + label:after {
 }
 
 .btn-outline-success {
-  color: #0D6EFD;
-  border-color: #0D6EFD;
+  color: #23cc62;
+  border-color: #23cc62;
   border-width: 1px;
   border-style: solid;
   background-color: transparent;
@@ -17563,7 +17563,7 @@ input[type="checkbox"]:checked + label:after {
 
 .btn-outline-success:hover {
   border-color: transparent;
-  background-color: #0D6EFD;
+  background-color: #23cc62;
   color: #fff;
 }
 
