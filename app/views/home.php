@@ -159,19 +159,15 @@
                                                       <button type="submit" class="btn btn-sm btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
                                                   </form>
                                                   <?php endif; ?>
+                                                  <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <?php if ($showAsk): ?>
                                                   <?php
-                                                  $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                                  $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'] . ' ' . $detailUrl;
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
-                                                  $primaryImage = $garment['image_primary'] ?? '';
-                                                  if ($primaryImage) {
-                                                      $waLink .= '&media=' . urlencode(asset($primaryImage));
-                                                  }
                                                   ?>
                                                   <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
-                                                  <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                                  <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>                                            </div>
+                                                  <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>
                                           </div>
                                         </div>
                                     </div>
@@ -231,19 +227,15 @@
                                                       <button type="submit" class="btn btn-sm btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
                                                   </form>
                                                   <?php endif; ?>
+                                                  <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
                                                   <?php if ($showAsk): ?>
                                                   <?php
-                                                  $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+                                                  $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'] . ' ' . $detailUrl;
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
-                                                  $primaryImage = $garment['image_primary'] ?? '';
-                                                  if ($primaryImage) {
-                                                      $waLink .= '&media=' . urlencode(asset($primaryImage));
-                                                  }
                                                   ?>
-                                                 <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+                                                  <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
-                                                  <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                                  <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>                                            </div>
+                                                  <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>
                                         </div>
                                       </div>
                                     </div>
@@ -325,20 +317,16 @@
                                             <input type="hidden" name="quantity" value="1">
                                             <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
                                         </form>
-                                        <?php endif; ?>
-                                        <?php if ($showAsk): ?>
-                                        <?php
-                                        $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
-                                        $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
-                                        $primaryImage = $garment['image_primary'] ?? '';
-                                        if ($primaryImage) {
-                                            $waLink .= '&media=' . urlencode(asset($primaryImage));
-                                        }
-                                        ?>
-                                        <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
-                                        <?php endif; ?>
-                                        <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                        <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="pe-7s-look"></i></a>
+                                          <?php endif; ?>
+                                          <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
+                                          <?php if ($showAsk): ?>
+                                          <?php
+                                          $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'] . ' ' . $detailUrl;
+                                          $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                          ?>
+                                          <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+                                          <?php endif; ?>
+                                          <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="pe-7s-look"></i></a>
                                     </div>
                                 </div>
                         </div>

@@ -25,12 +25,9 @@
         <?php endif; ?>
         <p>Precio: $<?= number_format((float)$garment['sale_value'], 2); ?></p>
         <?php
-          $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
+          $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']);
+          $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'] . ' ' . $detailUrl;
           $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
-          $primaryImage = $garment['image_primary'] ?? '';
-          if ($primaryImage) {
-              $waLink .= '&media=' . urlencode(asset($primaryImage));
-          }
           $tag = strtolower($garment['tag_text'] ?? '');
           $showCart = $tag !== 'reservado' && $tag !== 'vendido';
           $showAsk  = $tag !== 'vendido';
