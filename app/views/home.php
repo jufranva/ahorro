@@ -16,7 +16,8 @@
               <?php $textClass = ((int)$slide['color'] === 2) ? 'text-white' : 'text-dark'; ?>
               <div class="hero-slide-item swiper-slide">
                       <div class="hero-slide-bg">
-                          <img src="<?= htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8') ?>" alt="Slider Image" />                      </div>
+                          <img src="<?= htmlspecialchars($slide['image'], ENT_QUOTES, 'UTF-8') ?>" alt="Slider Image" />                      
+                        </div>
                       <div class="container">
                           <div class="hero-slide-content">
                                <h2 class="title <?= $textClass ?>"><?= nl2br(htmlspecialchars($slide['title'], ENT_QUOTES, 'UTF-8')) ?></h2>
@@ -102,7 +103,7 @@
                 ROPA RECIEN LLEGADA
                 <ul class="product-tab-nav nav justify-content-center mb-10 title-border-bottom mt-n3">
                     <li class="nav-item" data-aos="fade-up" data-aos-delay="300"><a class="nav-link active mt-3" data-bs-toggle="tab" href="#tab-new-arrivals">NUEVA</a></li>
-                    <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3" data-bs-toggle="tab" href="#tab-used-arrivals">USADA</a></li>
+                    <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3" data-bs-toggle="tab" href="#tab-used-arrivals">2DA MANO</a></li>
                 </ul>
             </div>
         </div>
