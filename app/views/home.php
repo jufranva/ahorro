@@ -100,7 +100,7 @@
         <!-- Section Title & Tab Start -->
         <div class="row">
             <div class="col-12">
-                ROPA RECIEN LLEGADA
+                MERCADERIA RECIEN LLEGADA
                 <ul class="product-tab-nav nav justify-content-center mb-10 title-border-bottom mt-n3">
                     <li class="nav-item" data-aos="fade-up" data-aos-delay="300"><a class="nav-link active mt-3" data-bs-toggle="tab" href="#tab-new-arrivals">NUEVA</a></li>
                     <li class="nav-item" data-aos="fade-up" data-aos-delay="400"><a class="nav-link mt-3" data-bs-toggle="tab" href="#tab-used-arrivals">2DA MANO</a></li>
