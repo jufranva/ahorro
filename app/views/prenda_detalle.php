@@ -27,6 +27,10 @@
         <?php
           $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
           $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+          $primaryImage = $garment['image_primary'] ?? '';
+          if ($primaryImage) {
+              $waLink .= '&media=' . urlencode(asset($primaryImage));
+          }
           $tag = strtolower($garment['tag_text'] ?? '');
           $showCart = $tag !== 'reservado' && $tag !== 'vendido';
           $showAsk  = $tag !== 'vendido';

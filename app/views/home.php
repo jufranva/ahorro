@@ -163,6 +163,10 @@
                                                   <?php
                                                   $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                                  $primaryImage = $garment['image_primary'] ?? '';
+                                                  if ($primaryImage) {
+                                                      $waLink .= '&media=' . urlencode(asset($primaryImage));
+                                                  }
                                                   ?>
                                                   <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
@@ -231,6 +235,10 @@
                                                   <?php
                                                   $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                                   $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                                  $primaryImage = $garment['image_primary'] ?? '';
+                                                  if ($primaryImage) {
+                                                      $waLink .= '&media=' . urlencode(asset($primaryImage));
+                                                  }
                                                   ?>
                                                  <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                                   <?php endif; ?>
@@ -322,6 +330,10 @@
                                         <?php
                                         $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
                                         $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
+                                        $primaryImage = $garment['image_primary'] ?? '';
+                                        if ($primaryImage) {
+                                            $waLink .= '&media=' . urlencode(asset($primaryImage));
+                                        }
                                         ?>
                                         <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                         <?php endif; ?>
