@@ -216,9 +216,9 @@
                             <h3 class="widget-title">Categorias</h3>
                             <div class="sidebar-body">
                                 <ul class="sidebar-list">
-                                    <li><a href="usada.php<?= $sort || $perPage ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage])) : '' ?>"<?= $categoryId === null ? ' class="active"' : '' ?>>Todas</a></li>
+                                    <li><a href="usada.php<?= $sort || $perPage ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage])) : '' ?>"<?= $categoryId === null ? ' class="active text-danger"' : '' ?>>Todas</a></li>
                                     <?php foreach ($categories as $cat): ?>
-                                    <li><a href="usada.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active"' : '' ?>><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                    <li><a href="usada.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active text-danger"' : '' ?>><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?> (<?= $cat['usage_count']; ?>)</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
