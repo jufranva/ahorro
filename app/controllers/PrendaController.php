@@ -175,6 +175,18 @@ class PrendaController
                         Garment::delete($id);
                     }
                     break;
+                case 'delete_image_primary':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        Garment::deleteImagePrimary($id);
+                    }
+                    break;
+                case 'delete_image_secondary':
+                    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+                    if ($id) {
+                        Garment::deleteImageSecondary($id);
+                    }
+                    break;
                 case 'update_garment_state':
                     $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
                     $state = isset($_POST['state_id']) && $_POST['state_id'] !== '' ? (int)$_POST['state_id'] : null;
