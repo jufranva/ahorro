@@ -169,6 +169,56 @@ class Garment
     }
 
 
+    public static function deleteImagePrimary(int $id): bool
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('SELECT image_primary FROM garments WHERE id=?');
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $stmt->bind_result($imagePrimary);
+        $stmt->fetch();
+        $stmt->close();
+
+        $update = $mysqli->prepare('UPDATE garments SET image_primary="" WHERE id=?');
+        $update->bind_param('i', $id);
+        $success = $update->execute();
+        $update->close();
+        $mysqli->close();
+
+        if ($success && $imagePrimary) {
+            $primaryPath = __DIR__ . '/../../' . $imagePrimary;
+            if (file_exists($primaryPath)) {
+                unlink($primaryPath);
+            }
+        }
+        return $success;
+    }
+
+    public static function deleteImageSecondary(int $id): bool
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('SELECT image_secondary FROM garments WHERE id=?');
+        $stmt->bind_param('i', $id);
+        $stmt->execute();
+        $stmt->bind_result($imageSecondary);
+        $stmt->fetch();
+        $stmt->close();
+
+        $update = $mysqli->prepare('UPDATE garments SET image_secondary=NULL WHERE id=?');
+        $update->bind_param('i', $id);
+        $success = $update->execute();
+        $update->close();
+        $mysqli->close();
+
+        if ($success && $imageSecondary) {
+            $secondaryPath = __DIR__ . '/../../' . $imageSecondary;
+            if (file_exists($secondaryPath)) {
+                unlink($secondaryPath);
+            }
+        }
+        return $success;
+    }
+
     public static function find(int $id): ?array
     {
         $mysqli = obtenerConexion();

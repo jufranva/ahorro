@@ -227,13 +227,15 @@
           <div class="col-md-6">
             <label class="form-label">Imagen principal</label>
             <input type="file" class="form-control" name="image_primary" accept="image/png, image/jpeg">
-            <img id="edit-image-primary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label">Imagen secundaria</label>
-            <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
-            <img id="edit-image-secondary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
-          </div>
+              <img id="edit-image-primary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
+              <button type="button" class="btn btn-danger btn-sm mt-2" id="delete-image-primary-btn">Eliminar imagen principal</button>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Imagen secundaria</label>
+              <input type="file" class="form-control" name="image_secondary" accept="image/png, image/jpeg">
+              <img id="edit-image-secondary-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="img-thumbnail mt-2" style="width:100px;">
+              <button type="button" class="btn btn-danger btn-sm mt-2" id="delete-image-secondary-btn">Eliminar imagen secundaria</button>
+            </div>
           <div class="col-md-6">
             <label class="form-label">Valor de compra</label>
             <input type="number" step="0.01" class="form-control" name="purchase_value" id="edit-purchase" required>
@@ -540,6 +542,8 @@ editModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('edit-current-image-secondary').value = button.getAttribute('data-image_secondary');
   document.getElementById('edit-image-primary-preview').src = button.getAttribute('data-image_primary');
   document.getElementById('edit-image-secondary-preview').src = button.getAttribute('data-image_secondary');
+  document.getElementById('delete-image-primary-btn').style.display = button.getAttribute('data-image_primary') ? 'inline-block' : 'none';
+  document.getElementById('delete-image-secondary-btn').style.display = button.getAttribute('data-image_secondary') ? 'inline-block' : 'none';
   document.getElementById('edit-purchase').value = button.getAttribute('data-purchase');
   document.getElementById('edit-sale').value = button.getAttribute('data-sale');
   document.getElementById('edit-condition').value = button.getAttribute('data-condition');
@@ -559,6 +563,30 @@ deleteModal.addEventListener('show.bs.modal', function (event) {
   document.getElementById('delete-id').value = button.getAttribute('data-id');
   document.getElementById('delete-name').textContent = button.getAttribute('data-name');
   document.getElementById('delete-image').src = button.getAttribute('data-image');
+});
+
+var deletePrimaryBtn = document.getElementById('delete-image-primary-btn');
+deletePrimaryBtn.addEventListener('click', function () {
+  if (confirm('¿Está seguro que desea eliminar la imagen principal?')) {
+    var form = document.createElement('form');
+    form.method = 'post';
+    form.action = '';
+    form.innerHTML = '<input type="hidden" name="action" value="delete_image_primary"><input type="hidden" name="id" value="' + document.getElementById('edit-id').value + '">';
+    document.body.appendChild(form);
+    form.submit();
+  }
+});
+
+var deleteSecondaryBtn = document.getElementById('delete-image-secondary-btn');
+deleteSecondaryBtn.addEventListener('click', function () {
+  if (confirm('¿Está seguro que desea eliminar la imagen secundaria?')) {
+    var form = document.createElement('form');
+    form.method = 'post';
+    form.action = '';
+    form.innerHTML = '<input type="hidden" name="action" value="delete_image_secondary"><input type="hidden" name="id" value="' + document.getElementById('edit-id').value + '">';
+    document.body.appendChild(form);
+    form.submit();
+  }
 });
 </script>
 
