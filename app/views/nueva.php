@@ -175,26 +175,58 @@
                                 if ($categoryId !== null) { $queryBase['category'] = $categoryId; }
                                 if ($sort !== null) { $queryBase['sort'] = $sort; }
                                 $queryBase['perPage'] = $perPage;
-                                $prevDisabled = $page <= 1 ? ' disabled' : '';
-                                $prevQuery = http_build_query(array_merge($queryBase, ['page' => $page - 1]));
+
+                                $firstDisabled = $page <= 1 ? ' disabled' : '';
+                                $lastDisabled  = $page >= $pages ? ' disabled' : '';
+
+                                $firstQuery = http_build_query(array_merge($queryBase, ['page' => 1]));
+                                $prevQuery  = http_build_query(array_merge($queryBase, ['page' => $page - 1]));
+                                $nextQuery  = http_build_query(array_merge($queryBase, ['page' => $page + 1]));
+                                $lastQuery  = http_build_query(array_merge($queryBase, ['page' => $pages]));
+
+                                if ($pages <= 5) {
+                                    $startPage = 1;
+                                    $endPage   = $pages;
+                                } elseif ($page <= 3) {
+                                    $startPage = 1;
+                                    $endPage   = 5;
+                                } elseif ($page >= $pages - 2) {
+                                    $startPage = $pages - 4;
+                                    $endPage   = $pages;
+                                } else {
+                                    $startPage = $page - 2;
+                                    $endPage   = $page + 2;
+                                }
                                 ?>
-                                <li class="page-item<?= $prevDisabled; ?>">
-                                    <a class="page-link" href="<?= $prevDisabled ? '#' : 'nueva.php?' . $prevQuery; ?>" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
+                                <li class="page-item<?= $firstDisabled; ?>">
+                                    <a class="page-link" href="<?= $firstDisabled ? '#' : 'nueva.php?' . $firstQuery; ?>" title="Primera página">
+                                        &laquo;&laquo;
                                     </a>
                                 </li>
-                                <?php for ($i = 1; $i <= $pages; $i++):
+                                <li class="page-item<?= $firstDisabled; ?>">
+                                    <a class="page-link" href="<?= $firstDisabled ? '#' : 'nueva.php?' . $prevQuery; ?>" title="Página anterior">
+                                        &laquo;
+                                    </a>
+                                </li>
+                                <?php if ($startPage > 1): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                                <?php for ($i = $startPage; $i <= $endPage; $i++):
                                     $pageQuery = http_build_query(array_merge($queryBase, ['page' => $i]));
                                 ?>
                                     <li class="page-item"><a class="page-link<?= $page === $i ? ' active' : '' ?>" href="nueva.php?<?= $pageQuery; ?>"><?= $i; ?></a></li>
                                 <?php endfor; ?>
-                                <?php
-                                $nextDisabled = $page >= $pages ? ' disabled' : '';
-                                $nextQuery = http_build_query(array_merge($queryBase, ['page' => $page + 1]));
-                                ?>
-                                <li class="page-item<?= $nextDisabled; ?>">
-                                    <a class="page-link" href="<?= $nextDisabled ? '#' : 'nueva.php?' . $nextQuery; ?>" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
+                                <?php if ($endPage < $pages): ?>
+                                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                                <?php endif; ?>
+                                <li class="page-item<?= $lastDisabled; ?>">
+                                    <a class="page-link" href="<?= $lastDisabled ? '#' : 'nueva.php?' . $nextQuery; ?>" title="Página siguiente">
+                                        &raquo;
+                                    </a>
+                                </li>
+                                <li class="page-item<?= $lastDisabled; ?>">
+                                    <a class="page-link" href="<?= $lastDisabled ? '#' : 'nueva.php?' . $lastQuery; ?>" title="Última página">
+                                        &raquo;&raquo;
                                     </a>
                                 </li>
                             </ul>
