@@ -660,6 +660,10 @@
             }
         });
 
+        $('#continue-shopping-btn').on('click', function() {
+            window.location.reload();
+        });
+
     });
 
 })(jQuery);
