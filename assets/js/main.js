@@ -649,8 +649,17 @@
                     type: 'POST',
                     url: $form.attr('action'),
                     data: $form.serialize(),
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                }).done(function() {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    dataType: 'json'
+                }).done(function(resp) {
+                    if (resp && resp.garment) {
+                        $('#cart-modal-image')
+                            .attr('src', resp.garment.image || '')
+                            .attr('alt', resp.garment.name || '');
+                        $('#cart-modal-name').text(resp.garment.name || '');
+                        $('#cart-modal-description').text(resp.garment.comment || '');
+                        $('#cart-modal-price').text('$' + (resp.garment.price || ''));
+                    }
                     var modalEl = document.getElementById('cartModal');
                     if (modalEl && window.bootstrap) {
                         var modal = new bootstrap.Modal(modalEl);

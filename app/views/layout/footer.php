@@ -127,7 +127,17 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        El artículo se agregó correctamente al carrito de compra.
+                        <p>El artículo se agregó correctamente al carrito de compra.</p>
+                        <table class="table table-borderless mb-0">
+                            <tr>
+                                <td class="align-middle" style="width:100px"><img id="cart-modal-image" src="" alt="" class="img-fluid"></td>
+                                <td class="align-middle">
+                                    <div id="cart-modal-name" class="fw-bold"></div>
+                                    <div id="cart-modal-description" class="small text-muted"></div>
+                                    <div id="cart-modal-price"></div>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <div class="modal-footer justify-content-center justify-content-sm-end">
                         <button type="button" id="continue-shopping-btn" class="btn btn-success" data-bs-dismiss="modal">Seguir comprando</button>
