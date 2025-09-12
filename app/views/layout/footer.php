@@ -129,7 +129,7 @@
                     <div class="modal-body">
                         El artículo se agregó correctamente al carrito de compra.
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer justify-content-center justify-content-sm-end">
                         <button type="button" id="continue-shopping-btn" class="btn btn-success" data-bs-dismiss="modal">Seguir comprando</button>
                         <a href="<?= asset('cart.php'); ?>" class="btn btn-primary">Ir al carrito de compra</a>
                     </div>
