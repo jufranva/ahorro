@@ -122,6 +122,31 @@
             <i class="arrow-bottom fa fa-long-arrow-up"></i>
         </a>
         <!-- Scroll Top End -->
+        <!-- Cart Modal Start -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>El artículo se agregó correctamente al carrito de compra.</p>
+                        <table class="table table-borderless mb-0">
+                            <tr>
+                                <td class="align-middle" style="width:100px"><img id="cart-modal-image" src="" alt="" class="img-fluid"></td>
+                                <td class="align-middle">
+                                    <div id="cart-modal-name" class="fw-bold"></div>
+                                    <div id="cart-modal-description" class="small text-muted"></div>
+                                    <div id="cart-modal-price"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer justify-content-center justify-content-sm-end">
+                        <a href="<?= asset('cart.php'); ?>" class="btn btn-primary">Ir al carrito de compra</a>
+                        <button type="button" id="continue-shopping-btn" class="btn btn-success" data-bs-dismiss="modal">Seguir comprando</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Modal End -->
             <!-- Vendors JS -->
         <script src="<?= asset('assets/js/vendor/jquery-3.6.0.min.js') ?>" defer></script>
         <script>window.jQuery && (jQuery.migrateMute = true, jQuery.migrateTrace = false);</script>

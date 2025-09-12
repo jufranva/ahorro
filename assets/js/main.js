@@ -640,6 +640,39 @@
             });
         });
 
+        // Intercept add-to-cart forms to show confirmation modal
+        $('form[action$="cart.php"]').on('submit', function(e) {
+            var $form = $(this);
+            if ($form.find('input[name="action"]').val() === 'add') {
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $form.attr('action'),
+                    data: $form.serialize(),
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    dataType: 'json'
+                }).done(function(resp) {
+                    if (resp && resp.garment) {
+                        $('#cart-modal-image')
+                            .attr('src', resp.garment.image || '')
+                            .attr('alt', resp.garment.name || '');
+                        $('#cart-modal-name').text(resp.garment.name || '');
+                        $('#cart-modal-description').text(resp.garment.comment || '');
+                        $('#cart-modal-price').text('$' + (resp.garment.price || ''));
+                    }
+                    var modalEl = document.getElementById('cartModal');
+                    if (modalEl && window.bootstrap) {
+                        var modal = new bootstrap.Modal(modalEl);
+                        modal.show();
+                    }
+                });
+            }
+        });
+
+        $('#continue-shopping-btn').on('click', function() {
+            window.location.reload();
+        });
+
     });
 
 })(jQuery);
