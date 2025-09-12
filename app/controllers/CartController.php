@@ -20,6 +20,12 @@ class CartController
         if ($id > 0) {
             Cart::add($id, $quantity);
         }
+        $isAjax = strtolower($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'xmlhttprequest';
+        if ($isAjax) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true]);
+            exit;
+        }
         header('Location: ' . asset('cart.php'), true, 302);
         exit;
     }

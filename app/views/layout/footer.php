@@ -122,6 +122,21 @@
             <i class="arrow-bottom fa fa-long-arrow-up"></i>
         </a>
         <!-- Scroll Top End -->
+        <!-- Cart Modal Start -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        El artículo se agregó correctamente al carrito de compra.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir comprando</button>
+                        <a href="<?= asset('cart.php'); ?>" class="btn btn-primary">Ir al carrito de compra</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Cart Modal End -->
             <!-- Vendors JS -->
         <script src="<?= asset('assets/js/vendor/jquery-3.6.0.min.js') ?>" defer></script>
         <script>window.jQuery && (jQuery.migrateMute = true, jQuery.migrateTrace = false);</script>
