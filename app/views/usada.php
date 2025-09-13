@@ -47,6 +47,26 @@
                                 <?php if ($categoryId !== null): ?>
                                     <input type="hidden" name="category" value="<?= $categoryId; ?>">
                                 <?php endif; ?>
+                                <?php if ($sort !== null): ?>
+                                    <input type="hidden" name="sort" value="<?= $sort; ?>">
+                                <?php endif; ?>
+                                <input type="hidden" name="perPage" value="<?= $perPage; ?>">
+                                <select name="size" class="nice-select" aria-label="Filtrar por talla" onchange="this.form.submit()">
+                                    <option value=""<?= $size === null ? ' selected' : '' ?>>Tallas</option>
+                                    <?php foreach ($sizes as $s): ?>
+                                        <option value="<?= htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); ?>"<?= $size === $s ? ' selected' : '' ?>><?= htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </form>
+                        </div>
+                        <div class="shop-short-by mr-4">
+                            <form method="get">
+                                <?php if ($categoryId !== null): ?>
+                                    <input type="hidden" name="category" value="<?= $categoryId; ?>">
+                                <?php endif; ?>
+                                <?php if ($size !== null): ?>
+                                    <input type="hidden" name="size" value="<?= htmlspecialchars($size, ENT_QUOTES, 'UTF-8'); ?>">
+                                <?php endif; ?>
                                 <input type="hidden" name="perPage" value="<?= $perPage; ?>">
                                 <select name="sort" class="nice-select" aria-label=".form-select-sm example" onchange="this.form.submit()">
                                     <option value=""<?= $sort === null ? ' selected' : '' ?>>Ordenado por</option>
@@ -158,6 +178,9 @@
                                 <?php if ($sort !== null): ?>
                                     <input type="hidden" name="sort" value="<?= $sort; ?>">
                                 <?php endif; ?>
+                                <?php if ($size !== null): ?>
+                                    <input type="hidden" name="size" value="<?= htmlspecialchars($size, ENT_QUOTES, 'UTF-8'); ?>">
+                                <?php endif; ?>
                                 <select name="perPage" class="nice-select rounded-0" aria-label=".form-select-sm example" onchange="this.form.submit()">
                                     <?php foreach ([9, 15, 24, 36, 51] as $pp): ?>
                                         <option value="<?= $pp; ?>"<?= $perPage === $pp ? ' selected' : '' ?>>Ver <?= $pp; ?> por pagina</option>
@@ -176,6 +199,7 @@
                                 $queryBase = [];
                                 if ($categoryId !== null) { $queryBase['category'] = $categoryId; }
                                 if ($sort !== null) { $queryBase['sort'] = $sort; }
+                                if ($size !== null) { $queryBase['size'] = $size; }
                                 $queryBase['perPage'] = $perPage;
 
                                 $firstDisabled = $page <= 1 ? ' disabled' : '';
@@ -249,9 +273,9 @@
                             <h3 class="widget-title">Categorias</h3>
                             <div class="sidebar-body">
                                 <ul class="sidebar-list">
-                                    <li><a href="usada.php<?= $sort || $perPage ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage])) : '' ?>"<?= $categoryId === null ? ' class="active text-danger"' : '' ?>>Todas</a></li>
+                                    <li><a href="usada.php<?= $sort || $perPage || $size ? '?' . http_build_query(array_filter(['sort' => $sort, 'perPage' => $perPage, 'size' => $size])) : '' ?>"<?= $categoryId === null ? ' class="active text-danger"' : '' ?>>Todas</a></li>
                                     <?php foreach ($categories as $cat): ?>
-                                    <li><a href="usada.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active text-danger"' : '' ?>><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?> (<?= $cat['usage_count']; ?>)</a></li>
+                                      <li><a href="usada.php?<?= http_build_query(array_filter(['category' => $cat['id'], 'sort' => $sort, 'perPage' => $perPage, 'size' => $size])) ?>"<?= $categoryId === (int)$cat['id'] ? ' class="active text-danger"' : '' ?>><?= htmlspecialchars($cat['name'], ENT_QUOTES, 'UTF-8'); ?> (<?= $cat['usage_count']; ?>)</a></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
