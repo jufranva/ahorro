@@ -89,7 +89,7 @@
                             <div class="content">
                                 <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>
                                 <?php if (!empty($garment['size'])): ?>
-                                <div class="mb-2"><small>Talla: <?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></small></div>
+                                <div class="mb-2"><span class="badge rounded-pill bg-danger">Talla <?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></span></div>
                                 <?php endif; ?>
                                  <!-- SKU Start -->
                             <?php if (!empty($garment['unique_code'])): ?>
