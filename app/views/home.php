@@ -137,7 +137,11 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                                <span class="ratings">
+                                                <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                                
+                                                <?php if (!empty($garment['size'])): ?>
+                                                <div class="mb-2"><small>Talla: <?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></small></div>
+                                                <?php endif; ?>
+                <span class="ratings">
                                                     <span class="rating-wrap">
                                                         <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
                                                     </span>
@@ -205,6 +209,9 @@
                                             </div>
                                             <div class="content">
                                                 <h5 class="title"><a href="#" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><?= htmlspecialchars($garment['name'], ENT_QUOTES, 'UTF-8'); ?></a></h5>                                                
+                                                <?php if (!empty($garment['size'])): ?>
+                                                <div class="mb-2"><small>Talla: <?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></small></div>
+                                                <?php endif; ?>
                                                 <span class="ratings">
                                                   <span class="rating-wrap">
                                                         <span class="star" style="width: <?= (int)$garment['condition']; ?>%"></span>
