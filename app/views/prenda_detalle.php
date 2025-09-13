@@ -23,6 +23,9 @@
         <?php if (!empty($garment['comment'])): ?>
         <p><?= htmlspecialchars($garment['comment'], ENT_QUOTES, 'UTF-8'); ?></p>
         <?php endif; ?>
+        <?php if (!empty($garment['size'])): ?>
+            <div class="mb-2">Talla: <span class="badge rounded-pill bg-danger"><?= htmlspecialchars($garment['size'], ENT_QUOTES, 'UTF-8'); ?></span></div>
+        <?php endif; ?>
         <p>Precio: $<?= number_format((float)$garment['sale_value'], 2); ?></p>
         <?php
           $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código:' . $garment['unique_code'];
