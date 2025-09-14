@@ -30,6 +30,7 @@
             <th>Teléfono</th>
             <th>Método</th>
             <th>Estado</th>
+            <th>Valor Total</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -59,6 +60,7 @@
               ?>
               <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
             </td>
+            <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
               <?php if ($order['status'] === 'pending'): ?>
