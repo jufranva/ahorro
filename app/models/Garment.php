@@ -274,6 +274,17 @@ class Garment
         return $success;
     }
 
+    public static function setSaleDate(int $id): bool
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('UPDATE garments SET sale_date = CURDATE() WHERE id = ?');
+        $stmt->bind_param('i', $id);
+        $success = $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
+        return $success;
+    }
+
     public static function releaseReservation(int $id): void
     {
         $mysqli = obtenerConexion();
