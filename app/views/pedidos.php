@@ -155,6 +155,13 @@
             <?php $orderModals[] = ob_get_clean(); ?>
           <?php endforeach; ?>
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-end"><strong>Total</strong></td>
+              <td><strong>$<?= number_format((float)$ordersTotal, 2); ?></strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
         </table>
         <?php foreach ($orderModals as $modal) echo $modal; ?>
       </div>
