@@ -18,7 +18,7 @@ class NuevaController
         $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
 
         $noVisibleId = State::getIdByName('No visible');
-        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, null, $sort, $noVisibleId), function ($g) {
+        $garments = array_values(array_filter(Garment::all(null, null, $categoryId, null, null, $sort, $noVisibleId), function ($g) {
             return ($g['type'] ?? '') === 'nueva';
         }));
 

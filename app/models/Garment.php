@@ -9,6 +9,7 @@ class Garment
         ?int $stateId = null,
         ?int $categoryId = null,
         ?int $tagId = null,
+        ?int $providerId = null,
         ?string $sort = null,
         ?int $excludeStateId = null
     ): array {
@@ -39,6 +40,9 @@ class Garment
         }
         if ($tagId !== null) {
             $conditions[] = 'g.tag_id = ' . (int)$tagId;
+        }
+        if ($providerId !== null) {
+            $conditions[] = 'g.provider_id = ' . (int)$providerId;
         }
         if ($excludeStateId !== null) {
             $conditions[] = '(g.state_id IS NULL OR g.state_id != ' . (int)$excludeStateId . ')';
