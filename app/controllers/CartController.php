@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../models/Cart.php';
 require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../models/Garment.php';
+require_once __DIR__ . '/../services/WhatsAppNotifier.php';
 
 class CartController
 {
@@ -59,7 +60,8 @@ class CartController
         $payment = filter_input(INPUT_POST, 'payment', FILTER_SANITIZE_STRING);
         $items = Cart::items();
         if ($name !== '' && $phone !== '' && $payment && !empty($items)) {
-            Order::create($name, $phone, $payment, $items);
+            $orderId = Order::create($name, $phone, $payment, $items);
+            WhatsAppNotifier::sendNewOrderNotification($orderId);
             Cart::clear(false);
             foreach ($items as $item) {
                 Garment::markReserved((int)$item['garment_id']);
