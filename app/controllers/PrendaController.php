@@ -283,6 +283,10 @@ class PrendaController
         $stateFilter = isset($_GET['state_id']) && $_GET['state_id'] !== '' ? (int)$_GET['state_id'] : null;
         $tagFilter = isset($_GET['tag_id']) && $_GET['tag_id'] !== '' ? (int)$_GET['tag_id'] : null;
         $garments = Garment::all($search, $stateFilter, null, $tagFilter);
+        $garmentsTotal = 0;
+        foreach ($garments as $garment) {
+            $garmentsTotal += (float)$garment['sale_value'];
+        }
         $categories = Category::all();
         $providers = Provider::all();
         $tags = Tag::all();

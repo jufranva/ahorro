@@ -100,6 +100,13 @@
             </tr>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-end"><strong>Total</strong></td>
+                <td><strong><?= number_format((float)$garmentsTotal, 2); ?></strong></td>
+                <td colspan="4"></td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
