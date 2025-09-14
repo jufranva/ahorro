@@ -285,6 +285,43 @@ class Garment
         return $success;
     }
 
+    public static function sold(?string $from = null, ?string $to = null, ?int $providerId = null): array
+    {
+        $mysqli = obtenerConexion();
+        $sql = 'SELECT g.*, p.name AS provider_name FROM garments g LEFT JOIN providers p ON g.provider_id = p.id WHERE g.sale_date IS NOT NULL';
+        $params = [];
+        $types = '';
+        if ($from !== null && $from !== '') {
+            $sql .= ' AND g.sale_date >= ?';
+            $params[] = &$from;
+            $types .= 's';
+        }
+        if ($to !== null && $to !== '') {
+            $sql .= ' AND g.sale_date <= ?';
+            $params[] = &$to;
+            $types .= 's';
+        }
+        if ($providerId !== null) {
+            $sql .= ' AND g.provider_id = ?';
+            $params[] = &$providerId;
+            $types .= 'i';
+        }
+        $sql .= ' ORDER BY g.sale_date DESC';
+        if (!empty($params)) {
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param($types, ...$params);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $garments = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+        } else {
+            $result = $mysqli->query($sql);
+            $garments = $result->fetch_all(MYSQLI_ASSOC);
+        }
+        $mysqli->close();
+        return $garments;
+    }
+
     public static function releaseReservation(int $id): void
     {
         $mysqli = obtenerConexion();

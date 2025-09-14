@@ -17,6 +17,9 @@
         <div class="col-auto">
           <button type="submit" class="btn btn-primary">Filtrar</button>
         </div>
+        <div class="col-auto">
+          <a href="<?= htmlspecialchars(asset('cuentas.php'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-secondary">Cuentas</a>
+        </div>
       </div>
     </form>
     <?php if (empty($orders)): ?>
