@@ -64,8 +64,10 @@ class CartController
             foreach ($items as $item) {
                 Garment::markReserved((int)$item['garment_id']);
             }
+            header('Location: ' . asset('gracias.php'), true, 302);
+            exit;
         }
-        header('Location: ' . asset('index.php'), true, 302);
+        header('Location: ' . asset('cart.php'), true, 302);
         exit;
     }
 }
