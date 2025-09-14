@@ -9,6 +9,12 @@ switch ($action) {
     case 'confirm':
         $controller->confirm();
         break;
+    case 'pay':
+        $controller->pay();
+        break;
+    case 'deliver':
+        $controller->deliver();
+        break;
     case 'reject':
         $controller->reject();
         break;

@@ -6,7 +6,7 @@ class PedidoController
     public function index(): void
     {
         $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
-        $statusFilter = in_array($status, ['pending', 'confirmed', 'rejected'], true) ? $status : null;
+        $statusFilter = in_array($status, ['pending', 'confirmed', 'paid', 'delivered', 'rejected'], true) ? $status : null;
         $orders = Order::all($statusFilter);
         foreach ($orders as $index => $order) {
             $orders[$index]['items'] = Order::items((int)$order['id']);
@@ -21,6 +21,28 @@ class PedidoController
         $id = (int)$idRaw;
         if ($id > 0) {
             Order::confirm($id);
+        }
+        header('Location: ' . asset('pedidos.php'), true, 302);
+        exit;
+    }
+
+    public function pay(): void
+    {
+        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $id = (int)$idRaw;
+        if ($id > 0) {
+            Order::pay($id);
+        }
+        header('Location: ' . asset('pedidos.php'), true, 302);
+        exit;
+    }
+
+    public function deliver(): void
+    {
+        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $id = (int)$idRaw;
+        if ($id > 0) {
+            Order::deliver($id);
         }
         header('Location: ' . asset('pedidos.php'), true, 302);
         exit;

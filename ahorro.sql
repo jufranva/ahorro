@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS orders (
   buyer_name VARCHAR(100) NOT NULL,
   phone VARCHAR(30) NOT NULL,
   payment_method VARCHAR(20) NOT NULL,
-  status ENUM('pending','confirmed','rejected') DEFAULT 'pending',
+  status ENUM('pending','confirmed','paid','delivered','rejected') DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
