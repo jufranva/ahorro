@@ -31,7 +31,7 @@ class Order
     public static function all(?string $status = null): array
     {
         $mysqli = obtenerConexion();
-        if ($status && in_array($status, ['pending', 'confirmed', 'rejected'], true)) {
+        if ($status && in_array($status, ['pending', 'confirmed', 'paid', 'delivered', 'rejected'], true)) {
             $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status FROM orders WHERE status = ? ORDER BY id DESC');
             $stmt->bind_param('s', $status);
             $stmt->execute();
@@ -82,6 +82,26 @@ class Order
         }
         $mysqli = obtenerConexion();
         $upd = $mysqli->prepare("UPDATE orders SET status='rejected' WHERE id=?");
+        $upd->bind_param('i', $orderId);
+        $upd->execute();
+        $upd->close();
+        $mysqli->close();
+    }
+
+    public static function pay(int $orderId): void
+    {
+        $mysqli = obtenerConexion();
+        $upd = $mysqli->prepare("UPDATE orders SET status='paid' WHERE id=?");
+        $upd->bind_param('i', $orderId);
+        $upd->execute();
+        $upd->close();
+        $mysqli->close();
+    }
+
+    public static function deliver(int $orderId): void
+    {
+        $mysqli = obtenerConexion();
+        $upd = $mysqli->prepare("UPDATE orders SET status='delivered' WHERE id=?");
         $upd->bind_param('i', $orderId);
         $upd->execute();
         $upd->close();

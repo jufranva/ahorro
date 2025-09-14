@@ -9,6 +9,8 @@
             <option value="" <?= $currentStatus === '' ? 'selected' : ''; ?>>Todos</option>
             <option value="pending" <?= $currentStatus === 'pending' ? 'selected' : ''; ?>>Pendientes</option>
             <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Confirmados</option>
+            <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Pagados</option>
+            <option value="delivered" <?= $currentStatus === 'delivered' ? 'selected' : ''; ?>>Entregados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
           </select>
         </div>
@@ -44,6 +46,12 @@
                 if ($order['status'] === 'confirmed') {
                     $iconClass = 'pe-7s-check text-success';
                     $orden= 'Pedido Confirmado';
+                } elseif ($order['status'] === 'paid') {
+                    $iconClass = 'pe-7s-cash text-primary';
+                    $orden= 'Pedido Pagado';
+                } elseif ($order['status'] === 'delivered') {
+                    $iconClass = 'pe-7s-gift text-info';
+                    $orden= 'Pedido Entregado';
                 } elseif ($order['status'] === 'rejected') {
                     $iconClass = 'pe-7s-close-circle text-danger';
                     $orden= 'Pedido Rechazado';
@@ -64,7 +72,20 @@
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
                 <button type="submit" class="btn btn-sm btn-danger">Rechazar</button>
               </form>
-              <?php else: ?>
+              <?php elseif ($order['status'] === 'confirmed'): ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                <input type="hidden" name="action" value="pay">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
+              </form>
+              <?php elseif ($order['status'] === 'paid'): ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                <input type="hidden" name="action" value="deliver">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <button type="submit" class="btn btn-sm btn-success">Entregado</button>
+              </form>
+              <?php endif; ?>
+              <?php if ($order['status'] === 'rejected' || (isset($_SESSION['role']) && (int)$_SESSION['role'] === 1)): ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
                 <input type="hidden" name="action" value="delete">
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
