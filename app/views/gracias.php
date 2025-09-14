@@ -3,7 +3,7 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <h1 class="mb-4">🎉 <em>¡Gracias por tu compra!</em> 🎉</h1>
+                <h1 class="mb-4">🎉 <span style="font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;">¡Gracias por tu compra!</span> 🎉</h1>
                 <p>Hemos recibido tu pedido correctamente.</p>
                 <p>🕘 Esta noche nos pondremos en contacto al número telefónico que nos proporcionaste para coordinar el pago y el envío de tus productos.</p>
                 <p>💛 ¡Gracias por comprar en EL ARMARIO DEL AHORRO!</p>
