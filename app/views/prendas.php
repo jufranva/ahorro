@@ -20,6 +20,12 @@
                 <option value="<?= $st['id'] ?>" <?= isset($selectedState) && $selectedState == $st['id'] ? 'selected' : '' ?>><?= htmlspecialchars($st['name'], ENT_QUOTES, 'UTF-8') ?></option>
               <?php endforeach; ?>
             </select>
+            <select class="form-select" name="provider_id">
+              <option value="">Todos</option>
+              <?php foreach ($providers as $prov): ?>
+                <option value="<?= $prov['id'] ?>" <?= isset($selectedProvider) && $selectedProvider == $prov['id'] ? 'selected' : '' ?>><?= htmlspecialchars($prov['name'], ENT_QUOTES, 'UTF-8') ?></option>
+              <?php endforeach; ?>
+            </select>
             <select class="form-select" name="tag_id">
               <option value="">Todas</option>
               <?php foreach ($tags as $tag): ?>
@@ -100,6 +106,13 @@
             </tr>
         <?php endforeach; ?>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-end"><strong>Total</strong></td>
+                <td><strong><?= number_format((float)$garmentsTotal, 2); ?></strong></td>
+                <td colspan="4"></td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 

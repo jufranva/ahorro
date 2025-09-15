@@ -8,8 +8,16 @@ class PedidoController
         $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
         $statusFilter = in_array($status, ['pending', 'confirmed', 'paid', 'delivered', 'rejected'], true) ? $status : null;
         $orders = Order::all($statusFilter);
+        $ordersTotal = 0;
         foreach ($orders as $index => $order) {
-            $orders[$index]['items'] = Order::items((int)$order['id']);
+            $items = Order::items((int)$order['id']);
+            $orders[$index]['items'] = $items;
+            $total = 0;
+            foreach ($items as $item) {
+                $total += (float)$item['sale_value'] * (int)$item['quantity'];
+            }
+            $orders[$index]['total'] = $total;
+            $ordersTotal += $total;
         }
         $currentStatus = $statusFilter ?? '';
         include __DIR__ . '/../views/pedidos.php';

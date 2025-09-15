@@ -90,6 +90,10 @@ class Order
 
     public static function pay(int $orderId): void
     {
+        $items = self::items($orderId);
+        foreach ($items as $item) {
+            Garment::setSaleDate((int)$item['garment_id']);
+        }
         $mysqli = obtenerConexion();
         $upd = $mysqli->prepare("UPDATE orders SET status='paid' WHERE id=?");
         $upd->bind_param('i', $orderId);

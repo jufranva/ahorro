@@ -17,6 +17,9 @@
         <div class="col-auto">
           <button type="submit" class="btn btn-primary">Filtrar</button>
         </div>
+        <div class="col-auto">
+          <a href="<?= htmlspecialchars(asset('cuentas.php'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-secondary">Cuentas</a>
+        </div>
       </div>
     </form>
     <?php if (empty($orders)): ?>
@@ -30,6 +33,7 @@
             <th>Teléfono</th>
             <th>Método</th>
             <th>Estado</th>
+            <th>Valor Total</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -59,6 +63,7 @@
               ?>
               <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
             </td>
+            <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
               <?php if ($order['status'] === 'pending'): ?>
@@ -153,6 +158,13 @@
             <?php $orderModals[] = ob_get_clean(); ?>
           <?php endforeach; ?>
           </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4" class="text-end"><strong>Total</strong></td>
+              <td><strong>$<?= number_format((float)$ordersTotal, 2); ?></strong></td>
+              <td></td>
+            </tr>
+          </tfoot>
         </table>
         <?php foreach ($orderModals as $modal) echo $modal; ?>
       </div>
