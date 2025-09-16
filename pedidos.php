@@ -12,6 +12,9 @@ switch ($action) {
     case 'pay':
         $controller->pay();
         break;
+    case 'credit':
+        $controller->credit();
+        break;
     case 'deliver':
         $controller->deliver();
         break;

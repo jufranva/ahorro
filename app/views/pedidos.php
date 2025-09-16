@@ -9,6 +9,7 @@
             <option value="" <?= $currentStatus === '' ? 'selected' : ''; ?>>Todos</option>
             <option value="pending" <?= $currentStatus === 'pending' ? 'selected' : ''; ?>>Pendientes</option>
             <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Confirmados</option>
+            <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>Crédito</option>
             <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Pagados</option>
             <option value="delivered" <?= $currentStatus === 'delivered' ? 'selected' : ''; ?>>Entregados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
@@ -38,7 +39,7 @@
           </tr>
         </thead>
           <tbody>
-          <?php $orderModals = []; foreach ($orders as $order): ?>
+          <?php $orderModals = []; $creditModals = []; foreach ($orders as $order): ?>
           <tr>
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -50,6 +51,9 @@
                 if ($order['status'] === 'confirmed') {
                     $iconClass = 'pe-7s-check text-success';
                     $orden= 'Pedido Confirmado';
+                } elseif ($order['status'] === 'credit') {
+                    $iconClass = 'pe-7s-wallet text-info';
+                    $orden= 'Pedido a crédito';
                 } elseif ($order['status'] === 'paid') {
                     $iconClass = 'pe-7s-cash text-primary';
                     $orden= 'Pedido Pagado';
@@ -62,6 +66,9 @@
                 }
               ?>
               <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
+              <?php if (!empty($order['credit_name']) && in_array($order['status'], ['credit', 'paid'], true)): ?>
+                <div><small class="text-muted">Crédito: <?= htmlspecialchars($order['credit_name'], ENT_QUOTES, 'UTF-8'); ?><?php if ($order['status'] === 'credit' && isset($order['credit_value'])): ?> (Saldo $<?= number_format((float)$order['credit_value'], 2); ?>)<?php endif; ?></small></div>
+              <?php endif; ?>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td>
@@ -78,6 +85,13 @@
                 <button type="submit" class="btn btn-sm btn-danger">Rechazar</button>
               </form>
               <?php elseif ($order['status'] === 'confirmed'): ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                <input type="hidden" name="action" value="pay">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
+              </form>
+              <button type="button" class="btn btn-sm btn-warning ms-1" data-bs-toggle="modal" data-bs-target="#credit-order-<?= (int)$order['id']; ?>">Crédito</button>
+              <?php elseif ($order['status'] === 'credit'): ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
                 <input type="hidden" name="action" value="pay">
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
@@ -156,6 +170,48 @@
               </div>
             </div>
             <?php $orderModals[] = ob_get_clean(); ?>
+            <?php if ($order['status'] === 'confirmed'): ?>
+            <?php ob_start(); ?>
+            <div class="modal fade" id="credit-order-<?= (int)$order['id']; ?>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="hidden" name="action" value="credit">
+                    <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Asignar crédito al pedido #<?= (int)$order['id']; ?></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>El pedido tiene un valor de <strong>$<?= number_format((float)$order['total'], 2); ?></strong> que se sumará al saldo del crédito seleccionado.</p>
+                      <div class="mb-3">
+                        <label for="credit-select-<?= (int)$order['id']; ?>" class="form-label">Crédito existente</label>
+                        <select class="form-select" id="credit-select-<?= (int)$order['id']; ?>" name="credit_id">
+                          <option value="">Seleccione una persona</option>
+                          <?php foreach ($credits as $credit): ?>
+                          <option value="<?= (int)$credit['id']; ?>">
+                            <?= htmlspecialchars($credit['name'], ENT_QUOTES, 'UTF-8'); ?> (Saldo $<?= number_format((float)$credit['value'], 2); ?>)
+                          </option>
+                          <?php endforeach; ?>
+                        </select>
+                        <div class="form-text">Puede elegir un crédito existente o crear uno nuevo a continuación.</div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="credit-name-<?= (int)$order['id']; ?>" class="form-label">Crear nuevo crédito</label>
+                        <input type="text" class="form-control" id="credit-name-<?= (int)$order['id']; ?>" name="credit_name" placeholder="Nombre de la persona">
+                        <div class="form-text">Complete este campo para crear un nuevo crédito.</div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                      <button type="submit" class="btn btn-primary">Guardar crédito</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <?php $creditModals[] = ob_get_clean(); ?>
+            <?php endif; ?>
           <?php endforeach; ?>
           </tbody>
           <tfoot>
@@ -167,6 +223,7 @@
           </tfoot>
         </table>
         <?php foreach ($orderModals as $modal) echo $modal; ?>
+        <?php foreach ($creditModals as $modal) echo $modal; ?>
       </div>
       <?php endif; ?>
     </div>
