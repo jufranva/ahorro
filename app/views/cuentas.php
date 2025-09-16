@@ -34,7 +34,7 @@
             <th>Código Único</th>
             <th>Nombre</th>
             <th>Valor</th>
-            <th>Fecha de Venta</th>
+            <th>Fecha de Pago</th>
           </tr>
         </thead>
         <tbody>
@@ -47,7 +47,37 @@
             <td><?= htmlspecialchars($g['unique_code'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($g['name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td>$<?= number_format((float)$g['sale_value'], 2); ?></td>
-            <td><?= htmlspecialchars($g['sale_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+
+            <td>
+    <?php
+    $fecha = new DateTime($g['sale_date']);
+
+    // Arreglo de nombres de meses en español
+    $meses = [
+        1 => 'enero',
+        2 => 'febrero',
+        3 => 'marzo',
+        4 => 'abril',
+        5 => 'mayo',
+        6 => 'junio',
+        7 => 'julio',
+        8 => 'agosto',
+        9 => 'septiembre',
+        10 => 'octubre',
+        11 => 'noviembre',
+        12 => 'diciembre'
+    ];
+
+    $dia = $fecha->format('d');
+    $mes = $meses[(int)$fecha->format('m')];
+    $anio = $fecha->format('Y');
+
+    echo htmlspecialchars("$dia de $mes de $anio", ENT_QUOTES, 'UTF-8');
+    ?>
+</td>
+     <!--
+       <td>< ?= htmlspecialchars($g['sale_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+  -->
           </tr>
           <?php endforeach; ?>
         </tbody>
