@@ -8,9 +8,10 @@
           <select name="status" class="form-select">
             <option value="" <?= $currentStatus === '' ? 'selected' : ''; ?>>Todos</option>
             <option value="pending" <?= $currentStatus === 'pending' ? 'selected' : ''; ?>>Pendientes</option>
-            <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Confirmados</option>
+            <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>por pagar</option>
             <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>Crédito</option>
             <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Pagados</option>
+
             <option value="delivered" <?= $currentStatus === 'delivered' ? 'selected' : ''; ?>>Entregados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
           </select>
@@ -19,6 +20,7 @@
           <button type="submit" class="btn btn-primary">Filtrar</button>
         </div>
         <div class="col-auto">
+          <!-- Link to cuentas.php page -->
           <a href="<?= htmlspecialchars(asset('cuentas.php'), ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-secondary">Cuentas</a>
         </div>
       </div>
