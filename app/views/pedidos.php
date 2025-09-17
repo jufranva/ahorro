@@ -8,9 +8,9 @@
           <select name="status" class="form-select">
             <option value="" <?= $currentStatus === '' ? 'selected' : ''; ?>>Todos</option>
             <option value="pending" <?= $currentStatus === 'pending' ? 'selected' : ''; ?>>Pendientes</option>
-            <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Por Pagar</option>
-            <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>Crédito</option>
-            <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Por Entregar</option>
+            <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Confirmados</option>
+            <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>A Crédito</option>
+            <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Pagados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
           </select>
         </div>
