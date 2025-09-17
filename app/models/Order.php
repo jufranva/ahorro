@@ -132,10 +132,6 @@ class Order
 
     public static function credit(int $orderId, int $creditId): void
     {
-        $items = self::items($orderId);
-        foreach ($items as $item) {
-            Garment::setSaleDate((int)$item['garment_id']);
-        }
         $mysqli = obtenerConexion();
         $upd = $mysqli->prepare("UPDATE orders SET status='credit', credit_id=? WHERE id=?");
         $upd->bind_param('ii', $creditId, $orderId);

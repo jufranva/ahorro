@@ -134,10 +134,6 @@ class PedidoController
                     $amount = round($amount, 2);
                     if ($amount > 0) {
                         CreditContribution::create((int)$order['credit_id'], $orderId, $amount, $date);
-                        $contributed = CreditContribution::sumByOrder($orderId);
-                        if ($contributed + 0.009 >= $total) {
-                            Order::pay($orderId);
-                        }
                     }
                 }
             }

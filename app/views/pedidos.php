@@ -301,7 +301,16 @@
                         <div class="form-text">Si no selecciona una fecha se usará la actual.</div>
                       </div>
                       <?php else: ?>
-                      <p class="text-success mb-0">Este pedido no tiene saldo pendiente.</p>
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <p class="text-success mb-0">Este pedido no tiene saldo pendiente.</p>
+                        <?php if ($order['status'] === 'credit'): ?>
+                        <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mb-0">
+                          <input type="hidden" name="action" value="pay">
+                          <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                          <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
+                        </form>
+                        <?php endif; ?>
+                      </div>
                       <?php endif; ?>
                     </div>
                     <div class="modal-footer">
