@@ -11,7 +11,6 @@
             <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Por Pagar</option>
             <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>Crédito</option>
             <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Por Entregar</option>
-            <option value="delivered" <?= $currentStatus === 'delivered' ? 'selected' : ''; ?>>Entregados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
           </select>
         </div>
@@ -36,6 +35,7 @@
             <th>Método</th>
             <th>Estado</th>
             <th>Valor Total</th>
+            <th>Entregado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -58,9 +58,6 @@
                 } elseif ($order['status'] === 'paid') {
                     $iconClass = 'pe-7s-cash text-primary';
                     $orden= 'Pedido Pagado';
-                } elseif ($order['status'] === 'delivered') {
-                    $iconClass = 'pe-7s-gift text-info';
-                    $orden= 'Pedido Entregado';
                 } elseif ($order['status'] === 'rejected') {
                     $iconClass = 'pe-7s-close-circle text-danger';
                     $orden= 'Pedido Rechazado';
@@ -89,6 +86,17 @@
               <?php endif; ?>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
+            <td class="text-center">
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="action" value="toggle_entregado">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <input type="hidden" name="entregado" value="<?= (int)($order['entregado'] ? 0 : 1); ?>">
+                <?php $entregadoActivo = !empty($order['entregado']); ?>
+                <button type="submit" class="btn btn-sm <?= $entregadoActivo ? 'btn-success' : 'btn-danger'; ?>">
+                  <?= $entregadoActivo ? 'SI' : 'NO'; ?>
+                </button>
+              </form>
+            </td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
               <?php if ($order['status'] === 'pending'): ?>
@@ -115,11 +123,6 @@
               <?php if (!empty($order['credit_id'])): ?>
               <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Ver abonos</button>
               <?php endif; ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="deliver">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-success">Entregado</button>
-              </form>
               <?php endif; ?>
               <?php if ($order['status'] === 'rejected' || (isset($_SESSION['role']) && (int)$_SESSION['role'] === 1)): ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
@@ -298,7 +301,16 @@
                         <div class="form-text">Si no selecciona una fecha se usará la actual.</div>
                       </div>
                       <?php else: ?>
-                      <p class="text-success mb-0">Este pedido no tiene saldo pendiente.</p>
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <p class="text-success mb-0">Este pedido no tiene saldo pendiente.</p>
+                        <?php if ($order['status'] === 'credit'): ?>
+                        <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mb-0">
+                          <input type="hidden" name="action" value="pay">
+                          <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                          <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
+                        </form>
+                        <?php endif; ?>
+                      </div>
                       <?php endif; ?>
                     </div>
                     <div class="modal-footer">

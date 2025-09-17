@@ -20,14 +20,14 @@ switch ($action) {
     case 'contribute':
         $controller->contribute();
         break;
-    case 'deliver':
-        $controller->deliver();
-        break;
     case 'reject':
         $controller->reject();
         break;
     case 'delete':
         $controller->delete();
+        break;
+    case 'toggle_entregado':
+        $controller->toggleDelivered();
         break;
     default:
         $controller->index();
