@@ -31,15 +31,19 @@ class Order
     public static function all(?string $status = null): array
     {
         $mysqli = obtenerConexion();
-        if ($status && in_array($status, ['pending', 'confirmed', 'paid', 'delivered', 'rejected'], true)) {
-            $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status FROM orders WHERE status = ? ORDER BY id DESC');
+        $baseSql = 'SELECT o.id, o.buyer_name, o.phone, o.payment_method, o.status, o.credit_id, c.name AS credit_name, c.value AS credit_value '
+                 . 'FROM orders o '
+                 . 'LEFT JOIN credits c ON o.credit_id = c.id';
+
+        if ($status && in_array($status, ['pending', 'confirmed', 'credit', 'paid', 'delivered', 'rejected'], true)) {
+            $stmt = $mysqli->prepare($baseSql . ' WHERE o.status = ? ORDER BY o.id DESC');
             $stmt->bind_param('s', $status);
             $stmt->execute();
             $result = $stmt->get_result();
             $orders = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
         } else {
-            $result = $mysqli->query('SELECT id, buyer_name, phone, payment_method, status FROM orders ORDER BY id DESC');
+            $result = $mysqli->query($baseSql . ' ORDER BY o.id DESC');
             $orders = $result->fetch_all(MYSQLI_ASSOC);
             $result->close();
         }
@@ -88,6 +92,19 @@ class Order
         $mysqli->close();
     }
 
+    public static function find(int $orderId): ?array
+    {
+        $mysqli = obtenerConexion();
+        $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status, credit_id FROM orders WHERE id = ?');
+        $stmt->bind_param('i', $orderId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $order = $result->fetch_assoc() ?: null;
+        $stmt->close();
+        $mysqli->close();
+        return $order;
+    }
+
     public static function pay(int $orderId): void
     {
         $items = self::items($orderId);
@@ -100,6 +117,30 @@ class Order
         $upd->execute();
         $upd->close();
         $mysqli->close();
+    }
+
+    public static function credit(int $orderId, int $creditId): void
+    {
+        $items = self::items($orderId);
+        foreach ($items as $item) {
+            Garment::setSaleDate((int)$item['garment_id']);
+        }
+        $mysqli = obtenerConexion();
+        $upd = $mysqli->prepare("UPDATE orders SET status='credit', credit_id=? WHERE id=?");
+        $upd->bind_param('ii', $creditId, $orderId);
+        $upd->execute();
+        $upd->close();
+        $mysqli->close();
+    }
+
+    public static function total(int $orderId): float
+    {
+        $items = self::items($orderId);
+        $total = 0.0;
+        foreach ($items as $item) {
+            $total += (float)$item['sale_value'] * (int)$item['quantity'];
+        }
+        return $total;
     }
 
     public static function deliver(int $orderId): void

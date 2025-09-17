@@ -111,13 +111,32 @@ BEGIN
 END//
 DELIMITER ;
 
+CREATE TABLE IF NOT EXISTS credits (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  value DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS credit_contributions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  credit_id INT NOT NULL,
+  order_id INT NOT NULL,
+  amount DECIMAL(12,2) NOT NULL,
+  contributed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (credit_id) REFERENCES credits(id) ON DELETE CASCADE,
+  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+);
+
 CREATE TABLE IF NOT EXISTS orders (
   id INT AUTO_INCREMENT PRIMARY KEY,
   buyer_name VARCHAR(100) NOT NULL,
   phone VARCHAR(30) NOT NULL,
   payment_method VARCHAR(20) NOT NULL,
-  status ENUM('pending','confirmed','paid','delivered','rejected') DEFAULT 'pending',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  credit_id INT DEFAULT NULL,
+  status ENUM('pending','confirmed','credit','paid','delivered','rejected') DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (credit_id) REFERENCES credits(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS order_items (
