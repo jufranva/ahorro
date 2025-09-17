@@ -11,7 +11,6 @@
             <option value="confirmed" <?= $currentStatus === 'confirmed' ? 'selected' : ''; ?>>Por Pagar</option>
             <option value="credit" <?= $currentStatus === 'credit' ? 'selected' : ''; ?>>Crédito</option>
             <option value="paid" <?= $currentStatus === 'paid' ? 'selected' : ''; ?>>Por Entregar</option>
-            <option value="delivered" <?= $currentStatus === 'delivered' ? 'selected' : ''; ?>>Entregados</option>
             <option value="rejected" <?= $currentStatus === 'rejected' ? 'selected' : ''; ?>>Rechazados</option>
           </select>
         </div>
@@ -35,7 +34,6 @@
             <th>Teléfono</th>
             <th>Método</th>
             <th>Estado</th>
-            <th>Entregado</th>
             <th>Valor Total</th>
             <th>Acciones</th>
           </tr>
@@ -59,9 +57,6 @@
                 } elseif ($order['status'] === 'paid') {
                     $iconClass = 'pe-7s-cash text-primary';
                     $orden= 'Pedido Pagado';
-                } elseif ($order['status'] === 'delivered') {
-                    $iconClass = 'pe-7s-gift text-info';
-                    $orden= 'Pedido Entregado';
                 } elseif ($order['status'] === 'rejected') {
                     $iconClass = 'pe-7s-close-circle text-danger';
                     $orden= 'Pedido Rechazado';
@@ -88,17 +83,6 @@
                 </div>
                 <?php endif; ?>
               <?php endif; ?>
-            </td>
-            <td class="text-center">
-              <?php $entregado = !empty($order['entregado']); ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="toggle_delivered">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <input type="hidden" name="entregado" value="<?= $entregado ? 0 : 1; ?>">
-                <button type="submit" class="btn btn-sm <?= $entregado ? 'btn-success' : 'btn-danger'; ?>">
-                  <?= $entregado ? 'SI' : 'NO'; ?>
-                </button>
-              </form>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td>
@@ -127,11 +111,6 @@
               <?php if (!empty($order['credit_id'])): ?>
               <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Ver abonos</button>
               <?php endif; ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="deliver">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-success">Entregado</button>
-              </form>
               <?php endif; ?>
               <?php if ($order['status'] === 'rejected' || (isset($_SESSION['role']) && (int)$_SESSION['role'] === 1)): ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">

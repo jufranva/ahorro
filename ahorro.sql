@@ -134,8 +134,7 @@ CREATE TABLE IF NOT EXISTS orders (
   phone VARCHAR(30) NOT NULL,
   payment_method VARCHAR(20) NOT NULL,
   credit_id INT DEFAULT NULL,
-  entregado TINYINT(1) NOT NULL DEFAULT 0,
-  status ENUM('pending','confirmed','credit','paid','delivered','rejected') DEFAULT 'pending',
+  status ENUM('pending','confirmed','credit','paid','rejected') DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (credit_id) REFERENCES credits(id) ON DELETE SET NULL
 );

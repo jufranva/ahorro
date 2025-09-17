@@ -8,7 +8,7 @@ class PedidoController
     public function index(): void
     {
         $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
-        $statusFilter = in_array($status, ['pending', 'confirmed', 'credit', 'paid', 'delivered', 'rejected'], true) ? $status : null;
+        $statusFilter = in_array($status, ['pending', 'confirmed', 'credit', 'paid', 'rejected'], true) ? $status : null;
         $orders = Order::all($statusFilter);
         $ordersTotal = 0;
         foreach ($orders as $index => $order) {
@@ -141,41 +141,6 @@ class PedidoController
                     }
                 }
             }
-        }
-
-        header('Location: ' . asset('pedidos.php'), true, 302);
-        exit;
-    }
-
-    public function deliver(): void
-    {
-        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $id = (int)$idRaw;
-        if ($id > 0) {
-            Order::deliver($id);
-        }
-        header('Location: ' . asset('pedidos.php'), true, 302);
-        exit;
-    }
-
-    public function toggleDelivered(): void
-    {
-        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-        $deliveredRaw = filter_input(
-            INPUT_POST,
-            'entregado',
-            FILTER_VALIDATE_INT,
-            ['options' => ['min_range' => 0, 'max_range' => 1]]
-        );
-
-        $id = (int)$idRaw;
-        $delivered = null;
-        if ($deliveredRaw !== null && $deliveredRaw !== false) {
-            $delivered = (int)$deliveredRaw === 1;
-        }
-
-        if ($id > 0 && $delivered !== null) {
-            Order::setDelivered($id, $delivered);
         }
 
         header('Location: ' . asset('pedidos.php'), true, 302);
