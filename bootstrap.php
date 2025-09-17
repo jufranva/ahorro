@@ -21,3 +21,11 @@ function asset(string $path): string
 {
     return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');
 }
+
+function require_login(): void
+{
+    if (!isset($_SESSION['username'])) {
+        header('Location: ' . asset('index.php'));
+        exit;
+    }
+}
