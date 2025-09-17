@@ -2,6 +2,8 @@
 require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/app/controllers/PedidoController.php';
 
+require_login();
+
 $controller = new PedidoController();
 $action = $_SERVER['REQUEST_METHOD'] === 'POST' ? ($_POST['action'] ?? 'index') : ($_GET['action'] ?? 'index');
 
