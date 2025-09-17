@@ -31,7 +31,7 @@ class Order
     public static function all(?string $status = null): array
     {
         $mysqli = obtenerConexion();
-        $baseSql = 'SELECT o.id, o.buyer_name, o.phone, o.payment_method, o.status, o.credit_id, c.name AS credit_name, c.value AS credit_value '
+        $baseSql = 'SELECT o.id, o.buyer_name, o.phone, o.payment_method, o.status, o.credit_id, o.entregado, c.name AS credit_name, c.value AS credit_value '
                  . 'FROM orders o '
                  . 'LEFT JOIN credits c ON o.credit_id = c.id';
 
@@ -95,7 +95,7 @@ class Order
     public static function find(int $orderId): ?array
     {
         $mysqli = obtenerConexion();
-        $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status, credit_id FROM orders WHERE id = ?');
+        $stmt = $mysqli->prepare('SELECT id, buyer_name, phone, payment_method, status, credit_id, entregado FROM orders WHERE id = ?');
         $stmt->bind_param('i', $orderId);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -103,6 +103,17 @@ class Order
         $stmt->close();
         $mysqli->close();
         return $order;
+    }
+
+    public static function setDelivered(int $orderId, bool $delivered): void
+    {
+        $mysqli = obtenerConexion();
+        $value = $delivered ? 1 : 0;
+        $stmt = $mysqli->prepare('UPDATE orders SET entregado = ? WHERE id = ?');
+        $stmt->bind_param('ii', $value, $orderId);
+        $stmt->execute();
+        $stmt->close();
+        $mysqli->close();
     }
 
     public static function pay(int $orderId): void

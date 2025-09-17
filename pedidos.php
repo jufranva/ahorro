@@ -26,6 +26,9 @@ switch ($action) {
     case 'delete':
         $controller->delete();
         break;
+    case 'toggle_entregado':
+        $controller->toggleDelivered();
+        break;
     default:
         $controller->index();
         break;

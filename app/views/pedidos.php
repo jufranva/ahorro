@@ -35,6 +35,7 @@
             <th>Método</th>
             <th>Estado</th>
             <th>Valor Total</th>
+            <th>Entregado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -85,6 +86,17 @@
               <?php endif; ?>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
+            <td class="text-center">
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="action" value="toggle_entregado">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <input type="hidden" name="entregado" value="<?= (int)($order['entregado'] ? 0 : 1); ?>">
+                <?php $entregadoActivo = !empty($order['entregado']); ?>
+                <button type="submit" class="btn btn-sm <?= $entregadoActivo ? 'btn-success' : 'btn-danger'; ?>">
+                  <?= $entregadoActivo ? 'SI' : 'NO'; ?>
+                </button>
+              </form>
+            </td>
             <td>
               <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
               <?php if ($order['status'] === 'pending'): ?>

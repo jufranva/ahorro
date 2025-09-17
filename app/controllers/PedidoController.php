@@ -168,4 +168,20 @@ class PedidoController
         header('Location: ' . asset('pedidos.php'), true, 302);
         exit;
     }
+
+    public function toggleDelivered(): void
+    {
+        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $deliveredRaw = filter_input(INPUT_POST, 'entregado', FILTER_SANITIZE_NUMBER_INT);
+
+        $id = (int)$idRaw;
+        $deliveredValue = $deliveredRaw !== null ? (int)$deliveredRaw : null;
+
+        if ($id > 0 && ($deliveredValue === 0 || $deliveredValue === 1)) {
+            Order::setDelivered($id, $deliveredValue === 1);
+        }
+
+        header('Location: ' . asset('pedidos.php'), true, 302);
+        exit;
+    }
 }
