@@ -35,6 +35,7 @@
             <th>Teléfono</th>
             <th>Método</th>
             <th>Estado</th>
+            <th>Entregado</th>
             <th>Valor Total</th>
             <th>Acciones</th>
           </tr>
@@ -87,6 +88,17 @@
                 </div>
                 <?php endif; ?>
               <?php endif; ?>
+            </td>
+            <td class="text-center">
+              <?php $entregado = !empty($order['entregado']); ?>
+              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
+                <input type="hidden" name="action" value="toggle_delivered">
+                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                <input type="hidden" name="entregado" value="<?= $entregado ? 0 : 1; ?>">
+                <button type="submit" class="btn btn-sm <?= $entregado ? 'btn-success' : 'btn-danger'; ?>">
+                  <?= $entregado ? 'SI' : 'NO'; ?>
+                </button>
+              </form>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td>

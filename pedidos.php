@@ -23,6 +23,9 @@ switch ($action) {
     case 'deliver':
         $controller->deliver();
         break;
+    case 'toggle_delivered':
+        $controller->toggleDelivered();
+        break;
     case 'reject':
         $controller->reject();
         break;

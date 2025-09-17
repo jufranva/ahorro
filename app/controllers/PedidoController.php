@@ -158,6 +158,30 @@ class PedidoController
         exit;
     }
 
+    public function toggleDelivered(): void
+    {
+        $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $deliveredRaw = filter_input(
+            INPUT_POST,
+            'entregado',
+            FILTER_VALIDATE_INT,
+            ['options' => ['min_range' => 0, 'max_range' => 1]]
+        );
+
+        $id = (int)$idRaw;
+        $delivered = null;
+        if ($deliveredRaw !== null && $deliveredRaw !== false) {
+            $delivered = (int)$deliveredRaw === 1;
+        }
+
+        if ($id > 0 && $delivered !== null) {
+            Order::setDelivered($id, $delivered);
+        }
+
+        header('Location: ' . asset('pedidos.php'), true, 302);
+        exit;
+    }
+
     public function reject(): void
     {
         $idRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
