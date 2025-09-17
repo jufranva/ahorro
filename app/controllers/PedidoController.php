@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../models/Order.php';
 require_once __DIR__ . '/../models/Credit.php';
+require_once __DIR__ . '/../models/CreditContribution.php';
 
 class PedidoController
 {
@@ -19,6 +20,18 @@ class PedidoController
             }
             $orders[$index]['total'] = $total;
             $ordersTotal += $total;
+
+            $contributions = [];
+            $contributedTotal = 0.0;
+            if (!empty($order['credit_id'])) {
+                $contributions = CreditContribution::allByOrder((int)$order['id']);
+                foreach ($contributions as $contribution) {
+                    $contributedTotal += (float)$contribution['amount'];
+                }
+            }
+            $orders[$index]['contributions'] = $contributions;
+            $orders[$index]['contributed_total'] = $contributedTotal;
+            $orders[$index]['outstanding'] = max($total - $contributedTotal, 0.0);
         }
         $currentStatus = $statusFilter ?? '';
         $credits = Credit::all();
@@ -67,6 +80,65 @@ class PedidoController
                     $total = Order::total($orderId);
                     Credit::addValue($creditId, $total);
                     Order::credit($orderId, $creditId);
+                }
+            }
+        }
+
+        header('Location: ' . asset('pedidos.php'), true, 302);
+        exit;
+    }
+
+    public function contribute(): void
+    {
+        $orderIdRaw = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $orderId = (int)$orderIdRaw;
+
+        $amountInput = $_POST['amount'] ?? '';
+        $dateInput = $_POST['contributed_at'] ?? '';
+
+        $amount = 0.0;
+        if (is_string($amountInput)) {
+            $cleaned = preg_replace('/[^0-9.,-]/', '', $amountInput);
+            if ($cleaned !== null) {
+                if (strpos($cleaned, ',') !== false && strpos($cleaned, '.') !== false) {
+                    $cleaned = str_replace('.', '', $cleaned);
+                }
+                $normalized = str_replace(',', '.', $cleaned);
+                $amount = (float)$normalized;
+            }
+        }
+        $amount = round(max($amount, 0.0), 2);
+
+        $date = null;
+        if (is_string($dateInput)) {
+            $trimmedDate = trim($dateInput);
+            if ($trimmedDate !== '') {
+                $timestamp = strtotime($trimmedDate);
+                if ($timestamp !== false) {
+                    $date = date('Y-m-d H:i:s', $timestamp);
+                }
+            }
+        }
+
+        if ($orderId > 0 && $amount > 0) {
+            $order = Order::find($orderId);
+            if ($order && $order['status'] === 'credit' && !empty($order['credit_id'])) {
+                $total = Order::total($orderId);
+                $contributed = CreditContribution::sumByOrder($orderId);
+                $outstanding = max(round($total - $contributed, 2), 0.0);
+
+                if ($outstanding > 0) {
+                    if ($amount > $outstanding) {
+                        $amount = $outstanding;
+                    }
+                    $amount = round($amount, 2);
+                    if ($amount > 0) {
+                        CreditContribution::create((int)$order['credit_id'], $orderId, $amount, $date);
+                        $contributed = CreditContribution::sumByOrder($orderId);
+                        if ($contributed + 0.009 >= $total) {
+                            Order::pay($orderId);
+                        }
+                    }
                 }
             }
         }

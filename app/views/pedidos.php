@@ -39,7 +39,7 @@
           </tr>
         </thead>
           <tbody>
-          <?php $orderModals = []; $creditModals = []; foreach ($orders as $order): ?>
+          <?php $orderModals = []; $creditModals = []; $contributionModals = []; foreach ($orders as $order): ?>
           <tr>
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -66,8 +66,25 @@
                 }
               ?>
               <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
-              <?php if (!empty($order['credit_name']) && in_array($order['status'], ['credit', 'paid'], true)): ?>
-                <div><small class="text-muted">Crédito: <?= htmlspecialchars($order['credit_name'], ENT_QUOTES, 'UTF-8'); ?><?php if ($order['status'] === 'credit' && isset($order['credit_value'])): ?> (Saldo $<?= number_format((float)$order['credit_value'], 2); ?>)<?php endif; ?></small></div>
+              <?php if (!empty($order['credit_name'])): ?>
+                <div>
+                  <small class="text-muted">
+                    Crédito: <?= htmlspecialchars($order['credit_name'], ENT_QUOTES, 'UTF-8'); ?>
+                    <?php if ($order['status'] === 'credit' && isset($order['credit_value'])): ?>
+                      (Saldo general $<?= number_format((float)$order['credit_value'], 2); ?>)
+                    <?php endif; ?>
+                  </small>
+                </div>
+                <?php if (isset($order['contributed_total'])): ?>
+                <div>
+                  <small class="text-muted">
+                    Abonado: $<?= number_format((float)($order['contributed_total'] ?? 0), 2); ?>
+                    <?php if ($order['status'] === 'credit'): ?>
+                      | Saldo del pedido: $<?= number_format((float)max($order['outstanding'] ?? 0, 0), 2); ?>
+                    <?php endif; ?>
+                  </small>
+                </div>
+                <?php endif; ?>
               <?php endif; ?>
             </td>
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
@@ -92,12 +109,11 @@
               </form>
               <button type="button" class="btn btn-sm btn-warning ms-1" data-bs-toggle="modal" data-bs-target="#credit-order-<?= (int)$order['id']; ?>">Crédito</button>
               <?php elseif ($order['status'] === 'credit'): ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="pay">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
-              </form>
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Abonar pago</button>
               <?php elseif ($order['status'] === 'paid'): ?>
+              <?php if (!empty($order['credit_id'])): ?>
+              <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Ver abonos</button>
+              <?php endif; ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
                 <input type="hidden" name="action" value="deliver">
                 <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
@@ -212,6 +228,90 @@
             </div>
             <?php $creditModals[] = ob_get_clean(); ?>
             <?php endif; ?>
+            <?php if (!empty($order['credit_id'])): ?>
+            <?php ob_start(); ?>
+            <div class="modal fade" id="credit-contributions-<?= (int)$order['id']; ?>" tabindex="-1" aria-hidden="true">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="hidden" name="action" value="contribute">
+                    <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Abonos del pedido #<?= (int)$order['id']; ?></h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <?php
+                        $orderTotal = isset($order['total']) ? (float)$order['total'] : 0.0;
+                        $contributedTotal = isset($order['contributed_total']) ? (float)$order['contributed_total'] : 0.0;
+                        $outstandingAmount = isset($order['outstanding']) ? (float)$order['outstanding'] : max($orderTotal - $contributedTotal, 0.0);
+                        $pendingAmount = max($outstandingAmount, 0.0);
+                      ?>
+                      <div class="mb-3">
+                        <p class="mb-1"><strong>Valor del pedido:</strong> $<?= number_format($orderTotal, 2); ?></p>
+                        <p class="mb-1"><strong>Abonado:</strong> $<?= number_format($contributedTotal, 2); ?></p>
+                        <p class="mb-0"><strong>Saldo pendiente:</strong> $<?= number_format($pendingAmount, 2); ?></p>
+                      </div>
+                      <?php if (!empty($order['contributions'])): ?>
+                      <div class="table-responsive mb-3">
+                        <table class="table table-bordered table-sm">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Valor</th>
+                              <th>Fecha</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php foreach ($order['contributions'] as $indexContribution => $contribution): ?>
+                            <?php
+                              $formattedDate = '';
+                              if (!empty($contribution['contributed_at'])) {
+                                  $timestamp = strtotime($contribution['contributed_at']);
+                                  if ($timestamp !== false) {
+                                      $formattedDate = date('d/m/Y H:i', $timestamp);
+                                  }
+                              }
+                            ?>
+                            <tr>
+                              <td><?= (int)$indexContribution + 1; ?></td>
+                              <td>$<?= number_format((float)$contribution['amount'], 2); ?></td>
+                              <td><?= htmlspecialchars($formattedDate, ENT_QUOTES, 'UTF-8'); ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                          </tbody>
+                        </table>
+                      </div>
+                      <?php else: ?>
+                      <p class="text-muted">Aún no hay abonos registrados para este pedido.</p>
+                      <?php endif; ?>
+                      <?php if ($order['status'] === 'credit' && $pendingAmount > 0): ?>
+                      <div class="mb-3">
+                        <label for="contribution-amount-<?= (int)$order['id']; ?>" class="form-label">Valor del abono</label>
+                        <input type="number" step="0.01" min="0.01" class="form-control" id="contribution-amount-<?= (int)$order['id']; ?>" name="amount" placeholder="Ej. 50000" max="<?= number_format($pendingAmount, 2, '.', ''); ?>" required>
+                        <div class="form-text">Ingrese un valor menor o igual al saldo pendiente.</div>
+                      </div>
+                      <div class="mb-0">
+                        <label for="contribution-date-<?= (int)$order['id']; ?>" class="form-label">Fecha del abono</label>
+                        <input type="date" class="form-control" id="contribution-date-<?= (int)$order['id']; ?>" name="contributed_at">
+                        <div class="form-text">Si no selecciona una fecha se usará la actual.</div>
+                      </div>
+                      <?php else: ?>
+                      <p class="text-success mb-0">Este pedido no tiene saldo pendiente.</p>
+                      <?php endif; ?>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <?php if ($order['status'] === 'credit' && $pendingAmount > 0): ?>
+                      <button type="submit" class="btn btn-primary">Guardar abono</button>
+                      <?php endif; ?>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <?php $contributionModals[] = ob_get_clean(); ?>
+            <?php endif; ?>
           <?php endforeach; ?>
           </tbody>
           <tfoot>
@@ -224,6 +324,7 @@
         </table>
         <?php foreach ($orderModals as $modal) echo $modal; ?>
         <?php foreach ($creditModals as $modal) echo $modal; ?>
+        <?php foreach ($contributionModals as $modal) echo $modal; ?>
       </div>
       <?php endif; ?>
     </div>

@@ -15,6 +15,9 @@ switch ($action) {
     case 'credit':
         $controller->credit();
         break;
+    case 'contribute':
+        $controller->contribute();
+        break;
     case 'deliver':
         $controller->deliver();
         break;
