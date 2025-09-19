@@ -98,7 +98,7 @@
               </form>
             </td>
             <td>
-              <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>">Ver prendas</button>
+              <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>"><i class="fa-solid fa-eye"></i></button>
               <?php if ($order['status'] === 'pending'): ?>
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
                 <input type="hidden" name="action" value="confirm">
