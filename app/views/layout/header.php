@@ -16,15 +16,11 @@ echo "<!DOCTYPE html>\n";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El armario del ahorro</title>    
     <link rel="icon" href="./assets/favicon.ico">
-    <link rel="preload" href="./assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
-
     <link rel="icon" href="<?= asset('assets/favicon.ico') ?>">
-    <link rel="preload" href="<?= asset('assets/fonts/fontAwesome/fontawesome-webfont.woff2?v=4.7.0') ?>" as="font" type="font/woff2" crossorigin>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?= asset('assets/css/vendor/fontawesome.min.css') ?>">
-    <link rel="stylesheet" href="<?= asset('assets/css/vendor/pe-icon-7-stroke.min.css') ?>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-+s1xgWZld0dfzpOwLKhPNgm6kKiC9JIhbnoAVnX1nvUs9f7oOJPfm6D/Ejko116IhVQbKXtEOi33ECszO2vCNA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/swiper-bundle.min.css') ?>" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/animate.min.css') ?>" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/aos.min.css') ?>" />
@@ -90,13 +86,13 @@ echo "<!DOCTYPE html>\n";
                         <div class="col-xl-2 col-6">
                             <div class="header-actions">
                                 <a href="<?= asset('cart.php') ?>" class="header-action-btn header-action-btn-cart">
-                                    <i class="fa fa-cart-plus"></i>
+                                    <i class="fa-solid fa-cart-plus"></i>
                                     <span class="header-action-num"><?= htmlspecialchars((string)$cartCount, ENT_QUOTES, 'UTF-8') ?></span>
                                 </a>
 
                                 <!-- Mobile Menu Hambarger Action Button Start -->
                                 <a href="javascript:void(0)" class="header-action-btn header-action-btn-menu d-xl-none d-lg-block">
-                                    <i class="fa fa-bars"></i>
+                                    <i class="fa-solid fa-bars"></i>
                                 </a>
                                 <!-- Mobile Menu Hambarger Action Button End -->
 
@@ -119,7 +115,7 @@ echo "<!DOCTYPE html>\n";
 
                 <!-- Button Close Start -->
                 <div class="offcanvas-btn-close">
-                    <i class="pe-7s-close"></i>
+                    <i class="fa-solid fa-xmark"></i>
                 </div>
                 <!-- Button Close End -->
 
@@ -137,19 +133,19 @@ echo "<!DOCTYPE html>\n";
 
                     <!-- Contact Links Start -->
                     <ul class="contact-links">
-                        <li><i class="fa fa-phone"></i><a href="whatsapp://send?phone=593989818620"> +593 989 818 620</a></li>
-                        <li><i class="fa fa-calendar"></i> <span>Lunes - Viernes 17:00 - 20:00</span> </li>
-                        <li><i class="fa fa-calendar"></i> <span>Sábados - Domingos 09:00 - 20:00</span> </li>
+                        <li><i class="fa-solid fa-phone"></i><a href="whatsapp://send?phone=593989818620"> +593 989 818 620</a></li>
+                        <li><i class="fa-solid fa-calendar"></i> <span>Lunes - Viernes 17:00 - 20:00</span> </li>
+                        <li><i class="fa-solid fa-calendar"></i> <span>Sábados - Domingos 09:00 - 20:00</span> </li>
                     </ul>
                     <!-- Contact Links End -->
 
                     <!-- Social Widget Start -->
                     <div class="widget-social">
-                        <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
-                        <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
-                        <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                        <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
-                        <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
+                        <a title="Facebook" href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a title="Twitter" href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a title="Linkedin" href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a title="Youtube" href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a title="Vimeo" href="#"><i class="fa-brands fa-vimeo"></i></a>
                     </div>
                     <!-- Social Widget Ende -->
                 </div>

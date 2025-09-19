@@ -14,12 +14,12 @@
                             </ul>
   <!-- Soclial Link Start -->
                             <div class="widget-social justify-content-start mt-4">
-                                <a title="Facebook" href="https://www.facebook.com/profile.php?id=61572711940782&rdid=6iK3kNGxVw8jsvas&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16ycGT38T3%2F"><i class="fa fa-facebook-f"></i></a>
+                                <a title="Facebook" href="https://www.facebook.com/profile.php?id=61572711940782&rdid=6iK3kNGxVw8jsvas&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16ycGT38T3%2F"><i class="fa-brands fa-facebook-f"></i></a>
                                 <!-- Soclial Link Start 
-                                <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
-                                <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
-                                <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>
-                                <a title="Vimeo" href="#"><i class="fa fa-vimeo"></i></a>
+                                <a title="Twitter" href="#"><i class="fa-brands fa-twitter"></i></a>
+                                <a title="Linkedin" href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a title="Youtube" href="#"><i class="fa-brands fa-youtube"></i></a>
+                                <a title="Vimeo" href="#"><i class="fa-brands fa-vimeo"></i></a>
                                 -->
                             </div>
 
@@ -106,7 +106,7 @@
                 <div class="row align-items-center">
                     <div class="col-12 text-center">
                         <div class="copyright-content">
-                            <p class="mb-0">© 2025 <strong>El Armario </strong> del ahorro <i class="fa fa-heart text-danger"></i> Sitio creado por <a href="https://interweb.com.ec/">InterWEB.</a></p>
+                            <p class="mb-0">© 2025 <strong>El Armario </strong> del ahorro <i class="fa-solid fa-heart text-danger"></i> Sitio creado por <a href="https://interweb.com.ec/">InterWEB.</a></p>
                         </div>
                     </div>
                 </div>
@@ -118,8 +118,8 @@
     
         <!-- Scroll Top Start -->
         <a href="#" class="scroll-top" id="scroll-top">
-            <i class="arrow-top fa fa-long-arrow-up"></i>
-            <i class="arrow-bottom fa fa-long-arrow-up"></i>
+            <i class="arrow-top fa-solid fa-arrow-up-long"></i>
+            <i class="arrow-bottom fa-solid fa-arrow-up-long"></i>
         </a>
         <!-- Scroll Top End -->
         <!-- Cart Modal Start -->

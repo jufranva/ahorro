@@ -35,14 +35,14 @@
           $showAsk  = $tag !== 'vendido';
         ?>
         <?php if ($showAsk): ?>
-        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-success" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
+        <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-success" title="Preguntar por esta prenda"><i class="fa-brands fa-whatsapp"></i></a>
         <?php endif; ?>
         <?php if ($showCart): ?>
         <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>" class="mt-3">
           <input type="hidden" name="action" value="add">
           <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
           <input type="hidden" name="quantity" value="1">
-          <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
+          <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></button>
         </form>
         <?php endif; ?>
       </div>

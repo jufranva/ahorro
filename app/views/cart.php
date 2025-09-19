@@ -48,7 +48,7 @@
                         <form method="post" action="<?= htmlspecialchars(asset('cart.php'), ENT_QUOTES, 'UTF-8'); ?>">
                           <input type="hidden" name="action" value="remove">
                           <input type="hidden" name="id" value="<?= (int)$item['id']; ?>">
-                          <button type="submit" class="btn btn-link p-0"><i class="pe-7s-trash"></i></button>
+                          <button type="submit" class="btn btn-link p-0"><i class="fa-solid fa-trash"></i></button>
                         </form>
                       </td>
                     </tr>
