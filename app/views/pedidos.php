@@ -1,4 +1,15 @@
 <?php include __DIR__ . '/layout/header.php'; ?>
+<style>
+  /* 1 línea con elipsis */
+  .clamp-1{
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:1;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    line-height:1.2;
+  }
+</style>
 <div class="section section-margin">
   <div class="container">
     <h3>Pedidos</h3>
@@ -45,46 +56,73 @@
             <td><?= htmlspecialchars($order['buyer_name'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['phone'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?= htmlspecialchars($order['payment_method'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td class="text-center">
-              <?php
-                $iconClass = 'fa fa-clock-o text-warning';
-                $orden= 'Pedido Pendiente';
-                if ($order['status'] === 'confirmed') {
-                    $iconClass = 'fa fa-check text-success';
-                    $orden= 'Pedido Confirmado';
-                } elseif ($order['status'] === 'credit') {
-                    $iconClass = 'fa fa-credit-card text-info';
-                    $orden= 'Pedido a crédito';
-                } elseif ($order['status'] === 'paid') {
-                    $iconClass = 'fa fa-money text-primary';
-                    $orden= 'Pedido Pagado';
-                } elseif ($order['status'] === 'rejected') {
-                    $iconClass = 'fa fa-times-circle text-danger';
-                    $orden= 'Pedido Rechazado';
-                }
-              ?>
-              <i class="<?= $iconClass; ?>" title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
-              <?php if (!empty($order['credit_name'])): ?>
-                <div>
-                  <small class="text-muted">
-                    Crédito: <?= htmlspecialchars($order['credit_name'], ENT_QUOTES, 'UTF-8'); ?>
-                    <?php if ($order['status'] === 'credit' && isset($order['credit_value'])): ?>
-                      (Saldo general $<?= number_format((float)$order['credit_value'], 2); ?>)
-                    <?php endif; ?>
-                  </small>
-                </div>
-                <?php if (isset($order['contributed_total'])): ?>
-                <div>
-                  <small class="text-muted">
-                    Abonado: $<?= number_format((float)($order['contributed_total'] ?? 0), 2); ?>
-                    <?php if ($order['status'] === 'credit'): ?>
-                      | Saldo del pedido: $<?= number_format((float)max($order['outstanding'] ?? 0, 0), 2); ?>
-                    <?php endif; ?>
-                  </small>
-                </div>
-                <?php endif; ?>
-              <?php endif; ?>
-            </td>
+           
+           
+           
+            <td class="text-center align-middle">
+  <?php
+    // Icono y texto de estado
+    $iconClass = 'fa fa-clock-o text-warning'; $orden = 'Pedido Pendiente';
+    if ($order['status'] === 'confirmed') { $iconClass = 'fa fa-check text-success'; $orden='Pedido Confirmado'; }
+    elseif ($order['status'] === 'credit') { $iconClass = 'fa fa-credit-card text-info'; $orden='Pedido a crédito'; }
+    elseif ($order['status'] === 'paid') { $iconClass = 'fa fa-money text-primary'; $orden='Pedido Pagado'; }
+    elseif ($order['status'] === 'rejected') { $iconClass = 'fa fa-times-circle text-danger'; $orden='Pedido Rechazado'; }
+
+    // Línea 1: crédito
+    $creditLine = '';
+    if (!empty($order['credit_name'])) {
+      $creditLine = 'Crédito: ' . $order['credit_name'];
+      if ($order['status'] === 'credit' && isset($order['credit_value'])) {
+        $creditLine .= ' (Deuda: $' . number_format((float)$order['credit_value'], 2) . ')';
+      }
+    }
+
+    // Línea 2: abonado / saldo del pedido
+    $abonadoLine = null;
+    if (isset($order['contributed_total'])) {
+      $abonadoLine = 'Abonado: $' . number_format((float)($order['contributed_total'] ?? 0), 2);
+      if ($order['status'] === 'credit') {
+        $abonadoLine .= ' | Pedido: $' . number_format((float)max($order['outstanding'] ?? 0, 0), 2);
+      }
+    }
+  ?>
+
+  <div class="d-flex flex-column align-items-center text-center">
+    <!-- Icono sólo en SM+ -->
+    <i class="<?= $iconClass; ?> fa-lg mb-1 d-none d-sm-inline-block"
+       title="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"
+       aria-label="<?= htmlspecialchars($orden, ENT_QUOTES, 'UTF-8'); ?>"></i>
+
+    <!-- Línea 1: siempre que exista crédito -->
+    <?php if ($creditLine): ?>
+      <small class="text-muted d-block clamp-1"
+             title="<?= htmlspecialchars($creditLine, ENT_QUOTES, 'UTF-8'); ?>">
+        <?= htmlspecialchars($creditLine, ENT_QUOTES, 'UTF-8'); ?>
+      </small>
+    <?php endif; ?>
+
+    <!-- Línea 2:
+         - Si estado es 'credit' => SIEMPRE se muestra (XS y SM+)
+         - Si NO es 'credit' => solo en XS (cuando no hay icono visible)
+    -->
+    <?php if ($abonadoLine !== null): ?>
+      <?php if ($order['status'] === 'credit'): ?>
+        <small class="text-muted d-block clamp-1"
+               title="<?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>">
+          <?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>
+        </small>
+      <?php else: ?>
+        <small class="text-muted d-block d-sm-none clamp-1"
+               title="<?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>">
+          <?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>
+        </small>
+      <?php endif; ?>
+    <?php endif; ?>
+  </div>
+</td>
+
+
+
             <td>$<?= number_format((float)$order['total'], 2); ?></td>
             <td class="text-center">
               <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>">
@@ -97,41 +135,61 @@
                 </button>
               </form>
             </td>
-            <td>
-              <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>"><i class="fa-solid fa-eye"></i></button>
-              <?php if ($order['status'] === 'pending'): ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="confirm">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-success">Confirmar</button>
-              </form>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="reject">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-danger">Rechazar</button>
-              </form>
-              <?php elseif ($order['status'] === 'confirmed'): ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline">
-                <input type="hidden" name="action" value="pay">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-primary">Pagado</button>
-              </form>
-              <button type="button" class="btn btn-sm btn-warning ms-1" data-bs-toggle="modal" data-bs-target="#credit-order-<?= (int)$order['id']; ?>">Crédito</button>
-              <?php elseif ($order['status'] === 'credit'): ?>
-              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Abonar pago</button>
-              <?php elseif ($order['status'] === 'paid'): ?>
-              <?php if (!empty($order['credit_id'])): ?>
-              <button type="button" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>">Ver abonos</button>
-              <?php endif; ?>
-              <?php endif; ?>
-              <?php if ($order['status'] === 'rejected' || (isset($_SESSION['role']) && (int)$_SESSION['role'] === 1)): ?>
-              <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="d-inline" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
-                <input type="hidden" name="action" value="delete">
-                <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-              </form>
-              <?php endif; ?>
-            </td>
+           <td class="text-nowrap">
+  <div class="d-flex flex-nowrap align-items-center gap-1">
+
+    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#order-<?= (int)$order['id']; ?>" title="Ver Pedido">
+      <i class="fa fa-eye"></i>
+    </button>
+
+    <?php if ($order['status'] === 'pending'): ?>
+      <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="m-0">
+        <input type="hidden" name="action" value="confirm">
+        <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+        <button type="submit" class="btn btn-sm btn-success" title="Confirmar Pedido"><i class="fa fa-check"></i></button>
+      </form>
+
+      <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="m-0">
+        <input type="hidden" name="action" value="reject">
+        <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+        <button type="submit" class="btn btn-sm btn-danger" title="Rechazar Pedido"><i class="fa fa-times"></i></button>
+      </form>
+
+    <?php elseif ($order['status'] === 'confirmed'): ?>
+      <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="m-0">
+        <input type="hidden" name="action" value="pay">
+        <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+        <button type="submit" class="btn btn-sm btn-success" title="Pagar de contado"><i class="fa fa-dollar"></i></button>
+      </form>
+
+      <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#credit-order-<?= (int)$order['id']; ?>" title="Agregar crédito">
+        <i class="fa fa-credit-card-alt"></i>
+      </button>
+
+    <?php elseif ($order['status'] === 'credit'): ?>
+      <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>" title="Agregar abono">
+        <i class="fa fa-money"></i>
+      </button>
+
+    <?php elseif ($order['status'] === 'paid'): ?>
+      <?php if (!empty($order['credit_id'])): ?>
+        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="modal" data-bs-target="#credit-contributions-<?= (int)$order['id']; ?>" title="Ver abonos">
+          <i class="fa fa-th-list" aria-hidden="true"></i>
+        </button>
+      <?php endif; ?>
+    <?php endif; ?>
+
+    <?php if ($order['status'] === 'rejected' || (isset($_SESSION['role']) && (int)$_SESSION['role'] === 1)): ?>
+      <form method="post" action="<?= htmlspecialchars(asset('pedidos.php'), ENT_QUOTES, 'UTF-8'); ?>" class="m-0" onsubmit="return confirm('¿Está seguro de eliminar este pedido?');">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="id" value="<?= (int)$order['id']; ?>">
+        <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar pedido"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      </form>
+    <?php endif; ?>
+
+  </div>
+</td>
+
             </tr>
             <?php ob_start(); ?>
             <div class="modal fade" id="order-<?= (int)$order['id']; ?>" tabindex="-1" aria-hidden="true">
