@@ -47,19 +47,19 @@
             <td><?= htmlspecialchars($order['payment_method'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td class="text-center">
               <?php
-                $iconClass = 'fa-solid fa-clock text-warning';
+                $iconClass = 'fa fa-clock-o text-warning';
                 $orden= 'Pedido Pendiente';
                 if ($order['status'] === 'confirmed') {
-                    $iconClass = 'fa-solid fa-check text-success';
+                    $iconClass = 'fa fa-check text-success';
                     $orden= 'Pedido Confirmado';
                 } elseif ($order['status'] === 'credit') {
-                    $iconClass = 'fa-solid fa-wallet text-info';
+                    $iconClass = 'fa fa-credit-card text-info';
                     $orden= 'Pedido a crédito';
                 } elseif ($order['status'] === 'paid') {
-                    $iconClass = 'fa-solid fa-money-bill-wave text-primary';
+                    $iconClass = 'fa fa-money text-primary';
                     $orden= 'Pedido Pagado';
                 } elseif ($order['status'] === 'rejected') {
-                    $iconClass = 'fa-solid fa-circle-xmark text-danger';
+                    $iconClass = 'fa fa-times-circle text-danger';
                     $orden= 'Pedido Rechazado';
                 }
               ?>

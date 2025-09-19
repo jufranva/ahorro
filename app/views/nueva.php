@@ -76,8 +76,8 @@
                             </form>
                         </div>
                         <div class="shop_toolbar_btn">
-                            <button data-role="grid_3" type="button" class="active btn-grid-4" title="Grid"><i class="fa-solid fa-table-cells"></i></button>
-                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa-solid fa-list"></i></button>
+                            <button data-role="grid_3" type="button" class="active btn-grid-4" title="Grid"><i class="fa fa-th"></i></button>
+                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa fa-list"></i></button>
                         </div>
                     </div>
                     <!-- Shopt Top Bar Right End -->
@@ -103,7 +103,7 @@
                                 </span>
                                 <?php endif; ?>
                                 <div class="actions">
-                                    <a href="#" title="Quickview" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <a href="#" title="Quickview" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="content">
@@ -144,7 +144,7 @@
                                         <input type="hidden" name="action" value="add">
                                         <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
                                         <input type="hidden" name="quantity" value="1">
-                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></button>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
                                     </form>
                                     <?php endif; ?>
                                     <?php if ($showAsk): ?>
@@ -152,10 +152,10 @@
                                     $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                     <?php endif; ?> 
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="fa fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -314,8 +314,8 @@
                                     <?php endif; ?>
                                 </div>
                                 <!-- Next Previous Button Start -->
-                                <div class="swiper-product-button-next swiper-button-next"><i class="fa-solid fa-chevron-right"></i></div>
-                                <div class="swiper-product-button-prev swiper-button-prev"><i class="fa-solid fa-chevron-left"></i></div>
+                                <div class="swiper-product-button-next swiper-button-next"><i class="fa fa-chevron-right"></i></div>
+                                <div class="swiper-product-button-prev swiper-button-prev"><i class="fa fa-chevron-left"></i></div>
                                 <!-- Next Previous Button End -->
                             </div>
                             <!-- Single Product Image End -->
@@ -382,7 +382,7 @@
                                         <input type="hidden" name="action" value="add">
                                       <input type="hidden" name="id" value="<?= (int)$garment['id']; ?>">
                                       <input type="hidden" name="quantity" value="1">
-                                      <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa-solid fa-cart-plus"></i></button>
+                                      <button type="submit" class="btn btn-outline-danger" title="Agregar al carrito"><i class="fa fa-cart-plus"></i></button>
                                     </form>
                                     <?php endif; ?>
                                     <?php if ($showAsk): ?>
@@ -390,10 +390,10 @@
                                     $waMessage = 'Por favor necesito  información de la prenda ' . $garment['name'] . ' de código: ' . $garment['unique_code'];
                                     $waLink = 'https://wa.me/593999591820?text=' . urlencode($waMessage);
                                     ?>
-                                    <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa-brands fa-whatsapp"></i></a>
+                                    <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                     <?php endif; ?>
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                    <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="fa-solid fa-eye"></i></a>
+                                    <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="fa fa-eye"></i></a>
                                   </div>
                               </div>
                               <!-- Cart & Wishlist Button End -->
