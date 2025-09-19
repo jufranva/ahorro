@@ -77,7 +77,7 @@
                         </div>
                         <div class="shop_toolbar_btn">
                             <button data-role="grid_3" type="button" class="active btn-grid-4" title="Grid"><i class="fa fa-th"></i></button>
-                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa fa-th-list"></i></button>
+                            <button data-role="grid_list" type="button" class="btn-list" title="List"><i class="fa fa-list"></i></button>
                         </div>
                     </div>
                     <!-- Shopt Top Bar Right End -->
@@ -103,7 +103,7 @@
                                 </span>
                                 <?php endif; ?>
                                 <div class="actions">
-                                    <a href="#" title="Quickview" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="pe-7s-search"></i></a>
+                                    <a href="#" title="Quickview" class="action quickview" data-bs-toggle="modal" data-bs-target="#quickview-<?= $garment['id']; ?>"><i class="fa fa-search"></i></a>
                                 </div>
                             </div>
                             <div class="content">
@@ -155,7 +155,7 @@
                                     <a href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-success ms-1" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                     <?php endif; ?>
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="pe-7s-look"></i></a>
+                                    <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-sm btn-secondary btn-hover-primary ms-1" title="Ver detalles"><i class="fa fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -314,8 +314,8 @@
                                     <?php endif; ?>
                                 </div>
                                 <!-- Next Previous Button Start -->
-                                <div class="swiper-product-button-next swiper-button-next"><i class="pe-7s-angle-right"></i></div>
-                                <div class="swiper-product-button-prev swiper-button-prev"><i class="pe-7s-angle-left"></i></div>
+                                <div class="swiper-product-button-next swiper-button-next"><i class="fa fa-chevron-right"></i></div>
+                                <div class="swiper-product-button-prev swiper-button-prev"><i class="fa fa-chevron-left"></i></div>
                                 <!-- Next Previous Button End -->
                             </div>
                             <!-- Single Product Image End -->
@@ -393,7 +393,7 @@
                                     <a class="btn btn-success ms-1" href="<?= htmlspecialchars($waLink, ENT_QUOTES, 'UTF-8'); ?>" title="Preguntar por esta prenda"><i class="fa fa-whatsapp"></i></a>
                                     <?php endif; ?>
                                     <?php $detailUrl = asset('prenda.php') . '?id=' . urlencode((string)$garment['id']); ?>
-                                    <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="pe-7s-look"></i></a>
+                                    <a class="btn btn-secondary btn-hover-primary ms-1" href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8'); ?>" title="Ver detalles"><i class="fa fa-eye"></i></a>
                                   </div>
                               </div>
                               <!-- Cart & Wishlist Button End -->

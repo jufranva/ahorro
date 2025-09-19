@@ -16,15 +16,11 @@ echo "<!DOCTYPE html>\n";
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El armario del ahorro</title>    
     <link rel="icon" href="./assets/favicon.ico">
-    <link rel="preload" href="./assets/fonts/fontAwesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin>
-
     <link rel="icon" href="<?= asset('assets/favicon.ico') ?>">
-    <link rel="preload" href="<?= asset('assets/fonts/fontAwesome/fontawesome-webfont.woff2?v=4.7.0') ?>" as="font" type="font/woff2" crossorigin>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?= asset('assets/css/vendor/fontawesome.min.css') ?>">
-    <link rel="stylesheet" href="<?= asset('assets/css/vendor/pe-icon-7-stroke.min.css') ?>">
+    <link rel="stylesheet" href="<?= asset('assets/css/vendor/fontawesome.min.css') ?>" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/swiper-bundle.min.css') ?>" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/animate.min.css') ?>" />
     <link rel="stylesheet" href="<?= asset('assets/css/plugins/aos.min.css') ?>" />
@@ -119,7 +115,7 @@ echo "<!DOCTYPE html>\n";
 
                 <!-- Button Close Start -->
                 <div class="offcanvas-btn-close">
-                    <i class="pe-7s-close"></i>
+                    <i class="fa fa-times"></i>
                 </div>
                 <!-- Button Close End -->
 
@@ -145,7 +141,7 @@ echo "<!DOCTYPE html>\n";
 
                     <!-- Social Widget Start -->
                     <div class="widget-social">
-                        <a title="Facebook" href="#"><i class="fa fa-facebook-f"></i></a>
+                        <a title="Facebook" href="#"><i class="fa fa-facebook"></i></a>
                         <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
                         <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
                         <a title="Youtube" href="#"><i class="fa fa-youtube"></i></a>

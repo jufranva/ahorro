@@ -14,7 +14,7 @@
                             </ul>
   <!-- Soclial Link Start -->
                             <div class="widget-social justify-content-start mt-4">
-                                <a title="Facebook" href="https://www.facebook.com/profile.php?id=61572711940782&rdid=6iK3kNGxVw8jsvas&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16ycGT38T3%2F"><i class="fa fa-facebook-f"></i></a>
+                                <a title="Facebook" href="https://www.facebook.com/profile.php?id=61572711940782&rdid=6iK3kNGxVw8jsvas&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16ycGT38T3%2F"><i class="fa fa-facebook"></i></a>
                                 <!-- Soclial Link Start 
                                 <a title="Twitter" href="#"><i class="fa fa-twitter"></i></a>
                                 <a title="Linkedin" href="#"><i class="fa fa-linkedin"></i></a>
