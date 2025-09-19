@@ -82,7 +82,7 @@
     if (isset($order['contributed_total'])) {
       $abonadoLine = 'Abonado: $' . number_format((float)($order['contributed_total'] ?? 0), 2);
       if ($order['status'] === 'credit') {
-        $abonadoLine .= ' | Pedido: $' . number_format((float)max($order['outstanding'] ?? 0, 0), 2);
+        $abonadoLine .= ' | Saldo: $' . number_format((float)max($order['outstanding'] ?? 0, 0), 2);
       }
     }
   ?>
@@ -109,12 +109,12 @@
       <?php if ($order['status'] === 'credit'): ?>
         <small class="text-muted d-block clamp-1"
                title="<?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>">
-          <?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>
+          <b><?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?></b>
         </small>
       <?php else: ?>
         <small class="text-muted d-block d-sm-none clamp-1"
                title="<?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>">
-          <?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?>
+          <b><?= htmlspecialchars($abonadoLine, ENT_QUOTES, 'UTF-8'); ?></b>
         </small>
       <?php endif; ?>
     <?php endif; ?>
